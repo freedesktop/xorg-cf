@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.30 2004/08/27 13:26:22 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.31 2004/08/27 22:47:44 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -4317,9 +4317,13 @@ install::											@@\
  * InstallXpPMFFontsDir - make and install a fonts.dir index for model-config fonts
  */
 #ifndef InstallXpPMFFontsDir
+#if BuildServersOnly
+#define InstallXpPMFFontsDir(destmodelfontdir) /**/
+#else
 #define InstallXpPMFFontsDir(destmodelfontdir)			@@\
 install::							@@\
 	($(MKFONTSCALE) -b -s -l $(DESTDIR)destmodelfontdir)
+#endif
 #endif /* InstallXpPMFFontsDir */
 
 
