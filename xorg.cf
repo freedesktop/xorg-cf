@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.37 2005/01/10 19:18:59 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.38 2005/01/11 14:59:01 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -411,15 +411,12 @@ RELEASE_VERSION = ReleaseVersion
 
 # ifndef DriDrivers
 #  ifndef ia64Architecture
-#   define i386DRIDrivers i810 i915 sis tdfx
+#   define i386DRIDrivers i810 i915
 #  else
-   /*
-    *  The tdfx driver needs Glide, which is not available for IA64.
-    *  SiS is 64-bit unclean as of this writing. 
-    */  
 #   define i386DRIDrivers /**/
 #  endif
-#  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200
+#  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200 \
+				sis tdfx
 # endif
 #endif /* i386Architecture || ia64Architecture */
 
@@ -454,13 +451,11 @@ RELEASE_VERSION = ReleaseVersion
 				XF86OSCardDrivers XF86ExtraCardDrivers DevelDrivers
 # endif
 
-/* 
- * The tdfx driver needs Glide, which is not available for AMD64.  
- * SiS is 64-bit unclean as of this writing.
+/* The tdfx driver needs Glide, which is not available for AMD64.  SiS is 64-bit
+ * unclean as of this writing.
  */
-# ifndef DriDrivers
-#  define DriDrivers		i915 gamma mga r128 radeon r200
-# endif
+# define DriDrivers		i915 gamma mga r128 radeon r200
+
 #endif /*AMD64Arcitecture*/
 
 /* SPARC and UltraSPARC drivers */
@@ -594,12 +589,9 @@ RELEASE_VERSION = ReleaseVersion
 				savage nv cirrus DevelDrivers siliconmotion  \
 				vga XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-/*
- *  The tdfx driver needs Glide, which is not available for Alpha.
- *  SiS is 64-bit unclean as of this writing. 
- */  
+/* SiS is 64-bit unclean as of this writing. */
 # ifndef DriDrivers
-#  define DriDrivers		gamma mga r128 radeon r200
+#  define DriDrivers		gamma tdfx mga r128 radeon r200
 # endif
 #endif /* AlphaArchitecture */
 
@@ -631,11 +623,10 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers vga \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-/*  The tdfx driver needs Glide, which is not available for PPC. */
 # ifndef DriDrivers
-#  define DriDrivers		gamma mga r128 radeon r200
+#  define DriDrivers		gamma tdfx mga r128 radeon r200
 # endif
-#endif  /* PpcArchitecture || Mc68020Architecture */
+#endif
 
 /*
  * Intel StrongARM and Hewlett-Packard PA-RISC
