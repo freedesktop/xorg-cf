@@ -1,5 +1,48 @@
 XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 herrb Exp $
 
+/* Cygwin/X vendor strings and version */
+#ifndef CygxVersionMajor
+# define CygxVersionMajor 4
+#endif
+#ifndef CygxVersionMinor
+# define CygxVersionMinor 4
+#endif
+#ifndef CygxVersionPico
+# define CygxVersionPico 0
+#endif
+#ifndef CygxVersionLocal
+# define CygxVersionLocal 1
+#endif
+
+#ifndef CygxVersion
+# define CygxVersion (10000000 * CygxVersionMajor + 100000 * CygxVersionMinor + 1000 * CygxVersionPico + CygxVersionLocal)
+#endif
+
+#ifndef CygxVersionString
+# define CygxVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPico CygxVersionLocal | sed 's/ /./g'`
+#endif
+
+#ifndef CygxManVersionString
+# define CygxManVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPico CygxVersionLocal| sed 's/ /./g' -e 's/^/Version\\\ /'`
+#endif
+
+#ifndef XVendorString
+# define XVendorString "The Cygwin/X Project"
+#endif
+#ifndef XVendorRelease
+# define XVendorRelease CygxVersion
+#endif
+#ifndef XVendorManVersionString
+# define XVendorManVersionString CygxManVersionString
+#endif
+#ifndef XVendorManNameString
+# define XVendorManNameString "Cygwin/X"
+#endif
+#ifndef XVendorContact
+# define XVendorContact "cygwin-xfree@cygwin.com"
+#endif
+
+/* Operating system strings and version */
 #ifndef OSName
 # define OSName			Cygwin
 #endif
