@@ -2981,23 +2981,23 @@ ProjectUnsharedLibReferences(XPM,Xpm,$(XPMLIBSRC),XBuildLibDir)
  * Get the library version information from version_info in
  * in xc/extras/freetype2/builds/unix/configure.ac.
  *
- * current:revision:age = 9:3:3
+ * current:revision:age = 9:5:3
  *
  * The LibtoolMinorVersions revision is "(current - age).age".
  * The !LibtoolMinorVersions revision is "current.0".
  * Freetype2Version should be set to "current.revision.age"
  */
 #ifndef Freetype2Version
-#define Freetype2Version 9.3.3
+#define Freetype2Version 9.5.3
 #endif
 
 #if SharedLibFreetype2
 #ifndef SharedLibtoolFreetype2Rev
-#define SharedLibtoolFreetype2Rev	9:3:3
+#define SharedLibtoolFreetype2Rev	9:5:3
 #endif
 #ifndef SharedFreetype2Rev
 #if LibtoolMinorVersions
-#define SharedFreetype2Rev 6.3
+#define SharedFreetype2Rev 6.3.5
 #else
 #define SharedFreetype2Rev 9.0
 #endif
@@ -3063,9 +3063,9 @@ FREETYPE2LIB = -L$(FREETYPE2LIBDIR) -lfreetype
 
 #if BuildFreetype2Library || HasFreetype2
 #if Freetype2IncDirStandard
-FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR)/freetype2
+FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR)/freetype2 -I$(FREETYPE2INCDIR)/freetype2/config
 #else
-FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR) -I$(FREETYPE2INCDIR)/freetype2
+FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR) -I$(FREETYPE2INCDIR)/freetype2 -I$(FREETYPE2INCDIR)/freetype2/config
 #endif
 FREETYPE2DEFINES = -DFREETYPE2
 #endif
