@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.1.4.3 2003/12/06 13:22:41 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.1.4.4 2003/12/15 16:00:01 kaleb Exp $
 XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
 /*
  * To add support for another platform:
@@ -18,7 +18,7 @@ XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
  *
  *     4.  Create a .cf file with the name given by MacroFile.
  */
-XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
+XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 
 #if defined(__APPLE__)
 # undef __APPLE__
@@ -103,6 +103,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 # undef __OpenBSD__
 # undef __NetBSD__
 # define OpenBSDArchitecture
+# define KOpenBSDArchitecture
 # define MacroIncludeFile <OpenBSD.cf>
 # define MacroFile OpenBSD.cf
 # ifdef __i386__
@@ -179,7 +180,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 #endif /* OpenBSD */
 
 /* Systems based on kernel of OpenBSD */
-#if defined(__OpenBSD__) || defined(__OpenBSD_kernel__)
+#if defined(__OpenBSD_kernel__)
 #define KOpenBSDArchitecture
 #endif
 
@@ -188,6 +189,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 # define MacroFile NetBSD.cf
 # undef __NetBSD__
 # define NetBSDArchitecture
+# define KNetBSDArchitecture
 # ifdef __i386__
 #  define i386BsdArchitecture
 #  define i386Architecture
@@ -231,7 +233,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 #endif /* NetBSD */
 
 /* Systems based on kernel of NetBSD */
-#if defined(__NetBSD__) || defined(__NetBSD_kernel__)
+#if defined(__NetBSD_kernel__)
 #define KNetBSDArchitecture
 #endif
 
@@ -240,6 +242,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 # define MacroFile FreeBSD.cf
 # undef __FreeBSD__
 # define FreeBSDArchitecture
+# define KFreeBSDArchitecture
 # ifdef __i386__
 #  define i386BsdArchitecture
 #  define i386Architecture
@@ -266,7 +269,7 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.87 2003/11/29 01:08:30 dawes Exp $
 #endif /* __FreeBSD__ */
 
 /* Systems based on kernel of FreeBSD */
-#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+#if defined(__FreeBSD_kernel__)
 #define KFreeBSDArchitecture
 #endif
 
