@@ -258,12 +258,25 @@
 #define BuildIPv6		NO
 #define BuildLBX		NO
 
+/*
+ * This requires the pthreads-win32 library 
+ * It is available from http://www.sourceware.org/pthreads-win32
+ */
 #ifndef HasPThreads
-# define HasPThreads		NO
+# define HasPThreads		YES
 #endif
 
+/* Most libraries do not compile with mingw. Build only the servers. */
 #ifndef BuildServersOnly
 # define BuildServersOnly	YES
+#endif
+
+/* Enable those parts that do work and are required for running Xming */ 
+#ifndef BuildXextLib
+# define BuildXextLib		YES
+#endif
+#ifndef BuildXkbcomp
+# define BuildXkbcomp		YES
 #endif
 
 /* XWin Server specific build flags */
@@ -304,8 +317,6 @@
 
 #if (BuildXWinClipboard || BuildXWinMultiWindow || BuildXWinMultiWindowExtWM) && !defined(BuildX11Lib)
 #  define BuildX11Lib YES
-#  define NormalLibX11 YES
-#  define SharedLibX11 NO
 #endif
 
 /* XWin Server specific defines */
@@ -465,6 +476,9 @@
 # define RelocateProjectRoot	YES
 #endif
 
+#ifndef UseInstalledOnCrossCompile
+# define UseInstalledOnCrossCompile YES
+#endif
 
 #include <mingw.rules>
 

@@ -2,42 +2,46 @@
  * Cygwin shared library rules (DLL versions)
  */
 
-#define HasSharedLibraries	YES
-#define NeedLibInsideFlag	NO
-#define ForceNormalLib		NO
-#ifndef SharedLibX11
-# define SharedLibX11		YES
-#endif
-#ifndef NormalLibX11
-# define NormalLibX11		NO
-#endif
-#define SharedLibXaw		YES
-#define SharedLibXmu		YES
-#define SharedLibXt		YES
-#define SharedLibFont		NO
-#define SharedLibFontEnc    NO
-#define SharedLibXaw7		YES
-#define SharedLibXaw6		YES
-#define SharedLibSM		YES
-#define SharedLibICE		YES
-#define SharedLibXext		YES
-#define SharedLibXie		YES
-#define SharedLibXi		YES
-#define SharedLibPex		YES
-#define SharedLibXtst		YES
-#define SharedOldX		YES
-#define SharedLibXp		YES
-#define SharedLibGlx		YES
-#define SharedLibDps		YES
-#define SharedLibDpsTk		YES
-#define SharedLibGlu		YES
-#define SharedLibWindowsWM	NO
-#define SharedLibFreetype2	NO
-#define SharedLibxkbfile    NO
-#ifndef SharedDataSeparation
-#define SharedDataSeparation	NO
+/*
+ * Do shared libs make sense for mingw? 
+ * Maybe, but it adds extra problems, so we stick with static libs so far
+ */
+#ifndef HasSharedLibraries
+# define HasSharedLibraries	NO
 #endif
 
+#define NeedLibInsideFlag	NO
+#define ForceNormalLib		NO
+#if HasSharedLibraries
+# define SharedLibX11		YES
+# define SharedLibXaw		YES
+# define SharedLibXmu		YES
+# define SharedLibXt		YES
+# define SharedLibFont		NO
+# define SharedLibFontEnc	NO
+# define SharedLibXaw7		YES
+# define SharedLibXaw6		YES
+# define SharedLibSM		YES
+# define SharedLibICE		YES
+# define SharedLibXext		YES
+# define SharedLibXie		YES
+# define SharedLibXi		YES
+# define SharedLibPex		YES
+# define SharedLibXtst		YES
+# define SharedOldX		YES
+# define SharedLibXp		YES
+# define SharedLibGlx		YES
+# define SharedLibDps		YES
+# define SharedLibDpsTk		YES
+# define SharedLibGlu		YES
+# define SharedLibWindowsWM	NO
+# define SharedLibFreetype2	NO
+# define SharedLibxkbfile	NO
+#endif
+
+#ifndef SharedDataSeparation
+# define SharedDataSeparation	NO
+#endif
 #ifndef SharedCodeDef
 #define SharedCodeDef /**/
 #endif
