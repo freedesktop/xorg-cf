@@ -451,6 +451,10 @@
 # define ManSuffix	1
 #endif
 
+#ifndef XtransFailSoft
+#define XtransFailSoft		YES
+#endif
+
 #include <cygwin.rules>
 
 #if CrossCompiling
