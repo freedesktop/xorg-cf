@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.21 2005/01/21 14:25:26 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.22 2005/01/25 15:55:02 twini Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -168,11 +168,13 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #    define HasGlide2			YES
 #    define Glide2IncDir		/usr/include/glide
 #   endif /* i386Architecture */
-/* at present, glide3 only works on alpha and i386 */
-#   if defined(i386Architecture) || defined(AlphaArchitecture)
+/* at present, glide3 only works on alpha, amd64, i386 and ia64 */
+#   if defined(i386Architecture) || defined(AlphaArchitecture) || \
+       defined(ia64Architecture) || defined(AMD64Architecture)
 #    define HasGlide3			YES
 #    define Glide3IncDir		/usr/include/glide3
-#   endif /* i386Architecture || AlphaArchitecture */
+#   endif /* i386Architecture || AlphaArchitecture || ia64Architecture ||
+             AMD64Architecture */
 /* extended instruction set support */
 #   ifdef i386Architecture
 #   define HasX86Support		YES

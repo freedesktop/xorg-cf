@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.43 2005/01/24 15:34:40 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.44 2005/01/27 03:50:46 ajax Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -413,15 +413,12 @@ RELEASE_VERSION = ReleaseVersion
 
 # ifndef DriDrivers
 #  ifndef ia64Architecture
-#   define i386DRIDrivers i810 i915 sis tdfx
+#   define i386DRIDrivers i810 i915 sis
 #  else
-   /*
-    *  The tdfx driver needs Glide, which is not available for IA64.
-    *  SiS is 64-bit unclean as of this writing. 
-    */  
+   /* SiS is 64-bit unclean as of this writing. */
 #   define i386DRIDrivers /**/
 #  endif
-#  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200
+#  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200 tdfx
 # endif
 #endif /* i386Architecture || ia64Architecture */
 
@@ -456,12 +453,9 @@ RELEASE_VERSION = ReleaseVersion
 				XF86OSCardDrivers XF86ExtraCardDrivers DevelDrivers
 # endif
 
-/* 
- * The tdfx driver needs Glide, which is not available for AMD64.  
- * SiS is 64-bit unclean as of this writing.
- */
+/* SiS is 64-bit unclean as of this writing. */
 # ifndef DriDrivers
-#  define DriDrivers		i915 gamma mga r128 radeon r200
+#  define DriDrivers		i915 gamma mga r128 radeon r200 tdfx
 # endif
 #endif /*AMD64Arcitecture*/
 
