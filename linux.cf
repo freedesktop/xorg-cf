@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.15 2004/10/18 14:26:35 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.16 2004/10/19 13:50:06 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -136,8 +136,8 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
  */
 
 # ifdef DebianMaintainer
-#  ifndef XFree86CustomVersion
-#   define XFree86CustomVersion		"Debian"
+#  ifndef XorgCustomVersion
+#   define XorgCustomVersion		"Debian"
 #  endif
 #  ifndef BuilderEMailAddr
 #   define BuilderEMailAddr		"debian-x@lists.debian.org"
