@@ -209,30 +209,38 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #define XkbServerDefines  -DXKB_ALWAYS_USES_SOFT_REPEAT
 
 #if OSMajorVersion > 4
-#define ConnectionFlags		-DTCPCONN -DUNIXCONN -DLOCALCONN
-#if HasSunC
-/* 
- * Assume /opt/SUNWspro/bin/ contains symlinks to the appropriate tools
- */
-#ifndef  CcCmd
-# define CcCmd			/opt/SUNWspro/bin/cc
-#endif
-#ifndef  CplusplusCmd
-# define CplusplusCmd		/opt/SUNWspro/bin/CC
-#endif
-#ifndef  CplusplusFilt
-#  define CplusplusFilt		/opt/SUNWspro/bin/c++filt
-#endif
-#ifndef  CplusplusDependIncludes
-#if CplusplusCompilerMajorVersion > 3
-# define CplusplusDependIncludes	-I/opt/SUNWspro/SC4.0/include/CC
-#elif CplusplusCompilerMajorVersion > 2
-# define CplusplusDependIncludes	-I/opt/SUNWspro/SC3.0/include/CC
-#else
-# define CplusplusDependIncludes	-I/opt/SUNWspro/SC2.0.1/include/CC
-#endif
-#endif
-#endif
+# define ConnectionFlags		-DTCPCONN -DUNIXCONN -DLOCALCONN
+# if HasSunC
+#  ifdef DefaultSunProCCompilerDir
+#   ifndef  CcCmd
+#    define CcCmd		DefaultSunProCCompilerDir/cc
+#   endif
+#  endif
+#  ifdef DefaultSunProCplusplusCompilerDir
+#   ifndef  CplusplusCmd
+#    define CplusplusCmd	DefaultSunProCplusplusCompilerDir/CC
+#   endif
+#   ifndef  CplusplusFilt
+#    define CplusplusFilt	DefaultSunProCplusplusCompilerDir/c++filt
+#   endif
+#   ifndef  CplusplusWhatdir
+#    define CplusplusWhatdir	DefaultSunProCplusplusCompilerDir/whatdir
+#   endif
+#  else /* DefaultSunProCplusplusCompilerDir not defined */
+#   ifndef  CplusplusWhatdir
+#    define CplusplusWhatdir	whatdir
+#   endif
+#  endif /* DefaultSunProCplusplusCompilerDir */
+#  ifndef  CplusplusDependIncludes
+#   if CplusplusCompilerMajorVersion > 3
+#    define CplusplusDependIncludes	-I`CplusplusWhatdir CC`/../include/CC
+#   elif CplusplusCompilerMajorVersion > 2
+#    define CplusplusDependIncludes	-I/opt/SUNWspro/SC3.0/include/CC
+#   else
+#    define CplusplusDependIncludes	-I/opt/SUNWspro/SC2.0.1/include/CC
+#   endif
+#  endif 
+# endif /* HasSunC */
 
 # if HasSunC && (CCompilerMajorVersion < 3)
 #  define BootstrapCFlags	-DSVR4

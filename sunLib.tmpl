@@ -87,7 +87,11 @@ ICONV_INBUF_DEFINE = -DICONV_INBUF_CONST=const
 UNSHARED_CXXLIB = -static -lC
 #  elif HasSunCplusplus
 #   if CplusplusCompilerMajorVersion > 3
+#    ifdef CplusplusWhatdir
+UNSHARED_CXXLIB = -Bstatic -L`CplusplusWhatdir CC`/../lib -lC -Bdynamic
+#    else
 UNSHARED_CXXLIB = -Bstatic -L/opt/SUNWspro/SC4.0/lib -lC -Bdynamic
+#    endif
 #   else
 UNSHARED_CXXLIB = -Bstatic -lC -Bdynamic -lm -lc -Bstatic
 #   endif
