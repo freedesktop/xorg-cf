@@ -339,9 +339,8 @@ all:: binary								@@\
          $(OBJS6) $(OBJS7) $(OBJS8) $(OBJS9) $(OBJS10)			@@\
   SRCS = $(SRCS1) $(SRCS2) $(SRCS3) $(SRCS4) $(SRCS5) \			@@\
          $(SRCS6) $(SRCS7) $(SRCS8) $(SRCS9) $(SRCS10)			@@\
-  PROGS_EXE = $(foreach prog,$(PROGRAMS),ProgramTargetName($(prog)))	@@\
 									@@\
-AllTarget($(PROGS_EXE))							@@\
+AllTarget($(PROGRAMS))							@@\
 									@@\
 ProgramTargetHelper(program,SRCS1,OBJS1,DEPLIBS1,locallib,syslib)	@@\
 									@@\
@@ -349,7 +348,7 @@ DependTarget()								@@\
 LintTarget()								@@\
 									@@\
 clean::									@@\
-	RemoveFiles($(PROGS_EXE))
+	RemoveFiles($(PROGRAMS))
 
 /*
  * ProfiledRelocatableTarget - generate rules to produce a  profiled
