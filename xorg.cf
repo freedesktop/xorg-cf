@@ -83,7 +83,7 @@ RELEASE_VERSION = ReleaseVersion
 #ifndef ChangelogDateCmd
 # define ChangelogDateCmd if tail $(CHANGELOGFILE) 2>/dev/null | \	@@\
 	fgrep '$$XdotOrg:' >/dev/null 2>&1; then \			@@\
-	  tail $(CHANGELOGFILE) | fgrep '$$XFree86:' | \		@@\
+	  tail $(CHANGELOGFILE) | fgrep '$$XdotOrg:' | \		@@\
 	  sed s,'.* \([0-9][0-9]*\)/\([0-9][0-9]*\)/\([0-9][0-9]*\).*,\1\2\3,'; \ @@\
 	else echo 0; fi
 #endif
