@@ -543,14 +543,18 @@ AllTarget($(EXTRAUNSHAREDOBJS))
 # endif /* LibCreate */
 # ifdef IncSubdir
 #  ifdef IncSubSubdir
+#   if !defined(LibHeaders) || LibHeaders
 BuildIncludes($(HEADERS),IncSubdir/IncSubSubdir,../..)
-#   if BuildLibraries
+#    if BuildLibraries
 InstallMultipleFlags($(HEADERS),$(INCDIR)/IncSubdir/IncSubSubdir,$(INSTINCFLAGS))
+#     endif
 #   endif
 #  else
+#   if !defined(LibHeaders) || LibHeaders
 BuildIncludes($(HEADERS),IncSubdir,..)
-#   if BuildLibraries
+#    if BuildLibraries
 InstallMultipleFlags($(HEADERS),$(INCDIR)/IncSubdir,$(INSTINCFLAGS))
+#    endif
 #   endif
 #  endif
 # else

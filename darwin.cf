@@ -303,5 +303,5 @@ clean::									@@\
 #endif
 
 /* include all the XFree86 rules */
-#include <xfree86.cf>
+#include <xorg.cf>
 

@@ -341,6 +341,11 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #define XF86Server		NO
 
 /*
+ * Don't build the Xorg server
+ */
+#define XorgServer		NO
+
+/*
  * Try to avoid building anything related to graphics cards
  */
 #define XFShadowFB		NO
@@ -400,4 +405,4 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 	  case "$$flag" in *=*) ;;--*) ;; *[makeflags]*) shellcmd;; esac; done
 
 #include <cygwin.rules>
-#include <xfree86.cf>
+#include <xorg.cf>

@@ -90,5 +90,5 @@ XCOMM platform:  $XFree86: xc/config/cf/QNX4.cf,v 1.3 2000/07/07 20:06:56 tsi Ex
 #define ExtraFilesToClean       *.err *.map 
 
 #include <QNX4.rules>
-#include <xfree86.cf>
+#include <xorg.cf>
 

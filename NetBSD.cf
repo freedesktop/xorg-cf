@@ -586,7 +586,7 @@ InstallManPageAliasesBase(file,destdir,aliases)
 #endif
 
 #if defined(i386Architecture) || defined(Arm32Architecture) || defined(AlphaArchitecture) || defined(PpcArchitecture)
-# include <xfree86.cf>
+# include <xorg.cf>
 #endif
 
 /*
@@ -618,7 +618,7 @@ InstallManPageAliasesBase(file,destdir,aliases)
 #define BuildXF86VidModeExt	NO
 #define BuildXF86DGA		NO
 #define BuildXInputExt		NO
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 
 /*
