@@ -327,7 +327,7 @@ install.man:: 								@@\
 #ifdef i386Architecture
 #define i386Bsd 1
 #define i386Bsdi 1
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 
 #ifdef SparcArchitecture

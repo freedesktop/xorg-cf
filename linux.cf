@@ -998,7 +998,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #include <lnxLib.rules>
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #ifndef XFree86ServerOSDefines
 # define XFree86ServerOSDefines

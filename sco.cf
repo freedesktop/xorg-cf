@@ -201,6 +201,6 @@ install.man::                                                           @@\
 #endif /* SCO 3.2.4 and SCO 3.2.2 section */
 
 #ifdef i386Architecture
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 

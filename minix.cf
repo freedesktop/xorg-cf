@@ -61,4 +61,4 @@ XCOMM platform:  $XFree86: xc/config/cf/minix.cf,v 3.5 1999/07/10 07:24:33 dawes
 	$(RM) $*.i.s
 #endif
 
-#include <xfree86.cf>
+#include <xorg.cf>

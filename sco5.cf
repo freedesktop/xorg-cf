@@ -267,4 +267,4 @@ src.o: src.S								@@\
 #include <scoLib.rules>  /* minor changes to sv4Lib.rules */
 #include <sv4Lib.rules>
 
-#include <xfree86.cf>
+#include <xorg.cf>

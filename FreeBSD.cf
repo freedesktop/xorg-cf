@@ -564,4 +564,4 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 
 #include <bsdLib.rules>
 
-#include <xfree86.cf>
+#include <xorg.cf>

@@ -208,6 +208,6 @@ _NULLCMD_ =
 #include <os2.rules>
 #include <os2Lib.rules>
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 	

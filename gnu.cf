@@ -181,5 +181,5 @@ XCOMM i386Architecture
 XCOMM XXX Might need this if they are not careful with slashes.
 XCOMM #define DirFailPrefix -
 
-#include <xfree86.cf>
+#include <xorg.cf>
 

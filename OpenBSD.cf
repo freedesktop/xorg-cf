@@ -402,16 +402,16 @@ install:: fonts.alias							@@\
 #  define SharedLibXThrStub	NO
 # endif
 
-# ifndef XF86Server
+# ifndef XorgServer
 #  if OSMajorVersion == 3 && OSMinorVersion >= 2 || OSMajorVersion > 3
-#    define XF86Server		YES
+#    define XorgServer		YES
 #  else
-#    define XF86Server		NO
+#    define XorgServer		NO
 #  endif
 # endif
 
 /* Definitions for building the XFree86 server */
-# if XF86Server
+# if XorgServer
 #   ifndef HasNetBSDApertureDriver
 #     define HasNetBSDApertureDriver	YES
 #   endif
@@ -427,9 +427,9 @@ install:: fonts.alias							@@\
 #   endif
 #   define UseMatroxHal		NO	/* Matrox HAL is i386 only */
 
-# endif /* XF86Server */
+# endif /* XorgServer */
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* AlphaArchitecture */
 
@@ -522,7 +522,7 @@ install:: fonts.alias							@@\
 #  define HasX86Support		UseElfFormat
 # endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* i386Architecture */
 
@@ -559,7 +559,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* AmigaArchitecture */
 
@@ -580,7 +580,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-#include <xfree86.cf>
+#include <xorg.cf>
 
 #endif /* Hp300Architecture */
 
@@ -596,7 +596,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* mac68kArchitecture */
 
@@ -612,7 +612,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* Mvme68kArchitecture */
 
@@ -672,7 +672,7 @@ install:: fonts.alias							@@\
 #    define XFree86ConsoleDefines -DPCCONS_SUPPORT
 #  endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* ArcArchitecture */
 
@@ -716,12 +716,12 @@ install:: fonts.alias							@@\
 #  endif
 # endif
 
-# ifndef XF86Server
-#   define XF86Server		YES
+# ifndef XorgServer
+#   define XorgServer		YES
 # endif
 
 /* Definitions for building the X server */
-# if XF86Server
+# if XorgServer
 #   define ServerOSDefines	XFree86ServerOSDefines \
 				-DDDXTIME -DDDXOSINIT
 #   define ServerExtraDefines	GccGasOption XFree86ServerDefines
@@ -743,9 +743,9 @@ install:: fonts.alias							@@\
 #     define UsbMouseSupport		YES
 #   endif
 
-# endif /* XF86Server */
+# endif /* XorgServer */
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* PpcArchitecture */
 
@@ -792,7 +792,7 @@ install:: fonts.alias							@@\
 # define BuildXF86VidModeExt	NO
 # define BuildXF86DGA		NO
 # define BuildXInputExt		NO
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* SparcArchitecture */
 
@@ -806,8 +806,8 @@ install:: fonts.alias							@@\
 #  define HasWeakSymbols	YES
 # endif
 
-# ifndef XF86Server
-#  define XF86Server		YES
+# ifndef XorgServer
+#  define XorgServer		YES
 # endif
 
 # define ServerExtraDefines	GccGasOption -D_XSERVER64 XFree86ServerDefines
@@ -815,14 +815,14 @@ install:: fonts.alias							@@\
 				-DDDXTIME -DDDXOSINIT
 # define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
 
-# if XF86Server
+# if XorgServer
 #   ifndef DoLoadableServer
 #     define DoLoadableServer	NO
 #   endif
 #   define XFree86ConsoleDefines -DWSCONS_SUPPORT
 # endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* Sparc64Architecture */
 
@@ -849,7 +849,7 @@ install:: fonts.alias							@@\
 # define BuildGlxExt		NO
 # define BuildGLXLibrary	NO
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* VaxArchitecture */
  
