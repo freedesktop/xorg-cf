@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.4 2004/08/11 21:14:01 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.5 2004/10/18 14:26:35 eich Exp $
 XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
 /*
  * To add support for another platform:
@@ -693,11 +693,26 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 # undef SVR4
 #endif /* Oki */
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(__GNUC__)
 # define MacroIncludeFile <Win32.cf>
 # define MacroFile Win32.cf
 # define Win32Architecture
 #endif /* WIN32 */
+
+#if defined(WIN32) && defined(__GNUC__)
+#define MacroIncludeFile <mingw.cf>
+#define MacroFile mingw.cf
+#define Win32Architecture
+#define mingwArchitecture
+#define i386Architecture
+#undef i386
+#undef i486
+#undef i586
+#undef i686
+#undef __i386__
+#undef _X86_
+#undef __MINGW32__
+#endif /* CYGWIN */
 
 #ifdef linux 
 # define MacroIncludeFile <linux.cf>

@@ -1,4 +1,4 @@
-/* Cygwin/X vendor strings and version */
+/* MingGW vendor strings and version */
 #include "xorgversion.def"
 
 #ifndef CygxVersionMajor
@@ -74,39 +74,29 @@
 #define UseGas			YES
 #define GnuCpp			YES
 #define UnixCpp /* Just a flag that affects Concat macros in Imake.rules */
-
-#define ExtraLoadFlags		-Wl,--enable-auto-import,--enable-runtime-pseudo-reloc
-
 #define HasShadowPasswd		NO
 #define HasLibCrypt		YES
 #define HasPutenv		YES
+#define HasFchown		NO
 #define HasPoll			NO
 #if (OSMajorVersion > 1) || (OSMajorVersion == 1 && OSMinorVersion >= 5)
 # define HasStrlcat		YES
 #endif
-#define HasShm			YES
+#define HasShm			NO
 
-#define HasSnprintf		YES
+/* snprintf from windows runtime does return -1 if the buffer is to small */
+#define HasSnprintf		NO
+                                  
 #ifndef HasMakefileSafeInclude
 # define HasMakefileSafeInclude YES
 #endif
 
-/*
- * Cygwin has Tcl/Tk, but you need to keep the version numbers
- * of the libs in sync.  These version numbers may change
- * occassionally.
- */
-#define Hastcl			YES
-#define Hastk			YES
-#define TclLibName		tcl80
-#define TkLibName		tk80
+#define Hastcl			NO
+#define Hastk			NO
 
-#define HasSockets		YES
+#define HasSockets		NO
 #define GzipFontCompression	YES
-#define HasZlib			YES
-#ifndef GzipLibrary
-# define GzipLibrary		-lz.dll
-#endif
+#define HasZlib			NO
 
 /* We don't need -lm */
 #define MathLibrary		/**/
@@ -239,9 +229,9 @@
  * FD_SETSIZE as 64 but some code expects it to be larger. 
  */ 
 #define StandardDefines		-D__i386__ -DWIN32_LEAN_AND_MEAN -DX_LOCALE \
-				-D_X86_ -D__CYGWIN__ -D_XOPEN_SOURCE \
+				-D_X86_ -DWIN32 -D_XOPEN_SOURCE \
 				-D_POSIX_C_SOURCE=199309L -D_BSD_SOURCE \
-				-D_SVID_SOURCE -D_GNU_SOURCE -DFD_SETSIZE=256 \
+				-D_SVID_SOURCE -D_GNU_SOURCE -DFD_SETSIZE=1024 \
 				-DXResExtension
 #define XawI18nDefines		-DHAS_WCHAR_H -DHAS_WCTYPE_H \
 				-DHAS_ISW_FUNCS -DNO_WIDEC_H
@@ -262,20 +252,15 @@
 # endif
 #endif
 
-/* IPv6 not yet supported */
-#ifndef BuildIPv6
-# define BuildIPv6		NO
+#define BuildIPv6		NO
+#define BuildLBX		NO
+
+#ifndef HasPThreads
+# define HasPThreads		NO
 #endif
 
-#if 0
-/* 2004/02/29 - Harold - This doesn't do anything yet.  Stay tuned. */
-/* Support for accelerating OpenGL with Win32's OpenGL layer. */
-#ifndef BuildXWinDRI
-# define BuildXWinDRI		NO
-#endif
-#if BuildXWinDRI
-# define GlxExtraDefines	-DGLX_DIRECT_RENDERING GlxArchDefines
-#endif
+#ifndef BuildServersOnly
+# define BuildServersOnly	YES
 #endif
 
 /* XWin Server specific build flags */
@@ -283,16 +268,16 @@
 # define GlxUseWindows		YES
 #endif
 #ifndef BuildXWinClipboard
-# define BuildXWinClipboard	YES
+# define BuildXWinClipboard	HasPThreads
 #endif
 #ifndef BuildXWinEmulatePseudo
 # define BuildXWinEmulatePseudo	NO
 #endif
 #ifndef BuildXWinMultiWindow
-# define BuildXWinMultiWindow	YES
+# define BuildXWinMultiWindow	NO
 #endif
 #ifndef BuildXWinMultiWindowExtWM
-# define BuildXWinMultiWindowExtWM YES
+# define BuildXWinMultiWindowExtWM NO
 #endif
 #ifndef BuildXWinNativeGDI
 # define BuildXWinNativeGDI	NO
@@ -313,6 +298,12 @@
 #elif !defined(BuildWindowsWMLibrary)
 # define BuildWindowsWMLibrary	NO
 #endif /* BuildXWinMultiWindowExtWM && BuildWindowsWMLibrary */
+
+#if (BuildXWinClipboard || BuildXWinMultiWindow || BuildXWinMultiWindowExtWM) && !defined(BuildX11Lib)
+#  define BuildX11Lib YES
+#  define NormalLibX11 YES
+#  define SharedLibX11 NO
+#endif
 
 /* XWin Server specific defines */
 #if BuildXWinClipboard
@@ -357,6 +348,12 @@
 # define XWinXF86ConfigDefines 
 #endif /* BuildXWinXF86Config */
 
+#if HasPThreads
+# define XWinPThreadsDefines -DPTW32_DLLPORT=
+#else
+# define XWinPThreadsDefines
+#endif /* HasPThreads */
+
 /*
  * XFree86Server is defined for the w32api headers, which protects some
  * colliding names with #ifdef XFree86Server.
@@ -371,13 +368,14 @@
 				XWinUpdateStatsDefines \
 				XWinClipboardDefines XWinMultiWindowDefines \
 				XWinMultiWindowExtWMDefines \
+				XWinPThreadsDefines \
 				-DDDXBEFORERESET
 #define ServerOSDefines		-DDDXTIME -DDDXOSINIT \
 				-DDDXOSVERRORF -DDDXOSFATALERROR
 #define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
 #define ServerExtraDefines	-DGCCUSESGAS XWinServerDefines \
 				AllocateLocalDefines
-#define ConnectionFlags		-DTCPCONN -DUNIXCONN
+#define ConnectionFlags		-DTCPCONN
 #define ExtraLibraries 
 #define InstUidFlags		-m 4711
 #define UseRgbTxt		YES
@@ -400,13 +398,16 @@
 # define BuildRandR		YES	/* Not supported by XWin Server */
 #endif
 #ifndef BuildXF86BigfontExt
-# define BuildXF86BigfontExt	YES	/* Not enabled by default */
+# define BuildXF86BigfontExt	NO
 #endif
 #ifndef BuildGlxExt
-# define BuildGlxExt		YES	/* Not enabled by default */
+# define BuildGlxExt		YES
 #endif
 #ifndef BuildXprintLib
-# define BuildXprintLib		YES     /* Not enabled when Xprt disabled */
+# define BuildXprintLib		NO
+#endif
+#ifndef BuildXprint
+# define BuildXprint		NO
 #endif
 #ifndef BuildXterm
 # define BuildXterm		NO	/* Built separately on Cygwin */
@@ -423,21 +424,16 @@
 
 /* Server build rules */
 #ifndef XnestServer
-# define XnestServer		YES
+# define XnestServer		NO
 #endif
 #ifndef XprtServer
 # define XprtServer		NO
 #endif
 #ifndef XVirtualFramebufferServer
-# define XVirtualFramebufferServer YES
+# define XVirtualFramebufferServer NO
 #endif
 #ifndef XWinServer
 # define XWinServer		YES
-#endif
-
-/* We need libX11 and libXext for the XWin Server */
-#if XWinServer
-# define BuildX11Lib		YES
 #endif
 
 /*
@@ -459,10 +455,15 @@
 #endif
 
 #ifndef HasDevWindows
-# define HasDevWindows		YES
+# define HasDevWindows		NO
 #endif
 
-#include <cygwin.rules>
+#ifndef RelocateProjectRoot
+# define RelocateProjectRoot	YES
+#endif
+
+
+#include <mingw.rules>
 
 #if CrossCompiling
 #include <cross.def>
