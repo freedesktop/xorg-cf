@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.26 2004/09/03 16:18:18 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.27 2004/09/03 22:00:10 kem Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -329,10 +329,6 @@ RELEASE_VERSION = ReleaseVersion
 /* 8/16bpp dual fb module */
 # ifndef XF8_16Bpp
 #  define XF8_16Bpp		YES
-# endif
-/* 24/32bpp conversion module */
-# ifndef XF24_32Bpp
-#  define XF24_32Bpp		YES
 # endif
 /* shadow fb module */
 # ifndef XFShadowFB
@@ -691,10 +687,6 @@ RELEASE_VERSION = ReleaseVersion
 /* 8/16bpp dual fb module */
 # ifndef XF8_16Bpp
 #  define XF8_16Bpp		YES
-# endif
-/* 24/32bpp conversion module */
-# ifndef XF24_32Bpp
-#  define XF24_32Bpp		YES
 # endif
 /* shadow fb module */
 # ifndef XFShadowFB
