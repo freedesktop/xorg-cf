@@ -189,7 +189,9 @@ X11.tmpl provides defaults for the following variables:
 	BuildServer		build X server
 	BuildXAudio		build Audio 
 	BuildXAServer		build Audio server
-	BuildXCSecurity		Build Security Extension
+	BuildXACE		Build X Access Control Extension
+	BuildXCSecurity		Build Security Extension (requires XACE)
+	BuildXSELinux		Build SELinux Extension (requires XACE)
 	BuildXInputExt		build X Input extension (requires ddx support,
 					which exists only in Xhp and XFree86)
 	BuildXInputLib		build X Input library

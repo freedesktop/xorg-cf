@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.6 2004/05/04 22:58:59 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.10.2.2 2004/05/05 14:49:22 ewalsh Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -438,8 +438,14 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildXineramaLibrary
 #define BuildXineramaLibrary	(BuildXinerama && !BuildServersOnly)
 #endif
+#ifndef BuildXACE
+#define BuildXACE		YES
+#endif
 #ifndef BuildXCSecurity
 #define BuildXCSecurity		YES
+#endif
+#ifndef BuildXSELinux
+#define BuildXSELinux		NO
 #endif
 #ifndef BuildAppgroup
 #define BuildAppgroup		YES
@@ -1102,11 +1108,27 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+#ifndef XACEDefines
+#if BuildXACE
+#define XACEDefines -DXACE
+#else
+#define XACEDefines /**/
+#endif
+#endif
+
 #ifndef XCSecurityDefines
 #if BuildXCSecurity
 #define XCSecurityDefines -DXCSECURITY
 #else
 #define XCSecurityDefines /**/
+#endif
+#endif
+
+#ifndef XSELinuxDefines
+#if BuildXSELinux
+#define XSELinuxDefines -DXSELINUX
+#else
+#define XSELinuxDefines /**/
 #endif
 #endif
 
@@ -1180,8 +1202,8 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef PervasiveExtensionDefines
 #define PervasiveExtensionDefines \
 	ShapeDefines XInputDefines XkbDefines LbxDefines AppgroupDefines \
-	XCSecurityDefines CupDefines PervasiveDBEDefines \
-	XF86BigfontExtensionDefines DPMSDefines \
+	XACEDefines XCSecurityDefines CupDefines PervasiveDBEDefines \
+	XSELinuxDefines XF86BigfontExtensionDefines DPMSDefines \
 	LowMemDefines XprintDefines XineramaDefines \
 	SitePervasiveExtensionDefines RenderDefines RandRDefines \
 	XfixesDefines XDamageDefines
