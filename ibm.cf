@@ -1,5 +1,5 @@
+XCOMM platform:  $XdotOrg: xc/config/cf/ibm.cf,v 1.1.4.2 2003/12/15 16:42:40 kaleb Exp $
 XCOMM platform:  $Xorg: ibm.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
-XCOMM platform:  $XdotOrg: ibm.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 #ifndef OSName
 # define OSName		DefaultOSName
@@ -20,6 +20,8 @@ XCOMM platform:  $XdotOrg: ibm.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 # endif
 #endif
 XCOMM operating system:  OSName (OSMajorVersion.OSMinorVersion.OSTeenyVersion)
+
+#define RemoveFiles(files) for f in files; do RemoveFile($$f); done
 
 #if (OSMajorVersion > 4)
 #  define HasSnprintf YES
