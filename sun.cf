@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.8 2004/08/15 00:58:42 krh Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.9 2004/08/19 16:28:42 kem Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -673,13 +673,6 @@ man_keywords::								@@\
 #ifndef	UseSeparateConfDir
 #define	UseSeparateConfDir	NO
 #endif
-
-#ifndef BuildGLULibrary
-#if HasSunC
-#define BuildGLULibrary NO
-#endif
-#endif
-
 
 /* Hackery for building modules as Solaris shared objects with dependencies */
 #if MakeDllModules && DoLoadableServer
