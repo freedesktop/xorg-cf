@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.32 2004/08/29 21:06:00 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.33 2004/09/02 01:10:28 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -2962,7 +2962,7 @@ UnsharedLibReferences(XA,Xa,$(XALIBSRC))
 #endif
 
 #ifndef BuildXaw
-#define BuildXaw YES
+#define BuildXaw (BuildXprintLib && !BuildServersOnly)
 #endif
 
        /* AWIDGETSRC is needed by libXaw6 and libXaw7 */
@@ -2992,7 +2992,7 @@ ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGETSRC),XBuildLibDir)
 #endif
 
 #ifndef BuildXaw7
-#define BuildXaw7 HasSharedLibraries
+#define BuildXaw7 (HasSharedLibraries && !BuildServersOnly)
 #endif
 
 #if BuildXaw7
@@ -3027,7 +3027,7 @@ ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGET7SRC),XBuildLibDir)
 
 
 #ifndef BuildXaw6
-#define BuildXaw6 HasSharedLibraries
+#define BuildXaw6 (HasSharedLibraries && !BuildServersOnly)
 #endif
 
 #if BuildXaw6
