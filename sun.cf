@@ -82,7 +82,42 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #  define CCompilerMinorVersion DefaultSunProCCompilerMinorVersion
 # endif
 XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
-#endif
+
+/* Choose some reasonable default optimizer flags based on compiler & 
+   OS versions */
+# ifndef OptimizedCDebugFlags
+#  if (CCompilerMajorVersion > 5) || \
+	(CCompilerMajorVersion == 5 && CCompilerMinorVersion > 2)
+#   define OptimizedCDebugFlags -xO4 -xbuiltin -xlibmil ArchOptimizedFlags
+#  else
+#   define OptimizedCDebugFlags -xO4 ArchOptimizedFlags
+#  endif
+# endif
+# ifndef ArchOptimizedFlags
+#  if OSMajorVersion == 5 
+#   if defined(SparcArchitecture) && !defined(Sparc64Architecture)
+#    if OSMinorVersion > 9 /* Solaris 10 and later only run on UltraSPARC's */
+#     define ArchOptimizedFlags -xarch=v8plus
+#    else
+#     define ArchOptimizedFlags -xarch=v8
+#    endif
+#   elif defined(i386Architecture)
+#    if OSMinorVersion > 8 /* Solaris 9 and later require Pentium or better */
+#     define ArchOptimizedFlags -xpentium
+#    endif
+#   endif
+#  endif
+#  ifndef ArchOptimizedFlags
+#   define ArchOptimizedFlags /**/
+#  endif
+# endif
+# ifndef DefaultCDebugFlags
+#  define DefaultCDebugFlags OptimizedCDebugFlags
+# endif
+# ifndef SharedLibraryLdCmd
+#  define SharedLibraryLdCmd $(CC)
+# endif
+#endif /* HasSunC */
 
 /* we used to have this here :
  *
@@ -428,6 +463,17 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #    define OptimizedCDebugFlags -O2
 #   endif
 #  endif
+#  if !defined(SharedLibraryLoadFlags) && !defined(SharedLibraryLdCmd)
+#   if OSMajorVersion == 5 && OSMinorVersion > 6 && defined(i386Architecture)
+    /* This is to work around what appears to be a PIC bug in some gcc/egcs
+       versions that shows up with the Solaris 7/x86 <ctype.h>. */
+#    define SharedLibraryLdCmd $(LD)
+#    define SharedLibraryLoadFlags -G -z textwarn
+#   else
+#    define SharedLibraryLdCmd $(CC)
+#    define SharedLibraryLoadFlags -shared -z text
+#   endif
+#  endif
 # else
 #  define SharedLibraryCcCmd cc
 #  define ExtraLoadFlags -B/usr/bin/
@@ -495,15 +541,28 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #if OSMajorVersion < 5
 # define SharedAllocateLocalDefines -DINCLUDE_ALLOCA_H
 # define LibraryCCOptions /* don't want special floating point */
+#else /* OSMajorVersion >= 5, i.e. Solaris 2.0 & later */
+/* Only load libraries when needed on Solaris 7 & later */
+# if OSMinorVersion >= 7 
+#  define LazyLoadFlag -Wl,-z,lazyload
+# else
+#  define LazyLoadFlag /* */
+# endif
+/* ExtraLoadFlags apply to all binaries - programs & libraries */
+# ifndef ExtraLoadFlags
+#  define ExtraLoadFlags LazyLoadFlag
+# endif
+/* Build progams with non-executable stacks on Solaris 9 & later */
+# if OSMinorVersion >= 9 
+#  define NonExecStackLoadFlag -Wl,-M,/usr/lib/ld/map.noexstk
+# else
+#  define NonExecStackLoadFlag /* */
+# endif
+/* ExtraLoadOptions only apply to programs */
+# ifndef ExtraLoadOptions
+#  define ExtraLoadOptions NonExecStackLoadFlag
+# endif
 #endif /* OSMajorVersion < 5 */
-
-/*
- * This is to work around what appears to be a PIC bug in some gcc/egcs
- * versions that shows up with the Solaris 7/x86 <ctype.h>.
- */
-#if OSMajorVersion == 5 && OSMinorVersion > 6 && defined(i386Architecture) && HasGcc
-# define SharedLibraryLoadFlags -G -z textwarn
-#endif
 
 #if OSMajorVersion > 4
 # include <svr4.cf>
@@ -589,4 +648,33 @@ man_keywords::								@@\
 #if HasSunC
 #define BuildGLULibrary NO
 #endif
+#endif
+
+
+/* Hackery for building modules as Solaris shared objects with dependencies */
+#if MakeDllModules && DoLoadableServer
+
+/* If you change this, you will need to change find-deps.pl to match */
+#define DlModuleDependencyName(module) Concat(module,_deps)
+
+#define DlModuleTarget(module,deplist,modlist)                          @@\
+DepDynamicModuleTarget(module,deplist DlModuleDependencyName(module),modlist LazyLoadFlag `cat DlModuleDependencyName(module)`) @@\
+									@@\
+DlModuleDependencyName(module):						@@\
+	touch $@							@@\
+									@@\
+clean::                                                                 @@\
+        RemoveFile(DlModuleDependencyName(module))
+
+#define ObjectModuleTarget(module,objects)				@@\
+DlModuleTarget(Concat(module,_drv.so), objects, objects)
+
+#define LibraryModuleTarget(module,objects)				@@\
+NormalLibraryTarget(module, objects)					@@\
+DlModuleTarget(Concat3(lib,module,.so), objects, objects)
+
+#define DepLibraryModuleTarget(module,deplist,objects)			@@\
+NormalDepLibraryTarget(module, deplist, objects)			@@\
+DlModuleTarget(Concat3(lib,module,.so), deplist, objects)
+
 #endif
