@@ -1865,7 +1865,7 @@ install.man::								@@\
  * The double-@ is to ensure no leading spaces on the line.
  */
 #ifndef IncludeMakefile
-#if HasClearmake
+#if HasClearmake || HasMakefileSafeInclude
 #define IncludeMakefile(file) @@sinclude file
 #else
 #if HasBsdMake
