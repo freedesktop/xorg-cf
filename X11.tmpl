@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.36 2004/09/18 00:30:50 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.37 2004/10/30 01:41:46 torrey Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -1513,6 +1513,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef FontDir
 #define FontDir $(LIBDIR)/fonts
 #endif
+#ifndef FontEncDir
+#define FontEncDir $(LIBDIR)/fonts/encodings
+#endif
 #ifndef AdmDir
 #define AdmDir /usr/adm
 #endif
@@ -1680,7 +1683,7 @@ XCOMM X Window System make variables; these need to be coordinated with rules
          DOCPSDIR = DocPsDir
         DOCPDFDIR = DocPdfDir
           FONTDIR = FontDir		/* font directories */
-     ENCODINGSDIR = $(FONTDIR)/encodings /* font encodings directory */
+     ENCODINGSDIR = FontEncDir          /* font encodings directory */
          XINITDIR = XinitDir		/* xinit config files */
            XDMDIR = XdmDir		/* xdm config files */
         XDMVARDIR = XdmVarDir		/* xdm config files */
