@@ -186,7 +186,7 @@ ARCH            = i80386
 TOOLSET         = ack
 ALDFLAGS        = /* -mam_i80386 now in CCopts */ -.c -Rcv-s32
 
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 
 #if defined(Sun3Architecture)

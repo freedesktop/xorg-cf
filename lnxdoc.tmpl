@@ -18,6 +18,11 @@ XCOMM
 			      -e '/\$$\XFree86:/s/\$$/Generated from /'
 #endif
 
+#ifndef CVSIdentFix
+#define CVSIdentFix	  sed -e '/\$$\Id:/s/....\/..\/.. ..:..:.. *//' \
+			      -e '/\$$\Id:/s/\$$/Generated from /'
+#endif
+
 #ifndef HasLatex
 #define HasLatex	  NO
 #endif
@@ -60,6 +65,7 @@ XCOMM
 
 
   XFREE86IDENTFIX = XFree86IdentFix
+      CVSIDENTFIX = CVSIdentFix
             DVIPS = DvipsCmd
      DVIPSOPTIONS = DvipsOptions
        SGMLFMTCMD = SgmlFmtCmd

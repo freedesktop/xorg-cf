@@ -59,7 +59,7 @@ textfile: sgmlfile $(SGMLDEPENDS)					@@\
 	  set -x;\							@@\
 	  RemoveFile($$BASE.latin1);\					@@\
 	  $(SGMLFMTCMD) -f latin1 -b -n sgmlfile && \			@@\
-	  $(XFREE86IDENTFIX) < $$BASE.latin1 > _$@ && $(MV) _$@ $@ && \	@@\
+	  $(CVSIDENTFIX) < $$BASE.latin1 | $(XFREE86IDENTFIX) > _$@ && $(MV) _$@ $@ && \	@@\
 	  RemoveFile($$BASE.latin1))					@@\
 									@@\
 LinuxDocInstall(textfile,$(XFREE86DOCDIR))				@@\
