@@ -1437,6 +1437,11 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define BuildXinerama		YES
 #endif
 
+/* Build DMX extension */
+#ifndef BuildDmxExt
+# define BuildDmxExt		YES
+#endif
+
 /* Build Render extension */
 #ifndef BuildRender
 # define BuildRender		YES
@@ -1765,6 +1770,19 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 #ifndef XprtServer
 # define XprtServer			YES
+#endif
+
+#ifndef XdmxServer
+# define XdmxServer		YES
+#endif
+#ifndef BuildDmxDevelTools
+# define BuildDmxDevelTools	NO
+#endif
+#if BuildDmxDevelTools && BuildXResExt && !defined(BuildXResLibrary)
+# define BuildXResLibrary	YES
+#endif
+#if XdmxServer && BuildRender && !defined(BuildRenderLibrary)
+# define BuildRenderLibrary	YES
 #endif
 
 #ifndef ServerExtraDefines

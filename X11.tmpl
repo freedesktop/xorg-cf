@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.11 2004/06/25 09:01:14 ago Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -127,8 +127,16 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildDocs
 #define BuildDocs		!BuildServersOnly
 #endif
+#ifndef BuildLibrariesForDMX
+#ifdef XdmxServer
+#define BuildLibrariesForDMX	XdmxServer
+#else
+#define BuildLibrariesForDMX	NO
+#endif
+#endif
 #ifndef BuildLibraries
-#define BuildLibraries		(!BuildServersOnly || BuildClients)
+#define BuildLibraries		(!BuildServersOnly || BuildClients || \
+				 BuildLibrariesForDMX)
 #endif
 #ifndef BuildLibrariesForXServers
 #define BuildLibrariesForXServers	BuildServer
@@ -341,7 +349,8 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildXInputExt		NO
 #endif
 #ifndef BuildXInputLib
-#define BuildXInputLib		(BuildXInputExt && !BuildServersOnly)
+#define BuildXInputLib		(BuildXInputExt && \
+				 (!BuildServersOnly || BuildLibrariesForDMX))
 #endif
 #ifndef BuildEVI
 #define BuildEVI		YES
@@ -365,7 +374,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildFontLib		(BuildLibraries || \
 				 (BuildServer && !DoLoadableServer) || \
 				 XnestServer || XVirtualFramebufferServer || \
-				 XprtServer)
+				 XprtServer || XdmxServer)
 #endif
 #endif
 #ifndef BuildFontCache
@@ -437,6 +446,12 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildXineramaLibrary
 #define BuildXineramaLibrary	(BuildXinerama && !BuildServersOnly)
+#endif
+#ifndef BuildDmxExt
+#define BuildDmxExt		XdmxServer
+#endif
+#ifndef BuildDmxLibrary
+#define BuildDmxLibrary		(BuildDmxExt && !BuildServersOnly)
 #endif
 #ifndef BuildXCSecurity
 #define BuildXCSecurity		YES
@@ -2381,6 +2396,20 @@ SharedLibReferences(XXF86DGA,Xxf86dga,$(XXF86DGALIBSRC),SOXXF86DGAREV,SharedXxf8
 ProjectUnsharedLibReferences(XXF86DGA,Xxf86dga,$(XXF86DGALIBSRC),XBuildLibDir)
 #endif
 
+#if BuildDmxLibrary
+#ifndef SharedLibDmx
+#define SharedLibDmx		NO
+#endif
+#ifndef NormalLibDmx
+#define NormalLibDmx		YES
+#endif
+#ifndef DebugLibDmx
+#define DebugLibDmx		NO
+#endif
+#ifndef ProfileLibDmx
+#define ProfileLibDmx		NO
+#endif
+#endif
 
     XXF86RUSHLIBSRC = $(LIBSRC)/Xxf86rush
 #if SharedLibXxf86rush
@@ -2434,6 +2463,15 @@ SharedLibReferences(XRES,XRes,$(XRESLIBSRC),SOXRESREV,SharedXResRev)
 ProjectUnsharedLibReferences(XRES,XRes,$(XRESLIBSRC),XBuildLibDir)
 #endif
 
+    DMXLIBSRC = $(LIBSRC)/dmx
+#if SharedLibDmx
+#ifndef SharedDmxRev
+#define SharedDmxRev 1.0
+#endif
+SharedLibReferences(DMX,dmx,$(DMXLIBSRC),SODMXREV,SharedDmxRev)
+#else
+ProjectUnsharedLibReferences(DMX,dmx,$(DMXLIBSRC),XBuildLibDir)
+#endif
 
     DPSLIBSRC = $(LIBSRC)/dps
 #if SharedLibDps
