@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.34 2004/09/02 05:50:38 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.35 2004/09/03 16:18:18 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -567,7 +567,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #endif
 #ifndef BuildGLXLibrary
-#define BuildGLXLibrary		(BuildGlxExt && !BuildServersOnly)
+#define BuildGLXLibrary		NO
 #endif
 #ifndef BuildOSMesaLib
 #define BuildOSMesaLib		BuildGlxExt
@@ -678,6 +678,13 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildXevieLibrary
 #define BuildXevieLibrary	!BuildServersOnly
+#endif
+
+#ifndef BuildLg3d
+#define BuildLg3d		YES
+#endif
+#ifndef BuildLg3dLibrary
+#define BuildLg3dLibrary	!BuildServersOnly
 #endif
 
 #ifndef BuildXterm
@@ -1237,6 +1244,14 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+#ifndef Lg3dDefines
+#if BuildLg3d
+#define Lg3dDefines -DLG3D
+#else
+#define Lg3dDefines /**/
+#endif
+#endif
+
 #ifndef SitePervasiveExtensionDefines
 #define SitePervasiveExtensionDefines /**/
 #endif
@@ -1247,7 +1262,7 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 	XF86BigfontExtensionDefines DPMSDefines \
 	LowMemDefines XprintDefines XineramaDefines \
 	SitePervasiveExtensionDefines RenderDefines RandRDefines \
-	XfixesDefines XDamageDefines CompositeDefines XevieDefines
+	XfixesDefines XDamageDefines CompositeDefines XevieDefines Lg3dDefines
 #endif
 #ifndef SiteExtensionDefines
 #define SiteExtensionDefines /**/
@@ -2276,6 +2291,30 @@ ProjectUnsharedLibReferences(XONLY,X11,$(XLIBSRC),XBuildLibDir)
 #define ProfileLibXevie		NO
 #endif
 
+#if BuildLg3dLibrary
+#ifndef SharedLibLg3d
+#define SharedLibLg3d		HasSharedLibraries
+#endif
+#ifndef NormalLibLg3d
+#define NormalLibLg3d		(!SharedLibLg3d || ForceNormalLib)
+#endif
+#ifndef DebugLibLg3d
+#define DebugLibLg3d		NO
+#endif
+#ifndef ProfileLibLg3d
+#define ProfileLibLg3d	NO
+#endif
+#else
+#undef  SharedLibLg3d
+#define SharedLibLg3d		NO
+#undef  NormalLibLg3d
+#define NormalLibLg3d		NO
+#undef  DebugLibLg3d
+#define DebugLibLg3d		NO
+#undef  ProfileLibLg3d
+#define ProfileLibLg3d	NO
+#endif
+
 #if BuildXcursorLibrary
 #ifndef SharedLibXcursor
 #define SharedLibXcursor	HasSharedLibraries
@@ -2718,6 +2757,16 @@ XEVIELIBSRC = $(LIBSRC)/Xevie
 SharedLibReferences(XEVIE,Xevie,$(XEVIELIBSRC),SOXEVIEREV,SharedXevieRev)
 #else
 ProjectUnsharedLibReferences(XEVIE,Xevie,$(XEVIELIBSRC),XBuildLibDir)
+#endif
+
+    LG3DRLIBSRC = $(LIBSRC)/Xlg3d
+#if SharedLibXlg3d
+#ifndef SharedXlg3dRev
+#define SharedXlg3dRev 1.0
+#endif
+SharedLibReferences(LG3D,Xlg3d,$(LG3DLIBSRC),SOLG3DREV,SharedXlg3dRev)
+#else
+ProjectUnsharedLibReferences(LG3D,Xlg3d,$(LG3DLIBSRC),XBuildLibDir)
 #endif
 
    XCURSORLIBSRC = $(LIBSRC)/Xcursor

@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.26 2004/09/03 16:18:18 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.27 2004/09/03 22:00:10 kem Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -861,7 +861,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #  if defined (BuildServersOnly) && BuildServersOnly
 #    define BuildGLXLibrary	NO
 #  else
-#    define BuildGLXLibrary	YES
+#    define BuildGLXLibrary	NO
 #  endif
 #endif
 
