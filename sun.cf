@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.2 2004/03/14 03:27:09 alanc Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.2.2.1 2004/03/17 20:25:00 ago Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -174,19 +174,28 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #ifdef i386Architecture
 # if OSMajorVersion > 4
 #  if OSMinorVersion >= 8
-#   define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines \
-				-D__SOL8__
-#  else
-#   define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines
+#   define OSServerExtraDefines	-D__SOL8__
 #  endif
-# else
-#  define ServerExtraDefines	AllocateLocalDefines
+#  if HasSunC
+#   define CompilerServerExtraDefines $(XF86SRC)/os-support/sunos/ia32.il
+#  endif
 # endif
 #else
-# define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines
 # define HasPlugin		YES
 #endif
+
+#ifndef CompilerServerExtraDefines
+# define CompilerServerExtraDefines /**/
+#endif
+
+#ifndef OSServerExtraDefines
+# define OSServerExtraDefines	/**/
+#endif
+
+
 #define ServerOSDefines		XFree86ServerOSDefines IncludeCG2HeaderDefine
+#define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines \
+				CompilerServerExtraDefines OSServerExtraDefines
 
 #ifndef HasPerl
 /* Solaris 8 comes with perl.  Earlier versions don't. */
@@ -278,16 +287,29 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #   define UseExportLists NO
 #  endif
 # endif
-# if OSMinorVersion > 5
+# if OSMinorVersion > 5 /* Solaris 2.6 and later */
 #  define HasSnprintf YES
 # endif
-# if OSMinorVersion > 7
+# if OSMinorVersion > 7 /* Solaris 8 and later */
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
 #  define HasZlib	YES
 # endif
-# if OSMinorVersion > 9
+# if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
+/* Solaris 10 includes FreeType already.  It's also available in GNOME 2.0 for
+ * Solaris 8 & 9, and in Solaris 9 4/03 and later, but there's no easy way to
+ * detect that in imake, so users of those releases who want to use the 
+ * installed FreeType instead of the one in this tree should copy the following
+ * two settings to their host.def.  Those who want to use the in-tree copy
+ * regardless of OS version should add "#define HasFreetype2 NO" to host.def.
+ */
+#  ifndef HasFreetype2
+#   define HasFreetype2 YES 
+#   ifndef Freetype2Dir
+#    define Freetype2Dir /usr/sfw
+#   endif
+#  endif
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
