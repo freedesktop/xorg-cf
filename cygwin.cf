@@ -189,13 +189,17 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #endif
 
 #ifndef OptimizedCDebugFlags
-# define OptimizedCDebugFlags	DefaultGcc2i386Opt
+# define OptimizedCDebugFlags	-ggdb3 DefaultGcc2i386Opt
 #endif
 
+/*
+ * -DFD_SETSIZE=256 is needed for xfs and the xserver. cygwin defines the
+ * FD_SETSIZE as 64 but some code expects it to be larger. 
+ */ 
 #define StandardDefines         -D__i386__ -DWIN32_LEAN_AND_MEAN -DX_LOCALE \
 				-D_X86_ -D__CYGWIN__ -D_XOPEN_SOURCE \
 				-D_POSIX_C_SOURCE=199309L -D_BSD_SOURCE \
-				-D_SVID_SOURCE -D_GNU_SOURCE
+				-D_SVID_SOURCE -D_GNU_SOURCE -DFD_SETSIZE=256
 
 #define XawI18nDefines		-DHAS_WCHAR_H -DHAS_WCTYPE_H \
 				-DHAS_ISW_FUNCS -DNO_WIDEC_H
@@ -237,13 +241,13 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				DebugDefines XFree86XResDefines \
 				-DX_BYTE_ORDER=$(X_BYTE_ORDER)
 #define ServerOSDefines         XWinServerDefines \
-				-DDDXTIME -DFD_SETSIZE=256 -DDDXOSINIT \
+				-DDDXTIME -DDDXOSINIT \
 				-DDDXOSVERRORF -DDDXOSFATALERROR \
 				-DDDXOSRESET
 #define XkbServerDefines        -DXKB_ALWAYS_USES_SOFT_REPEAT
 #define ServerExtraDefines      -DGCCUSESGAS XWinServerDefines \
 				AllocateLocalDefines
-#define ConnectionFlags         -DTCPCONN -DUNIXCONN -DFD_SETSIZE=256
+#define ConnectionFlags         -DTCPCONN -DUNIXCONN
 #define ExtraLibraries          
 #define InstUidFlags            -m 4711
 #define UseRgbTxt               YES
