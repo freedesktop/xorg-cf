@@ -554,6 +554,9 @@ VENDORMANVERSION = XVendorManVersionString
 #define UseFreetype2		(BuildXftLibrary || BuildXft1Library || \
 				 UseFontconfig || BuildFreeType)
 #endif
+#ifndef InstallFontconfigLibrary
+# define InstallFontconfigLibrary  YES
+#endif
 #ifndef HasExpat
 #define HasExpat		NO
 #endif
@@ -3262,7 +3265,7 @@ ProjectUnsharedLibReferences(XFT,Xft,$(XFTLIBSRC),XBuildLibDir)
           FONTCONFIGLIBSRC = $(LIBSRC)/fontconfig
 #if SharedLibFontconfig
 #ifndef SharedFontconfigRev
-#define SharedFontconfigRev 1.0
+#define SharedFontconfigRev 1.0.4
 #endif
 SharedLibReferences(FONTCONFIG,fontconfig,$(FONTCONFIGLIBSRC),SOFONTCONFIGREV,SharedFontconfigRev)
 #else
