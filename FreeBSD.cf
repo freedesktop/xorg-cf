@@ -3,7 +3,7 @@ XCOMM platform:  $XdotOrg: xc/config/cf/FreeBSD.cf,v 1.1.4.4 2003/12/26 21:33:10
 XCOMM
 XCOMM
 XCOMM
-XCOMM platform:  $XFree86: xc/config/cf/FreeBSD.cf,v 3.148 2004/02/07 04:30:15 dawes Exp $
+XCOMM platform:  $XFree86: xc/config/cf/FreeBSD.cf,v 3.147 2004/01/28 01:46:21 dawes Exp $
 
 #ifndef UseElfFormat
 #define UseElfFormat		DefaultToElfFormat
