@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.13 2004/07/04 22:49:49 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.14 2004/07/06 23:50:59 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -2413,7 +2413,16 @@ ProjectUnsharedLibReferences(XXF86DGA,Xxf86dga,$(XXF86DGALIBSRC),XBuildLibDir)
 #ifndef ProfileLibDmx
 #define ProfileLibDmx		NO
 #endif
-#endif
+#else /* BuildDmxLibrary */
+#undef SharedLibDmx
+#define SharedLibDmx		NO
+#undef NormalLibDmx
+#define NormalLibDmx		NO
+#undef DebugLibDmx
+#define DebugLibDmx		NO
+#undef ProfileLibDmx
+#define ProfileLibDmx		NO
+#endif /* BuildDmxLibrary */
 
     XXF86RUSHLIBSRC = $(LIBSRC)/Xxf86rush
 #if SharedLibXxf86rush
