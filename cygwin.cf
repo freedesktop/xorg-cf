@@ -163,7 +163,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 # define CppCmd			cpp
 #endif /* CppCmd */
 #ifndef YaccCmd
-# define YaccCmd		byacc
+# define YaccCmd		bison -y
 #endif /* YaccCmd */
 
 #define LexCmd			flex -l
