@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.4 2004/06/16 09:46:14 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.5 2004/07/24 16:32:39 herrb Exp $
 XCOMM
 
 #ifndef OSName
@@ -441,7 +441,7 @@ install:: fonts.alias							@@\
 # define HasSharedLibraries	YES
 # define HasDlopen		YES
 
-# define XF86Server		YES
+# define XorgServer		YES
 
 # ifndef DoLoadableServer
 #  define DoLoadableServer	NO
