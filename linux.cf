@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.1.4.8 2004/04/15 10:13:10 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.2 2004/04/23 18:41:58 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -759,7 +759,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #ifndef XF86OSCardDrivers
-# define XF86OSCardDrivers	v4l
+# define XF86OSCardDrivers	fbdev v4l
 #endif
 
 #ifndef OSXInputDrivers
