@@ -1327,7 +1327,7 @@ TCLIBDIR = TclLibDir
 #endif
 #endif
 #ifndef LdPostLib
-#if !defined(UseInstalled) && AlternateUsrLibDir && !HasLdRunPath
+#if !defined(UseInstalled) && AlternateUsrLibDir && !HasLdRunPath && !defined(CrossCompileDir)
 #define LdPostLib -L$(USRLIBDIR)
 #else
 #define LdPostLib /**/
