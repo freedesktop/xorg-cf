@@ -1595,10 +1595,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define BuildFreeType		YES
 #endif
 
-#ifndef BuildXTrueType
-# define BuildXTrueType		YES
-#endif
-
 /*
  * By default, build all of the fonts.
  */

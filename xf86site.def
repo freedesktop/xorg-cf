@@ -184,7 +184,23 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * To disable support for TrueType fonts, uncomment these.
  *
 #define BuildFreeType		NO
-#define BuildXTrueType		NO
+ */
+
+/*
+ * To set non-default build options for the underlying FreeType libraries,
+ * add them here and uncomment.
+ *
+#define Freetype2BuildDefines	-DFREETYPE_BUILD_DEFINES
+ */
+
+/*
+ * To build the FreeType libraries with the TrueType byte code interpreter
+ * enabled, uncomment this.  Note that there are patent issues related to the
+ * TrueType byte code interpreter, and we only recommend you enabling this
+ * if you are sure that there are no legal impediments to you doing so.  See
+ * <http://www.freetype.org/patents.html> for further information.
+ *
+#define Freetype2BuildDefines -DTT_CONFIG_OPTION_BYTECODE_INTERPRETER
  */
 
 /*
