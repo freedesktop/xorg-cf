@@ -273,14 +273,15 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  endif
 # endif
 # if OSMinorVersion > 5
-#  define HasSnprintf YES
+#  define HasSnprintf	YES
 # endif
 # if OSMinorVersion > 7
-#  define HasStrlcat YES
+#  define HasStrlcat	YES
+#  define HasStrcasecmp	YES
 # endif
-# define HasVFork          NO
-# define HasDlopen         YES
-# define InstKmemFlags	  -g sys -m 2711
+# define HasVFork	NO
+# define HasDlopen	YES
+# define InstKmemFlags	-g sys -m 2711
 # define ShLibIncludeFile <sunLib.tmpl>
 /*
  * Set flags for position independent code before including sv4Lib.rules
@@ -400,7 +401,10 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define AllocateLocalDefines -DINCLUDE_ALLOCA_H
 
 /* Set up compiler-dependent options for Sun C */
-
+/*
+ * To build 64-bit binaries define Sparc64Architecture in your site.def 
+ * or host.def file.
+ */
 # if HasSunC
 #  ifdef Sun3Architecture
 #   ifndef DefaultCCOptions
@@ -413,7 +417,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #    endif
 #   else /* OSMajorVersion >= 5*/
 #    ifndef DefaultCCOptions
-#     define DefaultCCOptions -Xa -v
+#     ifndef Sparc64Architecture
+#      define DefaultCCOptions -Xa -v
+#     else
+#      define DefaultCCOptions -Xa -v -xarch=v9
+#      define LargePICTable YES
+#     endif
 #    endif
 #   endif	
 #  endif	
