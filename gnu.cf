@@ -1,4 +1,4 @@
-XCOMM platform:  $XFree86: xc/config/cf/gnu.cf,v 1.13 2004/01/09 00:35:00 dawes Exp $
+XCOMM platform:  $XFree86: xc/config/cf/gnu.cf,v 1.12 2003/11/24 02:02:26 dawes Exp $
 XCOMM $XdotOrg: xc/config/cf/gnu.cf,v 1.1.4.1 2003/12/06 13:22:41 kaleb Exp $
 
 #ifndef OSName
