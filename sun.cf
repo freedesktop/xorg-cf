@@ -1,10 +1,10 @@
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8 2004/02/23 22:11:03 kaleb Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
 
 
-XCOMM platform:  $XFree86: xc/config/cf/sun.cf,v 3.69 2003/10/26 12:17:14 herrb Exp $
+XCOMM platform:  $XFree86: xc/config/cf/sun.cf,v 3.71 2004/02/02 03:55:26 dawes Exp $
 
 #ifndef OSName
 # define OSName		DefaultOSName
@@ -241,7 +241,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define InstallCmd	    /usr/ucb/install
 # endif
 # ifdef i386Architecture
-#  define StandardDefines	  -Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386
+#  if (OSMajorVersion < 4) || ((OSMajorVersion == 5) && (OSMinorVersion <= 5))
+#   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
+				-D__SOL64__
+#  else
+#   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386
+#  endif
 #  define ToolkitStringsABIOptions	-intelabi
 # else
 #  define StandardDefines	  -Dsun -Dsparc -DSVR4 -D__EXTENSIONS__
@@ -277,11 +282,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define HasSnprintf YES
 # endif
 # if OSMinorVersion > 7
-#  define HasStrlcat YES
-# endif
-# if OSMinorVersion > 7
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
+#  define HasZlib	YES
+# endif
+# if OSMinorVersion > 9
+#  define HasSetenv	YES
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
@@ -427,7 +433,6 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #      define DefaultCCOptions -Xa -v -xarch=v9
 #      define LargePICTable YES
 #     endif
-#     define DefaultCCOptions -Xa -v
 #    endif
 #   endif	
 #  endif	
@@ -539,3 +544,8 @@ man_keywords::								@@\
 #define	UseSeparateConfDir	NO
 #endif
 
+#ifndef BuildGLULibrary
+#if HasSunC
+#define BuildGLULibrary NO
+#endif
+#endif

@@ -1,5 +1,5 @@
-XCOMM $XdotOrg$
-XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.99 2003/11/23 21:29:00 herrb Exp $
+XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.101 2004/01/09 00:35:00 dawes Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.1.4.3 2004/02/23 21:31:43 kaleb Exp $
 XCOMM
 
 #ifndef OSName
@@ -415,7 +415,8 @@ install:: fonts.alias							@@\
 #   ifndef HasNetBSDApertureDriver
 #     define HasNetBSDApertureDriver	YES
 #   endif
-#   define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME -DDDXOSINIT
+#   define ServerOSDefines	XFree86ServerOSDefines \
+				-DDDXTIME -DDDXOSINIT
 #   define ServerExtraDefines	GccGasOption -D_XSERVER64 XFree86ServerDefines
 #   define ServerExtraSysLibs	-lalpha
 #   ifndef DoLoadableServer
@@ -445,7 +446,7 @@ install:: fonts.alias							@@\
 /* Direct rendering (OpenBSD 3.3 and up). */ 
 # if OSMajorVersion > 3 || (OSMajorVersion == 3 && OSMinorVersion > 2)
 #  ifndef BuildXF86DRI
-#   define BuildXF86DRI			YES
+#   define BuildXF86DRI			NO
 #  endif 
 #  ifndef BuildXF86DRM
 #   define BuildXF86DRM			NO
@@ -721,7 +722,8 @@ install:: fonts.alias							@@\
 
 /* Definitions for building the X server */
 # if XF86Server
-#   define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME -DDDXOSINIT
+#   define ServerOSDefines	XFree86ServerOSDefines \
+				-DDDXTIME -DDDXOSINIT
 #   define ServerExtraDefines	GccGasOption XFree86ServerDefines
 #   ifndef DoLoadableServer
 #     define DoLoadableServer	YES
@@ -809,7 +811,8 @@ install:: fonts.alias							@@\
 # endif
 
 # define ServerExtraDefines	GccGasOption -D_XSERVER64 XFree86ServerDefines
-# define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME -DDDXOSINIT
+# define ServerOSDefines	XFree86ServerOSDefines \
+				-DDDXTIME -DDDXOSINIT
 # define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
 
 # if XF86Server

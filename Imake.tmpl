@@ -1,12 +1,12 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM Makefile generated from IMAKE_TEMPLATE and INCLUDE_IMAKEFILE
 XCOMM $Xorg: Imake.tmpl,v 1.4 2000/08/17 19:41:46 cpqbld Exp $
-XCOMM $XdotOrg: Imake.tmpl,v 1.4 2000/08/17 19:41:46 cpqbld Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.tmpl,v 1.1.4.6 2004/02/23 21:31:43 kaleb Exp $
 XCOMM
 XCOMM
 XCOMM
 XCOMM
-XCOMM $XFree86: xc/config/cf/Imake.tmpl,v 3.154 2003/11/04 01:59:31 dawes Exp $
+XCOMM $XFree86: xc/config/cf/Imake.tmpl,v 3.156 2004/01/12 21:43:18 herrb Exp $
 XCOMM ----------------------------------------------------------------------
 
 /*
@@ -906,6 +906,9 @@ TCLIBDIR = TclLibDir
 #ifndef DriverManDefs
 #define DriverManDefs -D__drivermansuffix__=$(DRIVERMANSUFFIX)
 #endif
+#ifndef AdminManDefs
+#define AdminManDefs -D__adminmansuffix__=$(ADMINMANSUFFIX)
+#endif
 #ifndef ProjectManDefs
 #define ProjectManDefs -D__projectroot__=$(PROJECTROOT)
 #endif
@@ -1330,7 +1333,7 @@ TCLIBDIR = TclLibDir
 #endif
 #endif
 #ifndef LdPostLib
-#if !defined(UseInstalled) && AlternateUsrLibDir && !HasLdRunPath
+#if !defined(UseInstalled) && AlternateUsrLibDir && !HasLdRunPath && !defined(CrossCompileDir)
 #define LdPostLib -L$(USRLIBDIR)
 #else
 #define LdPostLib /**/
@@ -1574,6 +1577,13 @@ TCLIBDIR = TclLibDir
 #define DriverManSuffix	4		/* use just one tab or cpp will die */
 #endif
 #endif
+#ifndef AdminManSuffix
+#if SystemV || SystemV4
+#define AdminManSuffix	1m		/* use just one tab or cpp will die */
+#else
+#define AdminManSuffix	8		/* use just one tab or cpp will die */
+#endif
+#endif
 #ifndef ExpandManNames
 #if SystemV
 #define ExpandManNames NO
@@ -1805,9 +1815,10 @@ CXXEXTRA_INCLUDES = CplusplusExtraIncludes
     FILEMANSUFFIX = FileManSuffix	/* suffix for file format man pages */
     MISCMANSUFFIX = MiscManSuffix	/* suffix for misc man pages */
   DRIVERMANSUFFIX = DriverManSuffix	/* suffix for driver man pages */
+   ADMINMANSUFFIX = AdminManSuffix	/* suffix for admin command man pages */
      MANSRCSUFFIX = ManSrcSuffix	/* suffix for man page source */
      MANNEWSUFFIX = ManNewSuffix	/* suffix for preprocessed man source */
-          MANDEFS = AppLoadDefs FileManDefs LibManDefs MiscManDefs DriverManDefs ProjectManDefs $(XORGMANDEFS) $(VENDORMANDEFS)
+          MANDEFS = AppLoadDefs FileManDefs LibManDefs MiscManDefs DriverManDefs AdminManDefs ProjectManDefs $(XORGMANDEFS) $(VENDORMANDEFS)
 
    COMPRESSMANCMD = CompressManCmd
 
@@ -2078,11 +2089,11 @@ XCOMM Not sure this belongs here
 #endif
 #include LocalTmplFile
 
-#if !BuildLibraries && AlternateIncRoot
+#if !BuildLibraries && AlternateIncRoot && !defined(CrossCompileDir)
 INSTALLED_INCLUDES = -I$(INCROOT)
 #endif
 
-#if !defined(UseInstalled) && !BuildLibraries && AlternateUsrLibDir
+#if !defined(UseInstalled) && !BuildLibraries && AlternateUsrLibDir && !defined(CrossCompileDir)
 INSTALLED_LIBS = -L$(USRLIBDIR)
 #endif
 

@@ -1,12 +1,12 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7 2004/02/25 21:46:22 kaleb Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
 XCOMM
 XCOMM
-XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.239 2003/12/12 03:20:32 dawes Exp $
+XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.247 2004/02/10 10:38:56 alanh Exp $
 
 /***************************************************************************
  *                                                                         *
@@ -158,9 +158,6 @@ VENDORMANVERSION = XVendorManVersionString
 #endif
 #ifndef BuildCyrillicFonts
 #define BuildCyrillicFonts	YES
-#endif
-#ifndef UseKoi8RForCyrillic
-#define UseKoi8RForCyrillic	YES
 #endif
 /* Some bdf font generation details.  The scripts for this require perl. */
 #ifndef TruncateUCSFonts
@@ -603,6 +600,10 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildAppleWMLibrary	NO
 #endif
 
+#ifndef BuildWindowsWMLibrary
+#define BuildWindowsWMLibrary	NO
+#endif
+
 #ifndef BuildMiscDocs
 #define BuildMiscDocs		NO
 #endif
@@ -696,17 +697,9 @@ VENDORMANVERSION = XVendorManVersionString
 #define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
 #else
 #if PrimaryScreenResolution < 88		/* (75 + 100) / 2 */
-#if BuildCIDFonts
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
+#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
 #else
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
-#endif
-#else
-#if BuildCIDFonts
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
-#else
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
-#endif
+#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
 #endif
 #endif
 #endif
@@ -1310,9 +1303,6 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef XTrueTypeStandAloneCConv
 #define XTrueTypeStandAloneCConv NO
 #endif
-#ifndef XTTInLibXFont
-#define XTTInLibXFont NO
-#endif
 #ifndef XTrueTypeSrcDir
 #define XTrueTypeSrcDir $(TOP)/extras/X-TrueType
 #endif
@@ -1373,6 +1363,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #ifndef BuildModuleDir
 #define BuildModuleDir $(BUILDLIBDIR)/modules
+#endif
+#ifndef BuildI18NDir
+# define BuildI18NDir $(BUILDLIBDIR)/locale
 #endif
 #ifndef BuildModuleTop
 #define BuildModuleTop $(BUILDLIBTOP)/..
@@ -1549,6 +1542,7 @@ XCOMM X Window System make variables; these need to be coordinated with rules
       BUILDBINDIR = BuildBinDir		/* built binaries */
       BUILDBINTOP = BuildBinTop		/* top relative to BUILDBINDIR */
    BUILDMODULEDIR = BuildModuleDir	/* built server modules */
+     BUILDI18NDIR = BuildI18NDir	/* built i81n modules */
    BUILDMODULETOP = BuildModuleTop	/* top relative to BUILDMODULEDIR */
     XBUILDINCROOT = XBuildIncRoot	/* base of X build loc */
      XBUILDINCDIR = XBuildIncDir
@@ -1606,11 +1600,12 @@ XCOMM X Window System make variables; these need to be coordinated with rules
               RGB = $(CLIENTENVSETUP) $(XBUILDBINDIR)/rgb
 # if !CrossCompiling
             FONTC = $(CLIENTENVSETUP) $(PRELOADFONTSETUP) $(XBUILDBINDIR)/bdftopcf
-  MKFONTSCALE_DIR = $(PRELOADFREETYPESETUP) $(XBUILDBINDIR)/mkfontscale -b -s -l
-        MKFONTDIR = $(CLIENTENVSETUP) $(MKFONTSCALE_DIR)
+      MKFONTSCALE = $(CLIENTENVSETUP) $(PRELOADFREETYPESETUP) $(XBUILDBINDIR)/mkfontscale
+        MKFONTDIR = $(MKFONTSCALE) -b -s -l
        XCURSORGEN = $(CLIENTENVSETUP) $(PRELOADSETUP) $(XBUILDBINDIR)/xcursorgen
 # elif UseInstalledOnCrossCompile
         MKFONTDIR = $(BINDIR)/mkfontdir
+      MKFONTSCALE = $(BINDIR)/mkfontscale
             FONTC = $(BINDIR)/bdftopcf
        XCURSORGEN = $(BINDIR)/xcursorgen
 # endif
@@ -1673,8 +1668,9 @@ XCOMM X Window System make variables; these need to be coordinated with rules
 # ifdef SystemBuildLibPath
   SYSTEMENVLIBDIR = SystemBuildLibPath
 # endif
+#define XlocaleClientSetup Concat3(XLOCALEDIR,=,BuildI18NDir)
        XENVLIBDIR = X11BuildLibPath
-   CLIENTENVSETUP = Concat3(BuildLibPathVar,=,BuildLibPath)
+   CLIENTENVSETUP = Concat3(BuildLibPathVar,=,BuildLibPath) XlocaleClientSetup
 #else
    CLIENTENVSETUP =
 #endif
@@ -2149,6 +2145,30 @@ ProjectUnsharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBSRC),XBuildLibDir)
 #define ProfileLibAppleWM	NO
 #endif
 
+#if BuildWindowsWMLibrary
+#ifndef SharedLibWindowsWM
+#define SharedLibWindowsWM	HasSharedLibraries
+#endif
+#ifndef NormalLibWindowsWM
+#define NormalLibWindowsWM	(!SharedLibWindowsWM || ForceNormalLib)
+#endif
+#ifndef DebugLibWindowsWM
+#define DebugLibWindowsWM	NO
+#endif
+#ifndef ProfileLibWindowsWM
+#define ProfileLibWindowsWM	NO
+#endif
+#else
+#undef  SharedLibWindowsWM
+#define SharedLibWindowsWM	NO
+#undef  NormalLibWindowsWM
+#define NormalLibWindowsWM	NO
+#undef  DebugLibWindowsWM
+#define DebugLibWindowsWM	NO
+#undef  ProfileLibWindowsWM
+#define ProfileLibWindowsWM	NO
+#endif
+
 #if BuildGLULibrary
 #ifndef SharedLibGlu
 #define SharedLibGlu		HasSharedLibraries
@@ -2352,7 +2372,7 @@ ProjectUnsharedLibReferences(XVMC,XvMC,$(XVMCLIBSRC),XBuildLibDir)
     XINERAMALIBSRC = $(LIBSRC)/Xinerama
 #if SharedLibXinerama
 #ifndef SharedXineramaRev
-#define SharedXineramaRev 2.0
+#define SharedXineramaRev 1.0
 #endif
 SharedLibReferences(XINERAMA,Xinerama,$(XINERAMALIBSRC),SOXINERAMAREV,SharedXineramaRev)
 #else
@@ -2467,6 +2487,16 @@ ProjectUnsharedLibReferences(XCURSOR,Xcursor,$(XCURSORLIBSRC),XBuildLibDir)
 SharedLibReferences(APPLEWM,AppleWM,$(APPLEWMLIBSRC),SOAPPLEWMREV,SharedAppleWMRev)
 #else
 ProjectUnsharedLibReferences(APPLEWM,AppleWM,$(APPLEWMLIBSRC),XBuildLibDir)
+#endif
+
+   WINDOWSWMLIBSRC = $(LIBSRC)/windows
+#if SharedLibWindowsWM
+#ifndef SharedWindowsWMRev
+#define SharedWindowsWMRev 1.0
+#endif
+SharedLibReferences(WINDOWSWM,WindowsWM,$(WINDOWSWMLIBSRC),SOWINDOWSWMREV,SharedWindowsWMRev)
+#else
+ProjectUnsharedLibReferences(WINDOWSWM,WindowsWM,$(WINDOWSWMLIBSRC),XBuildLibDir)
 #endif
 
 # ifndef SharedLibXfontcache
@@ -3658,6 +3688,27 @@ install::								@@\
 #endif
 
 /*
+ * MakeFontsScale - generate rules to build fonts.scale database.
+ */
+#ifndef MakeFontsScale
+# if !CrossCompiling ||  UseInstalledOnCrossCompile
+#  define MakeFontsScale(deplist)					@@\
+all:: fonts.scale							@@\
+									@@\
+fonts.scale:  deplist							@@\
+	RemoveFile(fonts.scale)						@@\
+	RunProgram(MKFONTSCALE, .)					@@\
+									@@\
+clean::									@@\
+	RemoveFile(fonts.scale)
+# else
+#  define MakeFontsScale(deplist)					@@\
+clean::									@@\
+	RemoveFile(fonts.scale)
+# endif
+#endif /* MakeFontsScale */
+
+/*
  * MakeFontsDir - generate rules to build fonts.dir database.
  */
 #ifndef MakeFontsDir
@@ -3666,6 +3717,7 @@ install::								@@\
 all:: fonts.dir								@@\
 									@@\
 fonts.dir:  deplist							@@\
+	RemoveFile(fonts.dir)						@@\
 	RunProgram(MKFONTDIR, $(MKFONTDIROPTS) .)			@@\
 									@@\
 clean::									@@\
@@ -3699,6 +3751,18 @@ clean::									@@\
 # endif
 #endif /* MakeFonts */
 
+#ifndef InstallFontsDir
+# if !CrossCompiling ||  UseInstalledOnCrossCompile
+#  define InstallFontsDir(dest)						@@\
+install::								@@\
+	RemoveFile($(DESTDIR)dest/fonts.scale)				@@\
+	RunProgram(MKFONTSCALE, $(DESTDIR)dest)				@@\
+	RemoveFile($(DESTDIR)dest/fonts.dir)				@@\
+	RunProgram(MKFONTDIR, $(MKFONTDIROPTS) $(DESTDIR)dest)
+# else
+#  define InstallFontsDir(dest)
+# endif
+#endif
 
 /*
  * InstallFontObjs - generate rules to install font files
@@ -3708,7 +3772,7 @@ clean::									@@\
 #  define InstallFontObjs(objs,dest)					@@\
 InstallMultipleFlags(objs,dest,$(INSTDATFLAGS))				@@\
 									@@\
-InstallTarget(install,fonts.dir,$(INSTDATFLAGS),dest)
+InstallFontsDir(dest)
 # else
 #  define InstallFontObjs(objs,dest)
 # endif
