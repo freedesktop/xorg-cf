@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.4 2004/04/25 22:54:00 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.5 2004/04/25 23:06:26 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -150,12 +150,6 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildFreeType
 #define BuildFreeType		NO
-#endif
-#ifndef BuildXTrueType
-#define BuildXTrueType		NO
-#endif
-#ifndef XTTInLibFont
-#define XTTInLibFont		NO
 #endif
 #ifndef BuildBuiltinFonts
 #define BuildBuiltinFonts	NO
@@ -620,10 +614,6 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef Freetype2BuildDefines
 #define Freetype2BuildDefines	/**/
-#endif
-/* For FreeType 1.x */
-#ifndef Freetype1BuildDefines
-#define Freetype1BuildDefines	Freetype2BuildDefines
 #endif
 
 #ifndef BuildRandR
@@ -1349,45 +1339,6 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #define DefaultFSConfigFile $(LIBDIR)/fs/config
 #endif
 
-/* X-TrueType settings */
-#ifndef HasBlindFaithInUnicode
-#define HasBlindFaithInUnicode YES
-#endif
-#ifndef XTrueTypeCConvModule
-#if DoLoadableServer
-#define XTrueTypeCConvModule YES
-#else
-#define XTrueTypeCConvModule NO
-#endif
-#endif
-#ifndef XTrueTypeUseOptEncodings
-#define XTrueTypeUseOptEncodings YES
-#endif
-#ifndef XTrueTypeCConvIncDir
-#define XTrueTypeCConvIncDir $(INCROOT)/X11/fonts/codeconv
-#endif
-#ifndef XTrueTypeInstallCConvHeaders
-#define XTrueTypeInstallCConvHeaders BuildLibraries
-#endif
-#ifndef XTrueTypeCConvModuleDir
-#define XTrueTypeCConvModuleDir $(USRLIBDIR)/modules
-#endif
-#ifndef XTrueTypeCConvModuleSubDir
-#define XTrueTypeCConvModuleSubDir codeconv
-#endif
-#ifndef XTrueTypeDebugXTT
-#define XTrueTypeDebugXTT NO
-#endif
-#ifndef XTrueTypeStandAloneCConv
-#define XTrueTypeStandAloneCConv NO
-#endif
-#ifndef XTrueTypeSrcDir
-#define XTrueTypeSrcDir $(TOP)/extras/X-TrueType
-#endif
-#ifndef FreeTypeSrcDir
-#define FreeTypeSrcDir $(TOP)/extras/FreeType
-#endif
-
 #ifndef BinDir
 #ifdef ProjectRoot
 #define BinDir Concat(ProjectRoot,/bin)
@@ -1721,7 +1672,6 @@ XCOMM X Window System make variables; these need to be coordinated with rules
        FONTINCSRC = $(XTOP)/include/fonts
         EXTINCSRC = $(XTOP)/include/extensions
       FTSOURCEDIR = FreeTypeSrcDir
-     XTTSOURCEDIR = XTrueTypeSrcDir
        MESASRCDIR = MesaSrcDir
   OGLSAMPLESRCDIR = OglSampleSrcDir
         PSWRAPSRC = $(XTOP)/config/pswrap
