@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.41 2005/01/14 05:53:48 ajax Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.42 2005/01/24 15:31:36 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -739,7 +739,7 @@ RELEASE_VERSION = ReleaseVersion
 
 /* vgahw module */
 # ifndef XF86VgaHw
-#  define XF86VgaHw		NO
+#  define XF86VgaHw		YES
 # endif
 /* Amiga framebuffer module */
 # ifndef XF86AFB
