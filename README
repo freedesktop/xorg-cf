@@ -176,6 +176,7 @@ X11.tmpl provides defaults for the following variables:
 	BuildAppgroup		build AppGroup extension in server
 	BuildCup		build Colormap Utilization extension in server
 	BuildDBE		build DOUBLE-BUFFER extension
+	BuildDmx		build Distributed Multihead X server and extension
 	BuildDPMS		build Display Power Management Signaling extension
 	BuildFontServer		build font server
 	BuildFonts		build pcf fonts
@@ -466,7 +467,7 @@ The following variables are used by some part of the tree:
 	HtmlDir			path used by Web server for HTML and RX docs
 	CgiBinDir		path used by Web server for CGI programs
 	ProxyManager		ICE network ID to contact a running proxymngr
-	XdmxServer		build distributed multihead X server
+	XdmxServer		build Distributed Multihead X server
 
 
 Make Variables

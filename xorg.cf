@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.9 2004/06/30 20:06:51 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.10 2004/07/06 14:37:46 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -987,11 +987,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define BuildXinerama		YES
 #endif
 
-/* Build DMX extension */
-#ifndef BuildDmxExt
-# define BuildDmxExt		YES
-#endif
-
 /* Build Render extension */
 #ifndef BuildRender
 # define BuildRender		YES
@@ -1321,19 +1316,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 #ifndef XprtServer
 # define XprtServer			YES
-#endif
-
-#ifndef XdmxServer
-# define XdmxServer		YES
-#endif
-#ifndef BuildDmxDevelTools
-# define BuildDmxDevelTools	NO
-#endif
-#if BuildDmxDevelTools && BuildXResExt && !defined(BuildXResLibrary)
-# define BuildXResLibrary	YES
-#endif
-#if XdmxServer && BuildRender && !defined(BuildRenderLibrary)
-# define BuildRenderLibrary	YES
 #endif
 
 #ifndef ServerExtraDefines

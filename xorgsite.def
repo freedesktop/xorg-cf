@@ -57,9 +57,9 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * To disable building Xdmx, uncomment this.
+ * To enable building Xdmx, uncomment this.
  *
-#define XdmxServer NO
+#define XdmxServer YES
  */
 
 /*
@@ -517,12 +517,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * If you don't want to build Xinerama support, uncomment this.
  *
 #define BuildXinerama		NO
- */
-
-/*
- * If you don't want to build the dmx extension, uncomment this.
- *
-#define BuildDmxExt             NO
  */
 
 /*

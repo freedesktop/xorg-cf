@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.4 2004/06/16 09:46:14 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.5 2004/07/04 22:49:49 anholt Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -993,6 +993,10 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # ifndef TkLibDir
 #  define TkLibDir		/usr/lib64
 # endif
+#endif
+
+#ifndef BuildDmx
+#define BuildDmx	YES
 #endif
 
 #include <lnxLib.rules>

@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.12 2004/06/30 20:06:51 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.13 2004/07/04 22:49:49 anholt Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -127,16 +127,18 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildDocs
 #define BuildDocs		!BuildServersOnly
 #endif
-#ifndef BuildLibrariesForDMX
-#ifdef XdmxServer
-#define BuildLibrariesForDMX	XdmxServer
-#else
-#define BuildLibrariesForDMX	NO
+#ifndef BuildDmx
+#define BuildDmx		NO
 #endif
+#ifndef XdmxServer
+#define XdmxServer		BuildDmx
+#endif
+#ifndef BuildLibrariesForDmx
+#define BuildLibrariesForDmx	XdmxServer
 #endif
 #ifndef BuildLibraries
 #define BuildLibraries		(!BuildServersOnly || BuildClients || \
-				 BuildLibrariesForDMX)
+				 BuildLibrariesForDmx)
 #endif
 #ifndef BuildLibrariesForXServers
 #define BuildLibrariesForXServers	BuildServer
@@ -350,7 +352,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildXInputLib
 #define BuildXInputLib		(BuildXInputExt && \
-				 (!BuildServersOnly || BuildLibrariesForDMX))
+				 (!BuildServersOnly || BuildLibrariesForDmx))
 #endif
 #ifndef BuildEVI
 #define BuildEVI		YES
@@ -447,11 +449,12 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildXineramaLibrary
 #define BuildXineramaLibrary	(BuildXinerama && !BuildServersOnly)
 #endif
-#ifndef BuildDmxExt
-#define BuildDmxExt		XdmxServer
+#ifndef BuildDmxDevelTools
+#define BuildDmxDevelTools	NO
 #endif
 #ifndef BuildDmxLibrary
-#define BuildDmxLibrary		(BuildDmxExt && !BuildServersOnly)
+#define BuildDmxLibrary		(BuildDmx && \
+				 (!BuildServersOnly || BuildDmxDevelTools))
 #endif
 #ifndef BuildXCSecurity
 #define BuildXCSecurity		YES
@@ -530,7 +533,8 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildXResExt            NO
 #endif
 #ifndef BuildXResLibrary
-#define BuildXResLibrary        (BuildXResExt && !BuildServersOnly)
+#define BuildXResLibrary        (BuildXResExt && \
+				 (!BuildServersOnly || BuildDmxDevelTools))
 #endif
 #ifndef BuildXvExt
 #define BuildXvExt		NO
@@ -595,7 +599,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildRender		YES
 #endif
 #ifndef BuildRenderLibrary
-#define BuildRenderLibrary	!BuildServersOnly
+#define BuildRenderLibrary	(XdmxServer || !BuildServersOnly)
 #endif
 #ifndef BuildXftLibrary
 #define BuildXftLibrary		BuildRenderLibrary
