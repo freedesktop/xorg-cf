@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.18 2005/01/10 19:18:59 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.19 2005/01/12 20:15:52 krh Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -322,6 +322,15 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # else
 #  define XF86INT10_BUILD	X86EMU_GENERIC
 # endif
+#endif
+
+/* 
+ * Let the OS restore console fonts instead of the generic VGA
+ * layer. This exists for Linux only at the moment so put it
+ * here.
+ */
+#ifndef DoOSFontRestore
+# define DoOSFontRestore YES
 #endif
 
 /* The DRM module requires kernel services that appeared in late 2.1.x
