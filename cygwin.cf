@@ -2,10 +2,10 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 
 /* Cygwin/X vendor strings and version */
 #ifndef CygxVersionMajor
-# define CygxVersionMajor 4
+# define CygxVersionMajor 6
 #endif
 #ifndef CygxVersionMinor
-# define CygxVersionMinor 4
+# define CygxVersionMinor 7
 #endif
 #ifndef CygxVersionPico
 # define CygxVersionPico 0
@@ -375,15 +375,36 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #define ExtraFilesToClean	*.obj *.orig *.rej junk.c *.exe *.dll *.lib *~
 
 /* Flags for which the default in X11.tmpl is not what we want. */
-#define BuildXinerama		NO	/* Not supported by XWin Server */
-#define BuildXIE		NO	/* Deprecated */
-#define BuildDPMS		NO	/* Not supported by XWin Server */
-#define BuildXInputExt		YES	/* Not enabled by default */
-#define BuildRandR		NO	/* Not supported by XWin Server */
-#define BuildXF86BigfontExt	YES	/* Not enabled by default */
-#define BuildGlxExt		YES	/* Not enabled by default */
-#define BuildXprintLib		YES     /* Not enabled when Xprt disabled */
-#define BuildXterm		NO	/* Built separately on Cygwin */
+#ifndef BuildXinerama
+# define BuildXinerama		NO	/* Not supported by XWin Server */
+#endif
+#ifndef BuildXIE
+# define BuildXIE		NO	/* Deprecated */
+#endif
+#ifndef BuildDPMS
+# define BuildDPMS		NO	/* Not supported by XWin Server */
+#eneif
+#ifndef BuildXInputExt
+# define BuildXInputExt		YES	/* Not enabled by default */
+#endif
+#ifndef BuildRandR
+# define BuildRandR		NO	/* Not supported by XWin Server */
+#endif
+#ifndef BuildXF86BigfontExt
+# define BuildXF86BigfontExt	YES	/* Not enabled by default */
+#endif
+#ifndef BuildGlxExt
+# define BuildGlxExt		YES	/* Not enabled by default */
+#endif
+#ifndef BuildXprintLib
+# define BuildXprintLib		YES     /* Not enabled when Xprt disabled */
+#endif
+#ifndef BuildXterm
+# define BuildXterm		NO	/* Built separately on Cygwin */
+#endif
+#ifndef BuildXResExt
+# define BuildXResExt		YES	/* Not enabled by default */
+#endif
 
 /* Server build rules */
 #ifndef XnestServer
