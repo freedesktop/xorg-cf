@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.31 2004/10/18 14:21:44 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.32 2004/10/18 14:26:35 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -1203,17 +1203,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 
 #ifndef HasMTRRSupport
 # define HasMTRRSupport		NO
-#endif
-
-/*
- * The expiry date for beta versions
- *
- * 853286400 is Wed Jan 15 00:00:00 1997 GMT
- * 855964800 is Sat Feb 15 00:00:00 1997 GMT
- * 866332800 is Sun Jun 15 00:00:00 1997 GMT
- */
-#ifndef XorgServerExpiry
-# define XorgServerExpiry 0
 #endif
 
 /*

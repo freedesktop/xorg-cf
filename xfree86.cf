@@ -1648,17 +1648,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 
 /*
- * The expiry date for beta versions
- *
- * 853286400 is Wed Jan 15 00:00:00 1997 GMT
- * 855964800 is Sat Feb 15 00:00:00 1997 GMT
- * 866332800 is Sun Jun 15 00:00:00 1997 GMT
- */
-#ifndef XF86ServerExpiry
-# define XF86ServerExpiry 866332800
-#endif
-
-/*
  * Build the font server
  */
 #ifndef BuildFontServer
