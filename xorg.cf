@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.35 2005/01/04 17:27:26 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.36 2005/01/10 18:38:30 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -1562,6 +1562,12 @@ XFREE86JAPANESEDOCDIR = $(DOCDIR)/Japanese
 #if HasGcc2 && defined(Ppc64Architecture)
 # ifndef DefaultGcc2Ppc64Opt
 #  define DefaultGcc2Ppc64Opt -O2 GccAliasingArgs
+# endif
+#endif
+
+#if HasGcc2 && defined(MipsArchitecture)
+# ifndef DefaultGcc2MipsOpt
+#  define DefaultGcc2MipsOpt -O2 GccAliasingArgs
 # endif
 #endif
 
