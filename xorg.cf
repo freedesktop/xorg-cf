@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.30 2004/10/04 21:10:42 ago Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.31 2004/10/18 14:21:44 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -744,11 +744,7 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-# if HasGlide3
-#  define TdfxDriDriver		
-# else
-#  define TdfxDriDriver		/**/
-# endif
+# define TdfxDriDriver		/**/
 # ifndef DriDrivers
 #  define DriDrivers		gamma r128
 # endif

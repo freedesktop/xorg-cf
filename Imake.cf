@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.3 2004/07/24 16:32:39 herrb Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.4 2004/08/11 21:14:01 kem Exp $
 XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
 /*
  * To add support for another platform:
@@ -825,11 +825,11 @@ XCOMM Keep cpp from replacing path elements containing i486/i586/i686
 #  define Mc68020Architecture
 #  undef mc68000
 # endif /* mc68000 */
-# ifdef powerpc
+# if defined (powerpc) && !defined(__powerpc64__) && !defined (powerpc64)
 #  define PpcArchitecture
 #  undef powerpc
 # endif
-# ifdef __powerpc__
+# if defined (__powerpc__) && !defined(__powerpc64__) && !defined (powerpc64)
 #  ifndef PpcArchitecture
 #   define PpcArchitecture
 #  endif

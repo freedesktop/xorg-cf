@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.13 2004/08/11 21:14:01 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.14 2004/09/15 18:37:39 gisburn Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -585,7 +585,15 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #    define CcCmd		gcc -m32
 #   endif
 #   ifndef CplusplusCmd
-#    define CplusplusCmd		c++ -m32
+#    define CplusplusCmd	c++ -m32
+#   endif
+#  endif
+#  if defined (Ppc64Architecture)
+#   ifndef CcCmd
+#    define CcCmd		gcc -m64
+#   endif
+#   ifndef CplusplusCmd
+#    define CplusplusCmd	c++ -m64
 #   endif
 #  endif
 #  ifndef CcCmd
@@ -629,7 +637,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #    endif
 #   endif
 #  endif
-# else
+# else /* UseElfFormat */
 #  ifdef AlphaArchitecture
 #   define CcCmd		gcc -b alpha-linuxecoff
 #   define CplusplusCmd		g++ -b alpha-linuxecoff
