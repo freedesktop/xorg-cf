@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.28 2004/09/17 03:04:49 ajax Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.29 2004/10/02 20:22:42 volodya Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -11,13 +11,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 /* Get and set version information. */
 
 #include "date.def"
-
-#define XORG_VERSION_MAJOR  6
-#define XORG_VERSION_MINOR  8
-#define XORG_VERSION_PATCH  1
-#define XORG_VERSION_SNAP   99
-
-#define XORG_DATE "2 October 2004 + cvs"
+#include "xorgversion.def"
 
 #if !defined(XorgVersionString) && \
     defined(XORG_VERSION_MAJOR) && defined(XORG_VERSION_MINOR) && \
