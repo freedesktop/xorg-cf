@@ -1,5 +1,5 @@
 XCOMM $Xorg: xf86.tmpl,v 1.3 2000/08/17 19:41:48 cpqbld Exp $
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/xorg.tmpl,v 1.2 2004/04/23 18:41:59 eich Exp $
 
 #ifndef ConfigDefines
 # define ConfigDefines -D__XCONFIGFILE__='"$(XCONFIGFILE)"' \
@@ -59,23 +59,17 @@ BUILDERADDR = "xorg@freedesktop.org"
  * of Imakefile (include <Server.tmpl>)
  */
 
-#ifndef HasGccStackProtector
-#define HasGccStackProtector	NO
+#ifndef ProPoliceSupport
+#define ProPoliceSupport	O
 #endif
-
-#if HasGccStackProtector
-MODULE_GCC_FLAGS1 = -fno-stack-protector
-#endif 
 
 #ifndef HasGccMergeConstants
 #define HasGccMergeConstants	NO
 #endif
 
 #if HasGccMergeConstants && DoLoadableServer && !MakeDllModules
-MODULE_GCC_FLAGS2 = -fno-merge-constants
+MODULE_GCC_FLAGS = -fno-merge-constants
 #endif
-
-MODULE_GCC_FLAGS = $(MODULE_GCC_FLAGS1) $(MODULE_GCC_FLAGS2)
 
 #if defined(IHaveModules) && MakeDllModules
 MODULE_PIC_FLAGS = $(PICFLAGS)

@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.5 2004/07/24 16:32:39 herrb Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.7 2004/09/26 17:06:45 herrb Exp $
 XCOMM
 
 #ifndef OSName
@@ -148,10 +148,6 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define UseGas			YES
 #define GnuCpp			YES
 
-#ifndef HasGccStackProtector	
-#define HasGccStackProtector	NO
-#endif
-
 #define UseGnuMalloc		NO
 
 #define NeedConstPrototypes	YES
@@ -182,9 +178,9 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #  define DefaultCCOptions	$(COPTS)
 #else
 #  ifdef  PpcArchitecture
-#    define DefaultCCOptions	-ansi -fsigned-char GccWarningOptions
+#    define DefaultCCOptions	-fsigned-char GccWarningOptions
 #  else
-#    define DefaultCCOptions 	-ansi GccWarningOptions
+#    define DefaultCCOptions 	GccWarningOptions
 #  endif
 #endif
 #endif
@@ -207,7 +203,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
  * (This introduces an ABI change)
  */
 #ifndef OverrideShlibRevs
-# define OverrideShlibRevs     HasGccStackProtector
+# define OverrideShlibRevs     ProPoliceSupport
 #endif
 
 #define XawI18nDefines	-DUSE_XWCHAR_STRING -DUSE_XMBTOWC
@@ -651,7 +647,6 @@ install:: fonts.alias							@@\
 # define ServerOSDefines       -DDDXOSINIT
 # define BootstrapCFlags       -Dsun3
 # define UnalignedReferencesAllowed	YES /* changes _XtCopyArgs() */
-/* Note: -ansi turns off -Dmc68000 */
 # define ServerExtraDefines    GccGasOption -Dmc68000 -Dmc68020 \
 				-DXFree86Server -DINCLUDE_CG2_HEADER
 

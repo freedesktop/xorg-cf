@@ -64,6 +64,10 @@ XCOMM the platform-specific parameters - edit site.def to change
 # define HasClearmake NO
 #endif
 
+#ifndef ProPoliceSupport
+#define ProPoliceSupport NO
+#endif
+
 /*
  * ClearmakeOSName - insert the current OS type into the clearmake
  * build script, so .o files from different platforms cannot be winked in.
