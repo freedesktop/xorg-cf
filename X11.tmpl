@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.12 2004/04/15 10:13:10 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.13 2004/04/21 10:03:12 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -4139,7 +4139,7 @@ install::											@@\
 #ifndef InstallXpPMFFontsDir
 #define InstallXpPMFFontsDir(destmodelfontdir)			@@\
 install::							@@\
-	(cd $(DESTDIR)destmodelfontdir ; $(DESTDIR)$(BINDIR)/mkfontscale -b -s -l)
+	($(MKFONTSCALE) -b -s -l $(DESTDIR)destmodelfontdir)
 #endif /* InstallXpPMFFontsDir */
 
 
