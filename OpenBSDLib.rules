@@ -7,7 +7,7 @@ XCOMM $OpenBSD: OpenBSDLib.rules,v 1.1 2000/10/09 20:43:58 matthieu Exp $
  * OpenBSD shared library rules
  */
 
-XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.5 2003/02/17 21:46:44 herrb Exp $
+XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.10 2003/10/31 20:49:03 herrb Exp $
 
 #ifndef UseElfFormat
 #define UseElfFormat NO
@@ -53,7 +53,10 @@ XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.5 2003/02/17 21:46:44 herrb Ex
 #define ExtraLoadFlags -Wl,-rpath,$(USRLIBDIRPATH) -Wl,-rpath-link,$(BUILDLIBDIR)
 #endif
 #endif
+#ifndef HardCodeLibdirFlag
+#define HardCodeLibdirFlag -Wl,-rpath,$(USRLIBDIRPATH)
 #endif
+#endif /* UseElfFormat */
 
 /*
  * InstallSharedLibrary - generate rules to install the shared library.
@@ -80,12 +83,6 @@ install:: Concat(lib,libname.so.rev) 					@@\
  * the library gone for long periods.
  */
 #ifndef SharedLibraryTarget
-#ifdef UseInstalled  
-#define LinkBuildSonameLibrary(lib) true
-#else
-#define LinkBuildSonameLibrary(lib) (RemoveFile($(BUILDLIBDIR)/lib); \
-	cd $(BUILDLIBDIR); $(LN) $(BUILDINCTOP)/$(CURRENT_DIR)/lib .)
-#endif
 
 #define SharedLibraryTarget(libname,rev,solist,down,up)			@@\
 AllTarget(Concat(lib,libname.so.rev))					@@\
@@ -138,6 +135,22 @@ clean::									@@\
 	$(RM) name
 
 #endif /* SharedDepModuleTarget */
+
+#ifndef SharedDriModuleTarget
+#define SharedDriModuleTarget(name,deps,solist)				@@\
+AllTarget(name)								@@\
+									@@\
+name: deps								@@\
+	$(RM) $@~ $@.map						@@\
+	$(CC) -o $@~  $(SHLIBLDFLAGS) solist $(REQUIREDLIBS) BaseShLibReqs @@\
+	$(RM) $@ $@.map							@@\
+	$(MV) $@~ $@							@@\
+									@@\
+clean::									@@\
+	$(RM) name							@@\
+	$(RM) name.map
+
+#endif /* SharedDriModuleTarget */
 
 /*
  * SharedLibraryDataTarget - generate rules to create shlib data file;
