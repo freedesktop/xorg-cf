@@ -401,6 +401,12 @@
 #ifndef BuildXResExt
 # define BuildXResExt		YES	/* Not enabled by default */
 #endif
+#ifndef BuildFreeType
+# define BuildFreeType		YES	/* Not enabled by default */
+#endif
+#ifndef BuildXTrueType
+# define BuildXTrueType		YES	/* Not enabled by default */
+#endif
 
 /* Server build rules */
 #ifndef XnestServer
