@@ -1580,7 +1580,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
  * Include fonts support
  */
 #ifndef BuildSpeedo
-# define BuildSpeedo		YES
+# define BuildSpeedo		NO
 #endif
 
 #ifndef BuildType1
@@ -1609,7 +1609,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define Build100DpiFonts	YES
 #endif
 #ifndef BuildSpeedoFonts
-# define BuildSpeedoFonts	YES
+# define BuildSpeedoFonts	NO
 #endif
 #ifndef BuildType1Fonts
 # define BuildType1Fonts	YES
