@@ -287,7 +287,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 # define XWinMultiWindowDefines 
 #endif /* BuildXWinMultiWindow */
 #if BuildXWinMultiWindowExtWM
-# define XWinMultiWindowExtWMDefines -DXWIN_MUTLIWINDOWEXTWM
+# define XWinMultiWindowExtWMDefines -DXWIN_MULTIWINDOWEXTWM
 #else /* BuildXWinMultiWindowExtWM */
 # define XWinMultiWindowExtWMDefines 
 #endif /* BuildXWinMultiWindowExtWM */
@@ -325,7 +325,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				XWinEmulatePseudoDefines \
 				XWinUpdateStatsDefines \
 				XWinClipboardDefines XWinMultiWindowDefines \
-				XWINMULTIWINDOWEXTWMDEFINES \
+				XWinMultiWindowExtWMDefines \
 				-DDDXBEFORERESET
 #define ServerOSDefines		-DDDXTIME -DDDXOSINIT \
 				-DDDXOSVERRORF -DDDXOSFATALERROR
