@@ -1,5 +1,5 @@
 XCOMM platform:  $Xorg: FreeBSD.cf,v 1.3 2000/08/17 19:41:45 cpqbld Exp $
-XCOMM platform:  $XdotOrg: xc/config/cf/FreeBSD.cf,v 1.1.4.4 2003/12/26 21:33:10 kaleb Exp $
+XCOMM platform:  $XdotOrg: xc/config/cf/FreeBSD.cf,v 1.1.4.5 2004/02/23 21:31:43 kaleb Exp $
 XCOMM
 XCOMM
 XCOMM
@@ -393,6 +393,14 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #ifndef HasPam
 #define HasPam		YES
 #endif
+#endif
+
+#ifndef HasExpat
+# define HasExpat		YES
+#endif
+
+#ifndef HasFreetype2
+# define HasFreetype2		YES
 #endif
 
 #undef  InstallCmd
