@@ -1,0 +1,7 @@
+#define HasVarDirectory    NO
+#define BuildServer  YES
+#define XVirtualFramebufferServer YES
+#define BuildPexExt YES
+
+#define XprtServer YES
+#define BuildFonts NO
