@@ -1,4 +1,5 @@
-XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.97 2003/11/19 04:43:59 dawes Exp $
+XCOMM $XdotOrg$
+XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.99 2003/11/23 21:29:00 herrb Exp $
 XCOMM
 
 #ifndef OSName
@@ -879,13 +880,15 @@ install:: fonts.alias							@@\
 #  define HasPosixThreads		YES
 #  define ThreadedX			YES
 #  define SystemMTDefines		/**/
-#  define BuildThreadStubLibrary	YES 
+#  define BuildThreadStubLibrary	YES
 #  define NeedUIThrStubs		YES
 #  define ThreadsCompileFlag		-pthread
 #  define ThreadsLibraries		-pthread
 #  define SharedX11Reqs			$(LDPRELIBS) $(XTHRSTUBLIB)
 #  define SharedXtReqs			$(LDPRELIB) $(XONLYLIB) $(SMLIB) \
 					$(ICELIB) $(XTHRSTUBLIB)
+#else
+#  define ThreadedX			NO
 #endif
 
 
