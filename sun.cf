@@ -75,6 +75,8 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #endif
 
 #if HasSunC 
+#define DefaultCDebugFlags	-xO4
+#define OptimizedCDebugFlags	-xO4
 # ifndef CCompilerMajorVersion
 #  define CCompilerMajorVersion DefaultSunProCCompilerMajorVersion
 # endif
