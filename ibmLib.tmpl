@@ -1,5 +1,5 @@
 XCOMM $Xorg: ibmLib.tmpl,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
-XCOMM $XdotOrg: xc/config/cf/ibmLib.tmpl,v 1.2 2004/04/23 18:41:58 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/ibmLib.tmpl,v 1.3 2004/08/16 16:36:13 krh Exp $
 
 /*
  * AIX shared library template
@@ -54,6 +54,10 @@ XCOMM $XFree86: xc/config/cf/ibmLib.tmpl,v 1.3tsi Exp $
 #define SharedFontencReqs	$(BUILDLIBDIR)/libz.a
 #define SharedXfontcacheReqs	$(XLIB)
 #define SharedXfontReqs	stubs/libfntstubs.a $(FREETYPE2LIB)
+#define SharedXfixesReqs	$(XONLYLIB)
+#define SharedXdamageReqs	$(XONLYLIB)
+#define SharedXcompositeReqs	$(XONLYLIB)
+#define SharedXevieReqs		$(XONLYLIB) $(EXTENSIONLIB)
 
 #define SharedXReqs	$(XTOOLLIB) $(XPLIB) $(XLIB) SharedThreadReqs
 #define SharedXmReqs	$(LDPRELIBS) SharedXReqs
