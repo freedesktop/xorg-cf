@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.19 2005/01/12 20:15:52 krh Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.20 2005/01/14 18:42:25 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -331,6 +331,13 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
  */
 #ifndef DoOSFontRestore
 # define DoOSFontRestore YES
+#endif
+
+/* Should we check the OS version to determine if the kernel supports it? */
+#if DoOSFontRestore
+# ifndef FontRestoreCheckOsVersion
+#  define FontRestoreCheckOsVersion YES
+# endif
 #endif
 
 /* The DRM module requires kernel services that appeared in late 2.1.x
