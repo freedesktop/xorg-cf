@@ -1,7 +1,7 @@
 /*
  * GNU/Hurd shared library rules
  *
- * $XFree86$
+ * $XFree86: xc/config/cf/gnuLib.rules,v 1.10 2004/01/27 01:37:39 dawes Exp $
  */
 
 /*

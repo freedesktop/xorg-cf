@@ -1,4 +1,4 @@
-XCOMM $XFree86$
+XCOMM $XFree86: xc/config/cf/cygwin.rules,v 3.28 2003/12/24 18:58:41 dickey Exp $
 
 /*
  * Cygwin shared library rules (DLL versions)
