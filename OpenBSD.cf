@@ -411,7 +411,7 @@ install:: fonts.alias							@@\
 # endif
 
 /* Definitions for building the XFree86 server */
-# if XF86Server
+# if XorgServer
 #   ifndef HasNetBSDApertureDriver
 #     define HasNetBSDApertureDriver	YES
 #   endif
@@ -427,7 +427,7 @@ install:: fonts.alias							@@\
 #   endif
 #   define UseMatroxHal		NO	/* Matrox HAL is i386 only */
 
-# endif /* XF86Server */
+# endif /* XorgServer */
 
 # include <xorg.cf>
 
@@ -716,12 +716,12 @@ install:: fonts.alias							@@\
 #  endif
 # endif
 
-# ifndef XF86Server
-#   define XF86Server		YES
+# ifndef XorgServer
+#   define XorgServer		YES
 # endif
 
 /* Definitions for building the X server */
-# if XF86Server
+# if XorgServer
 #   define ServerOSDefines	XFree86ServerOSDefines \
 				-DDDXTIME -DDDXOSINIT
 #   define ServerExtraDefines	GccGasOption XFree86ServerDefines
@@ -743,7 +743,7 @@ install:: fonts.alias							@@\
 #     define UsbMouseSupport		YES
 #   endif
 
-# endif /* XF86Server */
+# endif /* XorgServer */
 
 # include <xorg.cf>
 
@@ -806,8 +806,8 @@ install:: fonts.alias							@@\
 #  define HasWeakSymbols	YES
 # endif
 
-# ifndef XF86Server
-#  define XF86Server		YES
+# ifndef XorgServer
+#  define XorgServer		YES
 # endif
 
 # define ServerExtraDefines	GccGasOption -D_XSERVER64 XFree86ServerDefines
@@ -815,7 +815,7 @@ install:: fonts.alias							@@\
 				-DDDXTIME -DDDXOSINIT
 # define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
 
-# if XF86Server
+# if XorgServer
 #   ifndef DoLoadableServer
 #     define DoLoadableServer	NO
 #   endif

@@ -42,14 +42,14 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 
 /* X.Org release string */
 #ifndef XOrgReleaseString
-#define XOrgReleaseString	Release 6.6
+#define XOrgReleaseString	Release 6.7
 #endif
 
 #ifndef XOrgManNameString
 #define XOrgManNameString	X Version 11
 #endif
 #ifndef XOrgNameString
-# define XOrgNameString   The X.Org Foundation L.L.C.
+# define XOrgNameString   The X.Org Foundation
 #endif
 #ifndef XOrgNameStringShort
 # define XOrgNameStringShort   X.Org
@@ -58,7 +58,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 # define XOrgStdFilePrefix     xorg
 #endif
 #ifndef XOrgWebSupportAddress
-# define XOrgWebSupportAddress http://wiki.X.org
+# define XOrgWebSupportAddress http://wiki.X.Org
 #endif
 
 #ifndef XOrgManDefs
@@ -84,12 +84,6 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 # define XVendorStdFilePrefix XOrgStdFilePrefix
 #endif
 
-VENDORMANNAME = XVendorManNameString
-VENDORMANVERSION = XVendorManVersionString
-VENDORNAME = XVendorNameString
-VENDORNAMESHORT = XVendorNameStringShort
-VENDORWEBSUPPORT = XVendorWebSupportAddress
-
 #ifndef VendorManDefs
 #define VendorManDefs -D__vendorversion__="$(VENDORMANVERSION) $(VENDORMANNAME)"
 #endif
@@ -98,6 +92,11 @@ VENDORWEBSUPPORT = XVendorWebSupportAddress
 #define VendorDefines -DXVENDORNAME='"$(VENDORNAME)"' -DXVENDORNAMESHORT='"$(VENDORNAMESHORT)"'
 #endif
 
+#ifndef VendorSupportDefines
+# if defined XVendorWebSupport
+#  define VendorSupportDefines -D__VENDORDWEBSUPPORT__='"$(VENDORWEBSUPPORT)"'
+# endif
+#endif
 /*
  * X-specific things
  */
@@ -1679,9 +1678,17 @@ XCOMM X Window System make variables; these need to be coordinated with rules
 #ifdef X11ProjectRoot
      XPROJECTROOT = X11ProjectRoot
 #endif
-
+    VENDORMANNAME = XVendorManNameString
+ VENDORMANVERSION = XVendorManVersionString
       XORGMANDEFS = XOrgManDefs
     VENDORMANDEFS = VendorManDefs
+       VENDORNAME = XVendorNameString
+  VENDORNAMESHORT = XVendorNameStringShort
+
+#if defined (XVendorWebSupport)
+ VENDORWEBSUPPORT = XVendorWebSupport
+#endif
+VENDORSUPPORTDEFS = VendorSupportDefines
 
       XKBDEFRULES = XkbDefaultRulesFile
   XKBDEFRULESDEFS = XkbDefRulesDefines

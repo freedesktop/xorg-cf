@@ -557,6 +557,13 @@ install::								@@\
 	MakeDir(dir)
 #endif /* InstallDirectory */
 
+#ifndef InstallCreateLink
+# define InstallCreateLink(dest,from,to)
+install:: $(DESTDIR)dest/from						@@\
+	  cd $(DESTDIR)dest && \					@@\
+	  $(LN) -sf from to
+#endif
+
 #ifndef BuildIncludesTop
 #define BuildIncludesTop(srclist)					@@\
 includes:: srclist							@@\

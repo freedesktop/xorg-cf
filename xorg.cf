@@ -92,7 +92,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #endif
 
 #ifndef XVendorString
-# define XVendorString	"The X.Org Foundation L.L.C."
+# define XVendorString	"The X.Org Foundation"
 #endif
 
 #ifndef XVendorRelease

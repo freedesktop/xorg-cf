@@ -38,12 +38,12 @@ XCOMM site:  $XFree86: xc/config/cf/site.def,v 3.24 2000/06/25 20:17:29 dawes Ex
  * Include this for easy XFree86 customisations
  */
 #ifndef SiteIConfigFiles
-#define SiteIConfigFiles $(IRULESRC)/xf86site.def $(IRULESRC)/host.def
+#define SiteIConfigFiles $(IRULESRC)/xorgsite.def $(IRULESRC)/host.def
 #endif
 
 #include <host.def>
 
-#include <xf86site.def>
+#include <xorgsite.def>
 
 /* On systems where cpp doesn't correctly expand macros in include directives
  * the two following macros need to be defined directly (where "X11" is
