@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.34 2004/12/14 01:41:58 nolan Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.35 2005/01/04 17:27:26 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -448,7 +448,7 @@ RELEASE_VERSION = ReleaseVersion
 				neomagic tdfx savage cirrus tseng trident \
 				chips apm i128 ati ark cyrix siliconmotion \
 				vga dummy vesa i810 vmware \
-				XF86OSCardDrivers XF86ExtraCardDrivers
+				XF86OSCardDrivers XF86ExtraCardDrivers DevelDrivers
 # endif
 
 /* The tdfx driver needs Glide, which is not available for AMD64.  SiS is 64-bit
