@@ -329,8 +329,6 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #    define BuildXF86DRI	NO
 #  elif defined(PpcArchitecture)
 #    define BuildXF86DRI	YES
-#  elif defined(Ppc64Architecture)
-#    define BuildXF86DRI	NO
 #  elif defined(s390Architecture) || defined(s390xArchitecture)
 #    define BuildXF86DRI	NO
 #  elif defined(SparcArchitecture)
@@ -529,7 +527,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #define MkdirHierCmd		mkdir -p
 
 #ifndef HaveLib64
-# if defined (AMD64Architecture) || defined (s390xArchitecture) || defined (Ppc64Architecture)
+# if defined (AMD64Architecture) || defined (s390xArchitecture)
 #  define HaveLib64	YES
 # else
 #  define HaveLib64	NO
@@ -835,16 +833,6 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME
 # define ServerExtraDefines	-DGCCUSESGAS XFree86ServerDefines
 #endif
-
-#ifdef Ppc64Architecture
-# define DefaultCCOptions	-fsigned-char -mminimal-toc
-# ifndef OptimizedCDebugFlags
-#  define OptimizedCDebugFlags	DefaultGcc2Ppc64Opt
-# endif
-# define LinuxMachineDefines	-D__powerpc64__ -D__powerpc__
-# define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME -DPART_NET
-# define ServerExtraDefines	-DGCCUSESGAS XFree86ServerDefines -D_XSERVER64
-#endif /* Ppc64Architecture */
 
 #ifdef PpcArchitecture
 # define DefaultCCOptions	-fsigned-char
