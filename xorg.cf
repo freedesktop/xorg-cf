@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.18 2004/08/12 05:11:57 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.19 2004/08/12 14:35:55 krh Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -1409,9 +1409,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 #ifndef XVirtualFramebufferServer
 # define XVirtualFramebufferServer	YES
-#endif
-#ifndef XprtServer
-# define XprtServer			YES
 #endif
 
 #ifndef ServerExtraDefines

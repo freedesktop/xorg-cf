@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.24 2004/08/11 23:01:30 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.25 2004/08/12 13:08:25 krh Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -473,7 +473,11 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildPlugin		HasPlugin
 #endif
 #ifndef XprtServer
-#define XprtServer		BuildServer
+# ifdef BuildXprint
+#  define XprtServer		(BuildServer && BuildXprint)
+# else
+#  define XprtServer		BuildServer
+# endif
 #endif
 #ifndef XpRasterDDX
 #define XpRasterDDX             YES
