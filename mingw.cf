@@ -98,7 +98,8 @@
 
 #define HasSockets		NO
 #define GzipFontCompression	YES
-#define HasZlib			YES
+#define HasZlib			NO
+#define HasFreetype2	NO
 
 /* We don't need -lm */
 #define MathLibrary		/**/
