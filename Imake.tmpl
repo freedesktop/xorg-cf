@@ -1659,59 +1659,6 @@ TCLIBDIR = TclLibDir
 # endif
 #endif
 
-#ifdef CrossCompileDir
-# ifndef StripPath
-#  define StripPath(x) `echo x|sed "s%.*/%%"`
-# endif
-# ifndef CrossArCmd
-#  define CrossArCmd Concat3(CrossCompileDir,/,StripPath(ArCmd))
-# endif
-# ifndef CrossCcCmd
-#  define CrossCcCmd Concat3(CrossCompileDir,/,StripPath(CcCmd))
-# endif
-# ifndef CrossAsCmd
-#  define CrossAsCmd Concat3(CrossCompileDir,/,StripPath(AsCmd))
-# endif
-# ifdef HasFortran
-#  ifndef CrossFortranCmd
-#   define CrossFortranCmd Concat3(CrossCompileDir,/,StripPath(FortranCmd))
-#  endif
-# endif
-# ifndef CrossCplusplusCmd
-#  define CrossCplusplusCmd Concat3(CrossCompileDir,/,StripPath(CplusplusCmd))
-# endif
-# ifndef CrossCppCmd
-#  define CrossCppCmd Concat3(CrossCompileDir,/,StripPath(CppCmd))
-# endif
-# ifndef CrossRawCppCmdCmd
-#  define CrossRawCppCmd Concat3(CrossCompileDir,/,StripPath(RawCppCmd))
-# endif
-# ifndef CrossPreProcessCmd
-#  define CrossPreProcessCmd Concat3(CrossCompileDir,/,StripPath(PreProcessCmd))
-# endif
-# ifndef CrossAsCmd
-#  define CrossAsCmd Concat3(CrossCompileDir,/,StripPath(AsCmd))
-# endif
-# ifndef CrossLdCmd
-#  define CrossLdCmd Concat3(CrossCompileDir,/,StripPath(LdCmd))
-# endif
-# ifndef CrossModuleLdCmd
-#  define CrossModuleLdCmd CrossLdCmd
-# endif
-# ifndef CrossLintCmd
-#  define CrossLintCmd Concat3(CrossCompileDir,/,StripPath(LintCmd))
-# endif
-# ifndef CrossRanlibCmd
-#  define CrossRanlibCmd Concat3(CrossCompileDir,/,StripPath(RanlibCmd))
-# endif
-# ifndef CrossModuleCcCmd
-#  define CrossModuleCcCmd Concat3(CrossCompileDir,/,StripPath(ModuleCcCmd))
-# endif
-# ifndef CrossAsCmd
-#  define CrossAsCmd Concat3(CrossCompileDir,/,StripPath(AsCmd))
-# endif
-#endif
-
           PATHSEP = PathSeparator
             SHELL = BourneShell
 

@@ -165,16 +165,6 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define PreProcessCmd   	CcCmd -E
 #define PostIncDir		/usr/include
 
-#ifndef UseGccMakeDepend
-#define UseGccMakeDepend	YES
-#endif
-
-#define CppCmd			cpp
-#define StandardCppOptions	-traditional
-#define StandardCppDefines	/**/
-#define PreProcessCmd   	CcCmd -E
-#define PostIncDir		/usr/include
-
 #define GccGasOption 		-DGCCUSESGAS
 #define AsmDefines 		-DUSE_GAS
 
@@ -694,51 +684,4 @@ sed 's/\.[0-9]*$$//'`
       (OSMajorVersion == 1 && OSMinorVersion > 3))
 #define HasDevRandom		YES
 #define RandomDeviceFile	/dev/urandom
-#endif
-
-/*
- * Definition for compiling on Alpha machines
- */
-#ifdef AlphaArchitecture
-
-/* Build the shared XDM greeter on Alpha if it supports shared libs */
-#define SharedLibXdmGreet HasSharedLibraries
-#endif
-
-/*
- * Definition for compile on macppc machines
- */
-#ifdef PpcArchitecture
-
-# define OptimizedCDebugFlags 	-O2
-# define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
-
-# ifndef DoLoadableServer
-#   define DoLoadableServer	YES
-# endif
-
-# define UseElfFormat		YES
-
-#endif
-
-/*
- * Definition for compiling on VAX machines
- */
-#ifdef VaxArchitecture
-#define BuildServer	NO
-#endif
-
-/* 
- * General settings for all platforms 
- */ 
-#ifndef SharedLibXdmGreet
-#define SharedLibXdmGreet NO
-#endif
-
-#ifndef BuildHtmlManPages
-#define BuildHtmlManPages NO	/* We don't want HTML manpages */
-#endif
-
-#ifndef UseSeparateConfDir
-#define UseSeparateConfDir NO	/* We don't want appdefs in "/etc/X11". */
 #endif
