@@ -20,6 +20,10 @@ XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.10 2003/10/31 20:49:03 herrb E
 #define ForceNormalLib YES
 #endif
 
+#ifndef UseRpath
+#define UseRpath YES
+#endif
+
 #ifndef BaseShLibReqs
 #define BaseShLibReqs		/* -lc implied by $(CC) */
 #endif
@@ -36,8 +40,18 @@ XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.10 2003/10/31 20:49:03 herrb E
 #ifndef ShLibIncludeFile
 #define ShLibIncludeFile <OpenBSDLib.tmpl>
 #endif
+#ifndef RpathLoadFlags
+#if UseRpath
+#define RpathLoadFlags -Wl,-rpath,$(USRLIBDIRPATH)
+#else
+#define RpathLoadFlags /**/
+#endif
+#endif
+#ifndef LibraryRpathLoadFlags
+#define LibraryRpathLoadFlags RpathLoadFlags
+#endif
 #ifndef SharedLibraryLoadFlags
-#define SharedLibraryLoadFlags -shared PositionIndependentCFlags -Wl,-rpath,$(USRLIBDIR)
+#define SharedLibraryLoadFlags -shared PositionIndependentCFlags LibraryRpathLoadFlags
 #endif
 #ifndef PositionIndependentCFlags
 #define PositionIndependentCFlags -fPIC
@@ -48,13 +62,13 @@ XCOMM $XFree86: xc/config/cf/OpenBSDLib.rules,v 1.10 2003/10/31 20:49:03 herrb E
 #if UseElfFormat
 #ifndef ExtraLoadFlags
 #ifdef UseInstalled
-#define ExtraLoadFlags -Wl,-rpath,$(USRLIBDIRPATH)
+#define ExtraLoadFlags RpathLoadFlags
 #else
-#define ExtraLoadFlags -Wl,-rpath,$(USRLIBDIRPATH) -Wl,-rpath-link,$(BUILDLIBDIR)
+#define ExtraLoadFlags RpathLoadFlags -Wl,-rpath-link,$(BUILDLIBDIR)
 #endif
 #endif
 #ifndef HardCodeLibdirFlag
-#define HardCodeLibdirFlag -Wl,-rpath,$(USRLIBDIRPATH)
+#define HardCodeLibdirFlag RpathLoadFlags
 #endif
 #endif /* UseElfFormat */
 

@@ -1,4 +1,4 @@
-XCOMM platform:  $XFree86: xc/config/cf/darwin.cf,v 1.46 2003/11/18 19:00:14 torrey Exp $
+XCOMM platform:  $XFree86: xc/config/cf/darwin.cf,v 1.50 2004/01/20 23:54:50 torrey Exp $
 
 /* Darwin / Mac OS X configuration by John Carmack <johnc@idsoftware.com> */
 
@@ -25,21 +25,23 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
  * Define the operating system's capabilities
  */
 #define HasSnprintf             YES
-#define HasStrlcat		YES
 #define HasPutenv               YES
 #define HasBSD44Sockets         YES
 #define Malloc0ReturnsNull      NO
 #define HasShadowPasswd         NO
 #define HasUsableFileMmap       YES
 #define HasZlib                 YES
-#define HasArc4Random		YES
 #ifndef HasShm
 # define HasShm                 YES
 #endif
 #define HasNdbm                 YES
 #if OSMajorVersion >= 6
 # define HasNCurses             YES
+# define HasArc4Random          YES
+# define HasGetIfAddrs          YES
+# define HasStrlcat             YES
 #else
+# define HasBasename            NO
 # define HasNCurses             NO
 #endif
 #ifndef HasGroff
@@ -47,6 +49,11 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #endif
 #ifndef HasGcc3
 # define HasGcc3                NO
+#endif
+
+/* Older versions don't really support IPv6, but #define AF_INET6. */
+#if OSMajorVersion < 6
+# define BuildIPv6              NO
 #endif
 
 /* Thread support */
@@ -153,6 +160,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
  */
 #if OSMajorVersion >= 7
 # define CppCmd                 /usr/bin/cpp3
+# define StandardCppOptions     -traditional -D__GNUC__
 #else
 # define CppCmd                 /usr/bin/cpp
 #endif
@@ -209,17 +217,22 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 # define ByteOrder              X_LITTLE_ENDIAN
 #endif /* i386DarwinArchitecture */
 
+#if OSMajorVersion < 7
+# define DarwinLocaleDefines    -DX_LOCALE
+#else
+# define DarwinLocaleDefines    /**/
+# define XawI18nDefines         -DHAS_WCHAR_H -DHAS_WCTYPE_H -DNO_WIDEC_H
+#endif
+
 /*
  * __DARWIN__ will be used for platform specific #ifdefs that can't
  * be handled by existing X defines.
  *
  * Darwin's alloca() seg faults (rather than returning NULL) on failed
  * allocations, so we can't use it.
- *
- * Darwin's setlocale() doesn't work properly, so use X11's instead.
  */
 #define StandardDefines         DarwinMachineDefines -D__DARWIN__ \
-                                -DNO_ALLOCA -DX_LOCALE -DCSRG_BASED
+                                -DNO_ALLOCA -DCSRG_BASED DarwinLocaleDefines
 
 /*
  * Set this to NO to just build the client libs, which should work without
@@ -236,6 +249,9 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #ifndef InstallXserverSetUID
 # define InstallXserverSetUID   NO
 #endif
+
+/* disable XKB by default as it can cause problems */
+#define DfltDisableXKB          YES
 
 /* no direct graphics extension */
 #define BuildXF86DGA            NO

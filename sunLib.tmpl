@@ -1,10 +1,11 @@
 XCOMM $Xorg: sunLib.tmpl,v 1.3 2000/08/17 19:41:48 cpqbld Exp $
+XCOMM $XdotOrg: xc/config/cf/sunLib.tmpl,v 1.1.4.2.6.2 2004/03/14 03:27:09 alanc Exp $
 
 
 
 
 
-XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.13 2003/07/11 22:17:41 tsi Exp $
+XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 
 /*
  * SunOS shared library template
@@ -55,6 +56,7 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.13 2003/07/11 22:17:41 tsi Exp $
 # endif
 # define SharedXmuReqs $(LDPRELIBS) $(XTOOLLIB) $(XLIB)
 # define SharedXrenderReqs $(LDPRELIB) $(XLIB)
+# define SharedXfontReqs $(LDPRELIB) $(FREETYPE2LIB) GzipLibrary -lsocket MathLibrary -lc
 # define FixupLibReferences() /**/
 
 # define SharedPamReqs -ldl

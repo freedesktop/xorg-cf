@@ -135,7 +135,7 @@ XCOMM $XFree86: xc/config/cf/svr3.cf,v 3.15 2002/08/19 03:16:31 tsi Exp $
 
 #ifndef ServerOSDefines
 # ifdef i386Architecture
-#  define ServerOSDefines -DDDXTIME XFree86ServerOSDefines -DPART_NET
+#  define ServerOSDefines -DDDXTIME XFree86ServerOSDefines
 # else
 #  define ServerOSDefines -DDDXTIME
 # endif

@@ -200,7 +200,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define StandardCppOptions	-traditional
 #define StandardCppDefines	StandardDefines
 #if defined(i386Architecture) || defined(PpcArchitecture)
-# define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME -DPART_NET
+# define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME
 # define ServerExtraDefines	-DGCCUSESGAS XFree86ServerDefines
 # if OSMajorVersion == 2 && OSMinorVersion < 5
 #  define XkbServerDefines      -DNEED_POPEN_WORKAROUND

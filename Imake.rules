@@ -1,6 +1,7 @@
 XCOMM ---------------------------------------------------------------------
 XCOMM Imake rules for building libraries, programs, scripts, and data files
 XCOMM rules:  $Xorg: Imake.rules,v 1.3 2000/08/17 19:41:46 cpqbld Exp $
+XCOMM rules:  $XdotOrg: xc/config/cf/Imake.rules,v 1.1.4.3.6.2 2004/03/14 03:27:09 alanc Exp $
 XCOMM
 XCOMM
 XCOMM
@@ -188,6 +189,7 @@ XCOMM rules:  $XFree86: xc/config/cf/Imake.rules,v 3.128 2003/11/15 03:25:17 daw
  * DynamicModuleTarget		(module,modlist)
  * InstallDynamicModule		(module,dest,subdir)
  * InstallDynamicNamedModule	(module,instname,dest,subdir)
+ * LinkerRuntimeLibraryPathFlag	(path)
  *
  *
  * The following are in specific <os>Lib.rules:
@@ -1151,11 +1153,15 @@ ServerTargetWithFlags(server,subdirs,objects,libs,syslibs,$(_NOOP_))
 #define LibraryTargetNameSuffix(libname,suffix)Concat3(lib,libname,suffix.a)
 #endif
 
+#ifndef InstallNamedInline
+#define InstallNamedInline(srcname,flags,dest,dstname) $(INSTALL) $(INSTALLFLAGS) flags srcname $(DESTDIR)dest/dstname
+#endif
+
 #ifndef InstallNamedTarget
 #define InstallNamedTarget(step,srcname,flags,dest,dstname)		@@\
 step:: srcname								@@\
 	MakeDir($(DESTDIR)dest)						@@\
-	$(INSTALL) $(INSTALLFLAGS) flags srcname $(DESTDIR)dest/dstname
+	InstallNamedInline(srcname,flags,dest,dstname)
 #endif /* InstallNamedTarget */
 
 /*
@@ -1178,6 +1184,10 @@ step:: srcname								@@\
 #define InstallTarget(step,file,flags,dest)				@@\
 InstallNamedTarget(step,file,flags,dest,file)
 #endif /* InstallTarget */
+
+#ifndef InstallInline
+#define InstallInline(file,flags,dest) InstallNamedInline(file,flags,dest,file)
+#endif
 
 /*
  * InstallLibrary - generate rules to install the indicated library.
@@ -3574,3 +3584,11 @@ clean::									@@\
 #define BuildObjectFromLibrary(libname,objname) BuildObjectFromLibraryWithPath(.,libname,objname)
 #endif
 
+/*
+ * LinkerRuntimeLibraryPathFlag - defined here to be a no-op for systems that
+ * don't need it.   Overridden in system-specific config files for systems that
+ * need it, usually with something like "Concat(-R,path)"
+ */
+#ifndef LinkerRuntimeLibraryPathFlag
+# define LinkerRuntimeLibraryPathFlag(path)  /* */
+#endif
