@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.39 2005/01/11 15:02:55 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.40 2005/01/11 17:09:57 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -183,11 +183,13 @@ RELEASE_VERSION = ReleaseVersion
 #define BuildModuleInSubdir	NO
 #endif
 
-#ifndef MakeDllModules
-#define MakeDllModules		NO
-#endif
 #ifndef DoLoadableServer
 #define DoLoadableServer	NO
+#endif
+#if DoLoadableServer
+#define MakeDllModules		YES
+#else
+#define MakeDllModules		NO
 #endif 
 
 /*
