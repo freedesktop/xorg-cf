@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.27 2004/08/16 16:36:13 krh Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.28 2004/08/19 16:28:42 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -2249,6 +2249,30 @@ ProjectUnsharedLibReferences(XONLY,X11,$(XLIBSRC),XBuildLibDir)
 #define ProfileLibXcomposite	NO
 #endif
 
+#if BuildXevieLibrary
+#ifndef SharedLibXevie
+#define SharedLibXevie		HasSharedLibraries
+#endif
+#ifndef NormalLibXevie
+#define NormalLibXevie		(!SharedLibXevie || ForceNormalLib)
+#endif
+#ifndef DebugLibXevie
+#define DebugLibXevie		NO
+#endif
+#ifndef ProfileLibXevie
+#define ProfileLibXevie		NO
+#endif
+#else
+#undef  SharedLibXevie
+#define SharedLibXevie		NO
+#undef  NormalLibXevie
+#define NormalLibXevie		NO
+#undef  DebugLibXevie
+#define DebugLibXevie		NO
+#undef  ProfileLibXevie
+#define ProfileLibXevie		NO
+#endif
+
 #if BuildXcursorLibrary
 #ifndef SharedLibXcursor
 #define SharedLibXcursor	HasSharedLibraries
@@ -2643,7 +2667,7 @@ SharedLibReferences(XRENDER,Xrender,$(XRENDERLIBSRC),SOXRENDERREV,SharedXrenderR
 ProjectUnsharedLibReferences(XRENDER,Xrender,$(XRENDERLIBSRC),XBuildLibDir)
 #endif
 
-    XRANDRRLIBSRC = $(LIBSRC)/Xrandr
+    XRANDRLIBSRC = $(LIBSRC)/Xrandr
 #if SharedLibXrandr
 #ifndef SharedXrandrRev
 #define SharedXrandrRev 2.0
@@ -2653,7 +2677,7 @@ SharedLibReferences(XRANDR,Xrandr,$(XRANDRLIBSRC),SOXRANDRREV,SharedXrandrRev)
 ProjectUnsharedLibReferences(XRANDR,Xrandr,$(XRANDRLIBSRC),XBuildLibDir)
 #endif
 
-    XFIXESRLIBSRC = $(LIBSRC)/Xfixes
+    XFIXESLIBSRC = $(LIBSRC)/Xfixes
 #if SharedLibXfixes
 #ifndef SharedXfixesRev
 #define SharedXfixesRev 3.0
@@ -2663,7 +2687,7 @@ SharedLibReferences(XFIXES,Xfixes,$(XFIXESLIBSRC),SOXFIXESREV,SharedXfixesRev)
 ProjectUnsharedLibReferences(XFIXES,Xfixes,$(XFIXESLIBSRC),XBuildLibDir)
 #endif
 
-   XDAMAGERLIBSRC = $(LIBSRC)/Xdamage
+   XDAMAGELIBSRC = $(LIBSRC)/Xdamage
 #if SharedLibXdamage
 #ifndef SharedXdamageRev
 #define SharedXdamageRev 1.0
@@ -2673,7 +2697,7 @@ SharedLibReferences(XDAMAGE,Xdamage,$(XDAMAGELIBSRC),SOXDAMAGEREV,SharedXdamageR
 ProjectUnsharedLibReferences(XDAMAGE,Xdamage,$(XDAMAGELIBSRC),XBuildLibDir)
 #endif
 
-XCOMPOSITERLIBSRC = $(LIBSRC)/Xcomposite
+XCOMPOSITELIBSRC = $(LIBSRC)/Xcomposite
 #if SharedLibXcomposite
 #ifndef SharedXcompositeRev
 #define SharedXcompositeRev 1.0
@@ -2683,7 +2707,17 @@ SharedLibReferences(XCOMPOSITE,Xcomposite,$(XCOMPOSITELIBSRC),SOXCOMPOSITEREV,Sh
 ProjectUnsharedLibReferences(XCOMPOSITE,Xcomposite,$(XCOMPOSITELIBSRC),XBuildLibDir)
 #endif
 
-   XCURSORRLIBSRC = $(LIBSRC)/Xcursor
+XEVIELIBSRC = $(LIBSRC)/Xevie
+#if SharedLibXevie
+#ifndef SharedXevieRev
+#define SharedXevieRev 1.0
+#endif
+SharedLibReferences(XEVIE,Xevie,$(XEVIELIBSRC),SOXEVIEREV,SharedXevieRev)
+#else
+ProjectUnsharedLibReferences(XEVIE,Xevie,$(XEVIELIBSRC),XBuildLibDir)
+#endif
+
+   XCURSORLIBSRC = $(LIBSRC)/Xcursor
 #if SharedLibXcursor
 #ifndef SharedXcursorRev
 #define SharedXcursorRev 1.0.2
