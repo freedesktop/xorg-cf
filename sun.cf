@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.7 2004/07/26 16:54:21 alanc Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.8 2004/08/15 00:58:42 krh Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -420,11 +420,14 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define Xsun24Server	  NO		/* color, mono, multiple depths */
 # endif
 # ifndef XsunServer
-#  define XsunServer	  YES		/* color and mono, 8 bit only */
+#  define XsunServer	  NO		/* color and mono, 8 bit only */
 # endif
 # ifndef XsunMonoServer
 #  define XsunMonoServer	  NO		/* monochrome only */
 # endif
+# ifndef XorgServer
+#  define XorgServer	(!(Xsun24Server || XsunServer || XsunMonoServer))
+# endif 
 # ifndef BuildPexExt
 #  define BuildPexExt	  (XsunServer || Xsun24Server)
 # endif
