@@ -1,4 +1,4 @@
-XCOMM $XFree86: xc/config/cf/cross.rules,v 1.8 2002/07/14 17:08:15 alanh Exp $
+XCOMM $XFree86$
 
 #ifndef HostCcCmd
 #define HostCcCmd cc

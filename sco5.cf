@@ -1,4 +1,4 @@
-XCOMM $XFree86: xc/config/cf/sco5.cf,v 3.16 2004/01/07 04:30:27 dawes Exp $
+XCOMM $XFree86$
 
 /*
  * This is for SCO Open Server 5.0.6A or later. You must have the

@@ -1,4 +1,4 @@
-XCOMM platform:  $XFree86: xc/config/cf/QNX4.cf,v 1.4 2002/01/07 20:38:18 dawes Exp $
+XCOMM platform:  $XFree86$
 
 #define StripInstalledPrograms	NO
 #define BuildServer 		YES

@@ -1,4 +1,4 @@
-XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.101 2004/01/09 00:35:00 dawes Exp $
+XCOMM platform:  $XFree86$
 XCOMM
 
 #ifndef OSName
