@@ -1584,7 +1584,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 
 #ifndef BuildType1
-# define BuildType1		YES
+# define BuildType1		NO
 #endif
 
 #ifndef BuildCID
