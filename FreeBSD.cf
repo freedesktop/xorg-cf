@@ -1,5 +1,5 @@
 XCOMM platform:  $Xorg: FreeBSD.cf,v 1.3 2000/08/17 19:41:45 cpqbld Exp $
-XCOMM platform:  $XdotOrg: FreeBSD.cf,v 1.3 2000/08/17 19:41:45 cpqbld Exp $
+XCOMM platform:  $XdotOrg: xc/config/cf/FreeBSD.cf,v 1.1.4.3 2003/12/20 00:28:21 kaleb Exp $
 XCOMM
 XCOMM
 XCOMM
@@ -114,7 +114,11 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
  * FreeBSD has tread-safe api but no getpwnam_r yet.
  */
 # define HasThreadSafeAPI	YES
-# define MTSafeAPIDefines	-DXUSE_MTSAFE_API -DXNO_MTSAFE_PWDAPI
+# if OSRelVersion < 501000
+#  define MTSafeAPIDefines	-DXUSE_MTSAFE_API -DXNO_MTSAFE_PWDAPI
+# else
+#  define MTSafeAPIDefines	-DXUSE_MTSAFE_API
+# endif
 # if HasLibPthread
 #  define ThreadsLibraries	-lpthread
 # else
