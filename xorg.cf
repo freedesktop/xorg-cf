@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.29 2004/10/02 20:22:42 volodya Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.30 2004/10/04 21:10:42 ago Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -430,14 +430,24 @@ RELEASE_VERSION = ReleaseVersion
 #  define XF86AFB		YES
 # endif
 
-# define DevelDrivers		/**/
+/*
+ * Drivers under development, but not ready for binary releases, or
+ * drivers included on this platform only for build testing.
+ */
+# ifndef DevelDrivers
+#  if XFree86Devel
+#   define DevelDrivers         /**/
+#  else
+#   define DevelDrivers         /**/
+#  endif
+# endif
 
 /* Pure PCI drivers should go first */
 # ifndef XF86CardDrivers
 #  define XF86CardDrivers	mga glint nv tga s3 s3virge sis rendition \
 				neomagic tdfx savage cirrus tseng trident \
 				chips apm i128 ati ark cyrix siliconmotion \
-				vga dummy vesa \
+				vga dummy vesa i810 \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 
