@@ -38,10 +38,10 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * Which servers to build.  There is now only one XFree86 server.
+ * Which servers to build.  There is only Xorg server.
  * It can be disabled by the following.
  *
-#define XF86Server		NO
+#define XorgServer		NO
  */
 
 /*

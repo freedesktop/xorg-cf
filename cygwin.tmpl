@@ -1,4 +1,4 @@
-XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.19 2003/12/24 18:58:41 dickey Exp $
+XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.18 2003/10/19 08:27:05 herrb Exp $
 
 #if UseCygIPC
 # define SharedX11Reqs		-lcygipc
@@ -9,8 +9,8 @@ XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.19 2003/12/24 18:58:41 dickey Exp $
 #define SharedOldXReqs		$(LDPRELIB) $(XONLYLIB)
 #define SharedXReqs		$(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS)
 #define SharedXtReqs		$(LDPRELIB) $(SMLIB) $(ICELIB) $(XONLYLIB)
-#define SharedXawReqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
-#define SharedXaw6Reqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define SharedXawReqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
+#define SharedXaw6Reqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
 #define SharedXmuReqs 		$(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXextReqs		$(LDPRELIB) $(XONLYLIB)
 #define SharedXiReqs		$(LDPRELIB) $(XLIB)
@@ -57,7 +57,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
 #endif
 
 

@@ -1,4 +1,4 @@
-XCOMM platform:  $XFree86: xc/config/cf/darwin.cf,v 1.51 2004/02/11 00:30:27 torrey Exp $
+XCOMM platform:  $XFree86: xc/config/cf/darwin.cf,v 1.50 2004/01/20 23:54:50 torrey Exp $
 
 /* Darwin / Mac OS X configuration by John Carmack <johnc@idsoftware.com> */
 
@@ -303,5 +303,5 @@ clean::									@@\
 #endif
 
 /* include all the XFree86 rules */
-#include <xfree86.cf>
+#include <xorg.cf>
 

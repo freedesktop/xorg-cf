@@ -1,10 +1,11 @@
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.1.4.8 2004/04/15 10:13:10 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
 
 
 
-XCOMM platform:  $XFree86: xc/config/cf/linux.cf,v 3.221 2004/01/09 00:35:00 dawes Exp $
+XCOMM platform:  $XFree86: xc/config/cf/linux.cf,v 3.220 2003/12/30 22:38:33 tsi Exp $
 
 #ifndef LinuxElfDefault
 # define LinuxElfDefault	YES
@@ -204,6 +205,16 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  define LinuxGnuSourceDefines	-D_GNU_SOURCE
 # endif
 #endif
+
+#ifndef HasMotif
+# define HasMotif YES
+#endif /* !HasMotif */
+#ifndef HasMotif2
+# define HasMotif2 YES
+#endif /* !HasMotif2 */
+#ifndef HasGhostScript
+# define HasGhostScript YES
+#endif /* !HasGhostScript */
 
 #if LinuxCLibMajorVersion >= 6
 # define LinuxSourceDefines	-D_POSIX_C_SOURCE=199309L \
@@ -451,7 +462,9 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # endif
 #endif
 #define HasPutenv		YES
-#define HasShm			YES
+#ifndef HasShm
+# define HasShm			YES
+#endif
 #define HasSockets		YES
 #if UseElfFormat || defined(AlphaArchitecture)
 #ifndef HasSnprintf
@@ -481,6 +494,14 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 
 #ifndef HasLibpng
 #define HasLibpng		YES
+#endif
+
+#ifndef HasExpat
+# define HasExpat		YES
+#endif
+
+#ifndef HasFreetype2
+# define HasFreetype2		YES
 #endif
 
 #define AvoidNullMakeCommand	YES
@@ -899,7 +920,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	DefaultGcc2AMD64Opt
 # endif
-# define LinuxMachineDefines   -D__AMD64__
+# define LinuxMachineDefines   -D__amd64__
 # define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME
 # define ServerExtraDefines	-DGCCUSESGAS XFree86ServerDefines -D_XSERVER64
 #endif /* AMD64Architecture */
@@ -989,11 +1010,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #include <lnxLib.rules>
-#ifdef KDriveXServer
-# include <kdrive.cf>
-#else
-# include <xfree86.cf>
-#endif
+# include <xorg.cf>
 
 #ifndef XFree86ServerOSDefines
 # define XFree86ServerOSDefines
