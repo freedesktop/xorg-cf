@@ -238,7 +238,8 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				-DX_BYTE_ORDER=$(X_BYTE_ORDER)
 #define ServerOSDefines         XWinServerDefines \
 				-DDDXTIME -DFD_SETSIZE=256 -DDDXOSINIT \
-				-DDDXOSVERRORF -DDDXOSFATALERROR
+				-DDDXOSVERRORF -DDDXOSFATALERROR \
+				-DDDXOSRESET
 #define XkbServerDefines        -DXKB_ALWAYS_USES_SOFT_REPEAT
 #define ServerExtraDefines      -DGCCUSESGAS XWinServerDefines \
 				AllocateLocalDefines
