@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.7 2004/09/26 17:06:45 herrb Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.8 2004/10/09 22:04:13 herrb Exp $
 XCOMM
 
 #ifndef OSName
@@ -178,9 +178,9 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #  define DefaultCCOptions	$(COPTS)
 #else
 #  ifdef  PpcArchitecture
-#    define DefaultCCOptions	-fsigned-char GccWarningOptions
+#    define DefaultCCOptions	-pipe -fsigned-char GccWarningOptions
 #  else
-#    define DefaultCCOptions 	GccWarningOptions
+#    define DefaultCCOptions 	-pipe GccWarningOptions
 #  endif
 #endif
 #endif
@@ -439,7 +439,7 @@ install:: fonts.alias							@@\
 # define XorgServer		YES
 
 # ifndef DoLoadableServer
-#  define DoLoadableServer	NO
+#  define DoLoadableServer	YES
 # endif
 
 # ifndef HasNetBSDApertureDriver
@@ -744,7 +744,7 @@ install:: fonts.alias							@@\
 #   define ServerOSDefines	XFree86ServerOSDefines -DDDXOSINIT
 #   define ServerExtraDefines	GccGasOption XFree86ServerDefines
 #   ifndef DoLoadableServer
-#     define DoLoadableServer	NO
+#     define DoLoadableServer	YES
 #   endif
 #   define XF86OSCardDrivers	wsfb
 #   ifndef XF86CardDrivers
@@ -967,6 +967,10 @@ install:: fonts.alias							@@\
 # define SharedLibXdmGreet		NO
 #endif
 
+#define HasFreetype2		NO
+#define HasExpat		NO
+#define	BuildXterm		BuildClients
+
 /*
  * XFree86 uses its own (more portable) database routines to speed up
  * the RGB database lookups
@@ -990,17 +994,20 @@ install:: fonts.alias							@@\
 #endif
 
 #ifndef DlLibrary
-# if (OSMajorVersion < 3 || OSMajorVersion == 3 && OSMinorVersion == 0)\
-    && UseElfFormat
-#  define DlLibrary -ldl
+# if UseElfFormat
+#  if (OSMajorVersion < 3 || OSMajorVersion == 3 && OSMinorVersion == 0)
+#   define DlLibrary -ldl
+#  else
+#   define DlLibrary -Wl,--export-dynamic
+#  endif
 # else
 #  define DlLibrary /**/
 # endif
 #endif
 
-#  if !defined(GccWarningOptions)
-#    define GccWarningOptions 		-Wall -Wpointer-arith
-#  endif
+#if !defined(GccWarningOptions)
+# define GccWarningOptions 		-Wall -Wpointer-arith
+#endif
 
 /* This must come last */
 #if OSMajorVersion == 2 && OSMinorVersion >= 8 || OSMajorVersion > 2
