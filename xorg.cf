@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.19 2004/08/12 14:35:55 krh Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.20 2004/08/13 22:44:03 alanc Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -15,7 +15,9 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #define XORG_VERSION_MAJOR  6
 #define XORG_VERSION_MINOR  7
 #define XORG_VERSION_PATCH  99
-#define XORG_VERSION_SNAP   2
+#define XORG_VERSION_SNAP   901
+
+#define XORG_DATE "16 August 2004"
 
 #if !defined(XorgVersionString) && \
     defined(XORG_VERSION_MAJOR) && defined(XORG_VERSION_MINOR) && \
@@ -26,8 +28,8 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #  else 
 #   define XorgVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH | sed 's/ /./g'`
 #  endif
-#else
-# define XorgVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH XORG_VERSION_SNAP | sed 's/ /./g'`
+# else
+#  define XorgVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH XORG_VERSION_SNAP | sed 's/ /./g'`
 # endif
 #endif
 
@@ -68,8 +70,12 @@ RELEASE_VERSION = ReleaseVersion
 # endif
 #endif
 
-#if !defined(XFree86DateString) && defined(XORG_DATE)
-# define XFree86DateString XORG_DATE
+#if !defined(XorgDateString) && defined(XORG_DATE)
+# define XorgDateString XORG_DATE
+#endif
+
+#if !defined(XFree86DateString) && defined(XorgDateString)
+# define XFree86DateString XorgDateString
 #endif
 
 #ifndef BuildDateCmd
