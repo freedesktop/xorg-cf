@@ -39,18 +39,18 @@
 # define XVendorManVersionString CygxManVersionString
 #endif
 #ifndef XVendorManNameString
-# define XVendorManNameString "Cygwin/X"
+# define XVendorManNameString "Xming"
 #endif
 #ifndef XVendorContact
-# define XVendorContact "cygwin-xfree@cygwin.com"
+# define XVendorContact "win32-x11@sources.redhat.com"
 #endif
 
 /* Operating system strings and version */
 #ifndef OSName
-# define OSName			Cygwin
+# define OSName			Windows
 #endif
 #ifndef OSVendor
-# define OSVendor		Red Hat Inc.
+# define OSVendor		Microsoft
 #endif
 #ifndef OSMajorVersion
 # define OSMajorVersion		DefaultOSMajorVersion
