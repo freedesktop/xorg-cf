@@ -18,6 +18,11 @@ XCOMM
 			      -e '/\$$\XFree86:/s/\$$/Generated from /'
 #endif
 
+#ifndef XorgIdentFix
+#define XorgIdentFix	  sed -e '/\$$\XdotOrg:/s/....\/..\/.. ..:..:.. *//' \
+			      -e '/\$$\XdotOrg:/s/\$$/Generated from /'
+#endif
+
 #ifndef CVSIdentFix
 #define CVSIdentFix	  sed -e '/\$$\Id:/s/....\/..\/.. ..:..:.. *//' \
 			      -e '/\$$\Id:/s/\$$/Generated from /'
@@ -65,6 +70,7 @@ XCOMM
 
 
   XFREE86IDENTFIX = XFree86IdentFix
+     XORGIDENTFIX = XorgIdentFix
       CVSIDENTFIX = CVSIdentFix
             DVIPS = DvipsCmd
      DVIPSOPTIONS = DvipsOptions
