@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.40 2005/01/11 17:09:57 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.41 2005/01/14 05:53:48 ajax Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -504,11 +504,11 @@ RELEASE_VERSION = ReleaseVersion
 #  ifdef SunArchitecture
 #   define XF86CardDrivers	/* sunffb */ sunleo suncg6 suncg3 suncg14 \
 				suntcx sunbw2 glint mga tdfx ati vesa vga \
-				XF86OSCardDrivers XF86ExtraCardDrivers \
+				dummy XF86OSCardDrivers XF86ExtraCardDrivers \
 				DevelDrivers
 #  else
 #   define XF86CardDrivers	sunffb sunleo suncg6 suncg3 suncg14 suntcx \
-				sunbw2 glint mga tdfx ati vesa vga \
+				sunbw2 glint mga tdfx ati vesa vga dummy \
 				XF86OSCardDrivers XF86ExtraCardDrivers \
 				DevelDrivers
 #  endif
@@ -543,7 +543,7 @@ RELEASE_VERSION = ReleaseVersion
 
 /* Pure PCI drivers should go first */
 # ifndef XF86CardDrivers
-#  define XF86CardDrivers	ati \
+#  define XF86CardDrivers	ati dummy \
 				DevelDrivers \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
@@ -567,7 +567,7 @@ RELEASE_VERSION = ReleaseVersion
 
 # ifndef XF86CardDrivers
 #  define XF86CardDrivers	mga glint nv s3 s3virge sis savage \
-				trident chips tdfx ati \
+				trident chips tdfx ati dummy \
 				DevelDrivers newport \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
@@ -594,7 +594,8 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86CardDrivers
 #  define XF86CardDrivers	mga tdfx glint s3 s3virge rendition tga ati \
 				savage nv cirrus DevelDrivers siliconmotion  \
-				vga XF86OSCardDrivers XF86ExtraCardDrivers
+				vga dummy XF86OSCardDrivers \
+				XF86ExtraCardDrivers
 # endif
 /*
  *  Glide is available for Alpha, therefore build tdfx DRM module.
@@ -630,7 +631,7 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86CardDrivers
 #  define XF86CardDrivers	ati mga glint nv s3 s3virge sis savage\
 				trident chips tdfx \
-				DevelDrivers vga \
+				DevelDrivers vga dummy \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 /*  The tdfx driver needs Glide, which is not available for PPC. */
@@ -660,7 +661,7 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86CardDrivers
 #  define XF86CardDrivers	ati mga glint nv s3 s3virge sis savage\
 				trident chips tdfx \
-				DevelDrivers vga \
+				DevelDrivers vga dummy \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 # ifndef DriDrivers
@@ -755,7 +756,7 @@ RELEASE_VERSION = ReleaseVersion
 
 /* Pure PCI drivers should go first */
 # ifndef XF86CardDrivers
-#  define XF86CardDrivers	ati mga \
+#  define XF86CardDrivers	ati mga dummy \
 				DevelDrivers \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
