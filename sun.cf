@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.7 2004/02/23 21:31:43 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.1 2004/03/04 17:45:37 eich Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -293,6 +293,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define HasDlopen	YES
 # define InstKmemFlags	-g sys -m 2711
 # define ShLibIncludeFile <sunLib.tmpl>
+# define LinkerRuntimeLibraryPathFlag(path) Concat(-R,path)
 /*
  * Set flags for position independent code before including sv4Lib.rules
  * if the compiler in use doesn't use standard SVR4 flags

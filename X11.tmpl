@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7.2.1 2004/02/27 21:30:42 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7.2.6 2004/03/11 14:16:03 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -3053,7 +3053,7 @@ FREETYPE2INCDIR = Freetype2IncDir
 #if Freetype2LibDirStandard
 FREETYPE2LIB = -lfreetype
 #else
-FREETYPE2LIB = -L$(FREETYPE2LIBDIR) -lfreetype
+FREETYPE2LIB = -L$(FREETYPE2LIBDIR) LinkerRuntimeLibraryPathFlag($(FREETYPE2LIBDIR)) -lfreetype
 #endif
 
 #endif /* HasFreetype2 */
