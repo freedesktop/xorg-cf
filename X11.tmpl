@@ -599,6 +599,10 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildAppleWMLibrary	NO
 #endif
 
+#ifndef BuildWindowsWMLibrary
+#define BuildWindowsWMLibrary	NO
+#endif
+
 #ifndef BuildMiscDocs
 #define BuildMiscDocs		NO
 #endif
@@ -2131,6 +2135,30 @@ ProjectUnsharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBSRC),XBuildLibDir)
 #define ProfileLibAppleWM	NO
 #endif
 
+#if BuildWindowsWMLibrary
+#ifndef SharedLibWindowsWM
+#define SharedLibWindowsWM	HasSharedLibraries
+#endif
+#ifndef NormalLibWindowsWM
+#define NormalLibWindowsWM	(!SharedLibWindowsWM || ForceNormalLib)
+#endif
+#ifndef DebugLibWindowsWM
+#define DebugLibWindowsWM	NO
+#endif
+#ifndef ProfileLibWindowsWM
+#define ProfileLibWindowsWM	NO
+#endif
+#else
+#undef  SharedLibWindowsWM
+#define SharedLibWindowsWM	NO
+#undef  NormalLibWindowsWM
+#define NormalLibWindowsWM	NO
+#undef  DebugLibWindowsWM
+#define DebugLibWindowsWM	NO
+#undef  ProfileLibWindowsWM
+#define ProfileLibWindowsWM	NO
+#endif
+
 #if BuildGLULibrary
 #ifndef SharedLibGlu
 #define SharedLibGlu		HasSharedLibraries
@@ -2449,6 +2477,16 @@ ProjectUnsharedLibReferences(XCURSOR,Xcursor,$(XCURSORLIBSRC),XBuildLibDir)
 SharedLibReferences(APPLEWM,AppleWM,$(APPLEWMLIBSRC),SOAPPLEWMREV,SharedAppleWMRev)
 #else
 ProjectUnsharedLibReferences(APPLEWM,AppleWM,$(APPLEWMLIBSRC),XBuildLibDir)
+#endif
+
+   WINDOWSWMLIBSRC = $(LIBSRC)/windows
+#if SharedLibWindowsWM
+#ifndef SharedWindowsWMRev
+#define SharedWindowsWMRev 1.0
+#endif
+SharedLibReferences(WINDOWSWM,WindowsWM,$(WINDOWSWMLIBSRC),SOWINDOWSWMREV,SharedWindowsWMRev)
+#else
+ProjectUnsharedLibReferences(WINDOWSWM,WindowsWM,$(WINDOWSWMLIBSRC),XBuildLibDir)
 #endif
 
 # ifndef SharedLibXfontcache

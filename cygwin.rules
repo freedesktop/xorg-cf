@@ -25,6 +25,7 @@ XCOMM $XFree86: xc/config/cf/cygwin.rules,v 3.27 2003/10/26 18:17:37 herrb Exp $
 #define SharedLibDps		YES
 #define SharedLibDpsTk		YES
 #define SharedLibGlu		YES
+#define SharedLibWindowsWM	NO
 #ifndef SharedDataSeparation
 #define SharedDataSeparation	NO
 #endif
