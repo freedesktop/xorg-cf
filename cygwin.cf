@@ -325,7 +325,8 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				XWinEmulatePseudoDefines \
 				XWinUpdateStatsDefines \
 				XWinClipboardDefines XWinMultiWindowDefines \
-				-DDDXOSRESET
+				XWINMULTIWINDOWEXTWMDEFINES \
+				-DDDXBEFORERESET
 #define ServerOSDefines		-DDDXTIME -DDDXOSINIT \
 				-DDDXOSVERRORF -DDDXOSFATALERROR
 #define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
