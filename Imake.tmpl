@@ -1,7 +1,7 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM Makefile generated from IMAKE_TEMPLATE and INCLUDE_IMAKEFILE
 XCOMM $Xorg: Imake.tmpl,v 1.4 2000/08/17 19:41:46 cpqbld Exp $
-XCOMM $XdotOrg: xc/config/cf/Imake.tmpl,v 1.5 2004/07/21 07:31:09 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.tmpl,v 1.7 2004/10/09 22:04:13 herrb Exp $
 XCOMM
 XCOMM
 XCOMM
@@ -1095,6 +1095,12 @@ TCLIBDIR = TclLibDir
 #ifndef HasGcc
 #define HasGcc HasGcc2
 #endif
+#ifndef HasIntelC
+#define HasIntelC NO
+#endif
+#ifndef HasSunC
+#define HasSunC NO
+#endif
 #ifndef HasBrokenCCForLink
 #define HasBrokenCCForLink NO
 #endif
@@ -1942,6 +1948,11 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
          SHLIBDEF = SharedLibraryDef
 #ifdef SharedLibraryLoadFlags
      SHLIBLDFLAGS = SharedLibraryLoadFlags $(SHLIBGLOBALSFLAGS)
+#if HasGcc || HasIntelC
+         NOSTDLIB = -nostdlib
+#elif HasSunC
+         NOSTDLIB = -xnolib
+#endif
 #endif
 /*
  * Here we set up flags needed to produce position-independent code
