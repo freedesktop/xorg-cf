@@ -584,10 +584,11 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * If you want XDMAUTH support (if you have Wraphelp.c), uncomment this.
+ * If you don't want XDMAUTH support (if you don't have Wraphelp.c), 
+ *  comment this out.
  *
-#define HasXdmAuth		YES
  */
+#define HasXdmAuth		YES
 
 /*
  * If you have Linux DECnet support, and want to build XFree86 with support
