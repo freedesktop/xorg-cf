@@ -399,4 +399,8 @@ install.man:: list                                                      @@\
 #include <lynxLib.rules>
 #endif
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 #include <xorg.cf>

@@ -57,6 +57,10 @@
 #define StandardCppDefines	-traditional StandardDefines
 #define PreProcessCmd		CppCmd
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 #define HasShm			NO    /* For now as well */
 #define HasSockets		YES
 #define HasPutenv		YES

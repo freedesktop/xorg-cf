@@ -316,4 +316,8 @@ clean::									@@\
 #define DoLoadableServer YES
 #endif
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 #include <xorg.cf>

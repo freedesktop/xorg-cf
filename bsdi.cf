@@ -56,6 +56,10 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define GzipFontCompression	YES
 #define BuildXaw6		NO
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 XCOMM BSD/OS 5.1 (intel) comes with gcc 3.2.2 installed as gcc and cc.
 
 XCOMM BSD/OS 5.0 (intel) comes with gcc 2.95.3 installed as gcc and cc.

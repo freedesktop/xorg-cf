@@ -67,6 +67,10 @@ XCOMM operating system:  OSName
 # define ExtraFilesToClean *.core
 #endif
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 #ifdef i386Architecture
 # include <xorg.cf>
 #endif
