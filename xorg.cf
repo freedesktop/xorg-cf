@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.17 2004/08/11 21:14:01 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.18 2004/08/12 05:11:57 kem Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -656,8 +656,8 @@ RELEASE_VERSION = ReleaseVersion
  * only libraries are strictly needed
  */
 #if defined(Ppc64Architecture)
-# ifndef XF86Server
-#  define XF86Server		YES
+# ifndef XorgServer
+#  define XorgServer		YES
 # endif
 /* Amiga framebuffer module */
 # ifndef XF86AFB
