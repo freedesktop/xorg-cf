@@ -243,7 +243,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #define XkbServerDefines        -DXKB_ALWAYS_USES_SOFT_REPEAT
 #define ServerExtraDefines      -DGCCUSESGAS XWinServerDefines \
 				AllocateLocalDefines
-#define ConnectionFlags         -DTCPCONN -DUNIXCONN
+#define ConnectionFlags         -DTCPCONN -DUNIXCONN -DFD_SETSIZE=256
 #define ExtraLibraries          
 #define InstUidFlags            -m 4711
 #define UseRgbTxt               YES
