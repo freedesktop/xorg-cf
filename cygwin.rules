@@ -471,3 +471,7 @@ clean::									@@\
 	RemoveFiles(basename.RESsuf)
 
 #endif /* ResourceObjectRule */
+
+#ifndef IncludeMakefile
+#define IncludeMakefile(file) @@sinclude file
+#endif
