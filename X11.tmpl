@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.11 2004/06/25 09:01:14 ago Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.12 2004/06/30 20:06:51 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -3165,6 +3165,53 @@ FREETYPE2DEFINES = -DFREETYPE2
 #endif
 
 #endif /* UseFreetype2 */
+
+#if HasMotif
+
+#ifndef MotifDir
+#define MotifDir /usr/X11R6
+#endif
+#ifndef MotifDirStandard
+#define MotifDirStandard NO
+#endif
+
+#ifndef MotifLibDir
+# define MotifLibDir MotifDir/LibDirName
+# if MotifDirStandard
+#  define MotifLibDirStandard YES
+# endif
+#endif
+#ifndef MotifLibDirStandard
+# define MotifLibDirStandard NO
+#endif
+
+#ifndef MotifIncDir
+# define MotifIncDir MotifDir/include
+# if MotifDirStandard
+#  define MotifIncDirStandard YES
+# endif
+#endif
+#ifndef MotifIncDirStandard
+# define MotifIncDirStandard NO
+#endif
+
+MOTIFDIR = MotifDir
+MOTIFLIBDIR = MotifLibDir
+MOTIFINCDIR = MotifIncDir
+
+#if MotifLibDirStandard
+MOTIFLIB = -lXm
+#else
+MOTIFLIB = -L$(MOTIFLIBDIR) LinkerRuntimeLibraryPathFlag($(MOTIFLIBDIR)) -lXm
+#endif
+
+#if MotifIncDirStandard
+MOTIFINCLUDES = 
+#else
+MOTIFINCLUDES = -I$(MOTIFINCDIR)
+#endif
+
+#endif /* HasMotif */
 
 #ifndef SharedLibExpat
 #define SharedLibExpat HasSharedLibraries
