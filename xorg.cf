@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.8 2004/06/22 15:14:32 alanh Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.9 2004/06/30 20:06:51 kem Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -382,15 +382,15 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86CardDrivers
 #  /* Don't build the nsc driver on IA64 */
 #  ifndef ia64Architecture
-#   define NscDriver		nsc
+#   define i386Drivers		nsc i810
 #  else
-#   define NscDriver		/**/
+#   define i386Drivers		/**/
 #  endif
 #  define XF86CardDrivers	mga glint nv tga s3 s3virge sis rendition \
 				neomagic i740 tdfx savage \
 				cirrus vmware tseng trident chips apm \
-				GlideDriver i128 NscDriver \
-				ati i810 DevelDrivers ark \
+				GlideDriver i128 i386Drivers \
+				ati DevelDrivers ark \
 				cyrix siliconmotion via \
 				vesa vga \
 				dummy XF86OSCardDrivers XF86ExtraCardDrivers
@@ -409,7 +409,12 @@ RELEASE_VERSION = ReleaseVersion
 # endif
 
 # ifndef DriDrivers
-#  define DriDrivers		gamma i810 i915 mga r128 radeon r200 \
+#  ifndef ia64Architecture
+#   define i386DRIDrivers i810 i915
+#  else
+#   define i386DRIDrivers /**/
+#  endif
+#  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200 \
 				sis tdfx DevelDRIDrivers
 # endif
 #endif
