@@ -14,6 +14,10 @@ XSERVERNAME = XServerName
 
 CONFIG_DEFINES = ConfigDefines
 
+#ifndef ServerDefines
+#define ServerDefines StandardDefines VersionDefines
+#endif
+
 #ifdef BuilderEMailAddr
 BUILDERADDR = BuilderEMailAddr
 #else 
