@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.18 2004/07/26 08:24:13 ago Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.19 2004/07/26 16:54:21 alanc Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -657,6 +657,13 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildDamageLibrary	!BuildServersOnly
 #endif
 
+#ifndef BuildXevie
+#define BuildXevie		YES
+#endif
+#ifndef BuildXevieLibrary
+#define BuildXevieLibrary	!BuildServersOnly
+#endif
+
 #ifndef BuildXterm
 #define BuildXterm		BuildClients
 #endif
@@ -1198,6 +1205,14 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+#ifndef XevieDefines
+#if BuildXevie
+#define XevieDefines -DXEVIE
+#else
+#define XevieDefines /**/
+#endif
+#endif
+
 #ifndef SitePervasiveExtensionDefines
 #define SitePervasiveExtensionDefines /**/
 #endif
@@ -1208,7 +1223,7 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 	XF86BigfontExtensionDefines DPMSDefines \
 	LowMemDefines XprintDefines XineramaDefines \
 	SitePervasiveExtensionDefines RenderDefines RandRDefines \
-	XfixesDefines XDamageDefines
+	XfixesDefines XDamageDefines XevieDefines
 #endif
 #ifndef SiteExtensionDefines
 #define SiteExtensionDefines /**/
