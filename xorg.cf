@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.42 2005/01/24 15:31:36 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.43 2005/01/24 15:34:40 eich Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -408,7 +408,7 @@ RELEASE_VERSION = ReleaseVersion
 # endif
 
 # ifndef DevelDRIDrivers
-#  define DevelDRIDrivers	ffb mach64 savage unichrome
+#  define DevelDRIDrivers	ffb mach64 unichrome
 # endif
 
 # ifndef DriDrivers
