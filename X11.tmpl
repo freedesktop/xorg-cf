@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.7 2004/05/06 17:31:16 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.8 2004/05/24 19:06:57 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -725,9 +725,6 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef ThreadedProject
 #define ThreadedProject ThreadedX
-#endif
-#ifndef BuildThreadStubLibrary
-#define BuildThreadStubLibrary	NO
 #endif
 #ifndef NeedUIThrStubs
 #define NeedUIThrStubs		NO
@@ -1775,39 +1772,6 @@ ProjectUnsharedLibReferences(XONLY,X11,$(XLIBSRC),XBuildLibDir)
       /* Common alternate spellings */
       DEPXLIBONLY = $(DEPXONLYLIB)
          XLIBONLY = $(XONLYLIB)
-
-#if BuildThreadStubLibrary
-#ifndef SharedLibXThrStub
-#define SharedLibXThrStub	YES
-#endif
-#ifndef NormalLibXThrStub
-#define NormalLibXThrStub	NO
-#endif
-#ifndef DebugLibXThrStub
-#define DebugLibXThrStub	NO
-#endif
-#ifndef ProfileLibXThrStub
-#define ProfileLibXThrStub	NO
-#endif
-   XTHRSTUBLIBSRC = $(LIBSRC)/XThrStub
-#if SharedLibXThrStub
-#ifndef SharedXThrStubRev
-#define SharedXThrStubRev 6.1
-#endif
-SharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBLIBSRC),SOXTHRSTUBREV,SharedXThrStubRev)
-#else
-ProjectUnsharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBSRC),XBuildLibDir)
-#endif
-#else
-#undef  SharedLibXThrStub
-#define SharedLibXThrStub	NO
-#undef  NormalLibXThrStub
-#define NormalLibXThrStub	NO
-#undef  DebugLibXThrStub
-#define DebugLibXThrStub	NO
-#undef  ProfileLibXThrStub
-#define ProfileLibXThrStub	NO
-#endif
 
 #if BuildScreenSaverLibrary
 #ifndef SharedLibXss

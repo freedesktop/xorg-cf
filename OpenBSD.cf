@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.2 2004/04/23 18:41:58 eich Exp $
 XCOMM
 
 #ifndef OSName
@@ -399,7 +399,6 @@ install:: fonts.alias							@@\
 
 # if (OSMajorVersion < 3)
 #  define HasSharedLibraries	NO
-#  define SharedLibXThrStub	NO
 # endif
 
 # ifndef XorgServer
@@ -882,14 +881,9 @@ install:: fonts.alias							@@\
 #if HasWeakSymbols == YES && (OSMajorVersion == 2 && OSMinorVersion >= 6 || OSMajorVersion >= 3)
 #  define HasPosixThreads		YES
 #  define ThreadedX			YES
-#  define SystemMTDefines		/**/
-#  define BuildThreadStubLibrary	YES
 #  define NeedUIThrStubs		YES
 #  define ThreadsCompileFlag		-pthread
 #  define ThreadsLibraries		-pthread
-#  define SharedX11Reqs			$(LDPRELIBS) $(XTHRSTUBLIB)
-#  define SharedXtReqs			$(LDPRELIB) $(XONLYLIB) $(SMLIB) \
-					$(ICELIB) $(XTHRSTUBLIB)
 #else
 #  define ThreadedX			NO
 #endif
