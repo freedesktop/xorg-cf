@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.9 2004/05/28 23:34:53 anholt Exp $
+XCOMM $XdotOrg$
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -636,6 +636,10 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildDamageLibrary
 #define BuildDamageLibrary	!BuildServersOnly
+#endif
+
+#ifndef BuildXterm
+#define BuildXterm		BuildClients
 #endif
 
 #ifndef BuildXcursorLibrary
