@@ -309,6 +309,9 @@ InstallLink(install,ImportLibraryName(libname,rev),ShortImportLibraryName(libnam
  * Note that sometimes the binary is not an executable.  One example
  * is the rgb binary file.
  *
+ * Passing -p preserves the attributes as the date and prevents useless
+ * rebuilds.
+ *
  * ProgramTargetName is passed to LinkBuildBinary if the binary
  * is actually an executable; thus, we do not wrap the binary name
  * with ProgramTargetName here.
@@ -319,7 +322,7 @@ InstallLink(install,ImportLibraryName(libname,rev),ShortImportLibraryName(libnam
 all:: binary								@@\
 	MakeDir($(BUILDBINDIR))						@@\
 	RemoveFile($(BUILDBINDIR)/binary)				@@\
-	cd $(BUILDBINDIR) && $(CP) $(BUILDBINTOP)/$(CURRENT_DIR)/binary .
+	cd $(BUILDBINDIR) && $(CP) -p $(BUILDBINTOP)/$(CURRENT_DIR)/binary .
 #endif /* LinkBuildBinary */
 
 /*
