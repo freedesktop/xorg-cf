@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.6 2004/05/18 21:29:45 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.7 2004/06/16 09:46:14 anholt Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -409,7 +409,7 @@ RELEASE_VERSION = ReleaseVersion
 # endif
 
 # ifndef DriDrivers
-#  define DriDrivers		gamma i810 i830 mga r128 radeon r200 \
+#  define DriDrivers		gamma i810 i915 mga r128 radeon r200 \
 				sis tdfx DevelDRIDrivers
 # endif
 #endif
@@ -785,8 +785,8 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #  ifndef GlxBuiltInI810
 #    define GlxBuiltInI810         NO
 #  endif
-#  ifndef GlxBuiltInI830
-#    define GlxBuiltInI830         NO
+#  ifndef GlxBuiltInI915
+#    define GlxBuiltInI915         NO
 #  endif
 #  ifndef GlxBuiltInR128
 #    define GlxBuiltInR128         NO
@@ -807,7 +807,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #  if GlxBuiltInTdfx || \
       GlxBuiltInMga || \
       GlxBuiltInI810 || \
-      GlxBuiltInI830 || \
+      GlxBuiltInI915 || \
       GlxBuiltInR128 || \
       GlxBuiltInRadeon || \
       GlxBuiltInR200 || \
@@ -822,7 +822,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
       GlxBuiltInTdfx || \
       GlxBuiltInMga || \
       GlxBuiltInI810 || \
-      GlxBuiltInI830 || \
+      GlxBuiltInI915 || \
       GlxBuiltInR128 || \
       GlxBuiltInRadeon || \
       GlxBuiltInR200 || \
@@ -849,8 +849,8 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #    if GlxBuiltInI810
 #      define DriDrivers i810
 #    endif
-#    if GlxBuiltInI830
-#      define DriDrivers i830
+#    if GlxBuiltInI915
+#      define DriDrivers i915
 #    endif
 #    if GlxBuiltInR128
 #      define DriDrivers r128
