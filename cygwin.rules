@@ -439,6 +439,17 @@ clean::									@@\
 
 #endif /* ResourceObjectRule */
 
+/* The arglist can get quite long. Make sure we can delete it though */
+#ifndef MakeFonts
+# define MakeFonts()							@@\
+all::  $(OBJS)								@@\
+									@@\
+MakeFontsDir($(OBJS))							@@\
+									@@\
+clean::									@@\
+	find -name "*.pcf" -o -name "*.pcf.Z" -o -name "*.pcf.gz" | xargs -r rm
+#endif /* MakeFonts */
+
 #ifndef IncludeMakefile
 #define IncludeMakefile(file) @@sinclude file
 #endif

@@ -6,13 +6,13 @@
 # define CygxVersionMinor	7
 #endif
 #ifndef CygxVersionPatch
-# define CygxVersionPatch	0
+# define CygxVersionPatch	1
 #endif
 #ifndef CygxVersionSnap
 # define CygxVersionSnap	0
 #endif
 #ifndef CygxVersionServer
-# define CygxVersionServer	6
+# define CygxVersionServer	0
 #endif
 
 #ifndef CygxVersion
@@ -433,6 +433,10 @@
 #define MakeFlagsToShellFlags(makeflags,shellcmd) \
 	for flag in ${MAKEFLAGS} ''; do \				@@\
 	  case "$$flag" in *=*) ;;--*) ;; *[makeflags]*) shellcmd;; esac; done
+
+#ifndef ManSuffix
+# define ManSuffix	1
+#endif
 
 #include <cygwin.rules>
 
