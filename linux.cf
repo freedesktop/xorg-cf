@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.8 2004/07/20 17:48:09 sandmann Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.9 2004/07/22 06:39:04 anholt Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -77,6 +77,13 @@ XCOMM platform:  $XFree86: xc/config/cf/linux.cf,v 3.220 2003/12/30 22:38:33 tsi
 #endif
 #ifndef LinuxCLibTeenyVersion
 # define LinuxCLibTeenyVersion	DefaultLinuxCLibTeenyVersion
+#endif
+
+#ifndef HasGhostScript
+# define HasGhostScript YES
+#endif
+#ifndef BuildPDFdocs
+# define BuildPDFdocs NO
 #endif
 
 #ifndef LinuxBinUtilsMajorVersion
