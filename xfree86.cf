@@ -1192,10 +1192,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #define BuildXF86DRI	NO
 #endif
 
-#ifndef BuildXF86DRM
-#define BuildXF86DRM	NO
-#endif
-
 #ifndef GlxUseSGISI
 #define GlxUseSGISI	NO
 #endif

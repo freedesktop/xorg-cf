@@ -159,9 +159,7 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 #define BuildIPv6	NO
 #endif
 
-#undef  BuildXF86DRM
 #undef  BuildXF86DRI
-#define BuildXF86DRM	NO
 #define BuildXF86DRI	NO
 
 #if !HasGcc

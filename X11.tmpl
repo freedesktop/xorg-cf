@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.8 2004/05/24 19:06:57 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.9 2004/05/28 23:34:53 anholt Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -534,10 +534,8 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #else
 #if     BuildGlxExt && !defined(XFree86Version) && !defined(XorgVersion)
 #undef  BuildXF86DRI
-#undef  BuildXF86DRM
 #undef  BuildXF86DRIDriverSupport
 #define BuildXF86DRI			NO
-#define BuildXF86DRM			NO
 #define BuildXF86DRIDriverSupport	NO
 #endif
 #endif
@@ -553,6 +551,9 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildGLwLibrary
 #define BuildGLwLibrary		(BuildGLXLibrary && BuildLibraries)
+#endif
+#ifndef BuildXDriInfo
+#define BuildXDriInfo		(BuildGLXLibrary && !BuildServersOnly)
 #endif
 #ifndef BuildXF86RushExt
 #define BuildXF86RushExt	NO
@@ -604,7 +605,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define HasExpat		NO
 #endif
 #ifndef UseExpat
-#define UseExpat		(UseFontconfig)
+#define UseExpat		(UseFontconfig || BuildXF86DRI)
 #endif
 #ifndef BuildExpatLibrary
 #define BuildExpatLibrary	(UseExpat && !HasExpat)
@@ -921,6 +922,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #else
 #define GlxDefines /**/
 #endif
+#endif
+#ifndef DRMSrcDir
+#define DRMSrcDir $(TOP)/extras/drm
 #endif
 #ifndef MesaSrcDir
 #define MesaSrcDir $(TOP)/extras/Mesa
@@ -1673,6 +1677,7 @@ XCOMM X Window System make variables; these need to be coordinated with rules
        FONTINCSRC = $(XTOP)/include/fonts
         EXTINCSRC = $(XTOP)/include/extensions
       FTSOURCEDIR = FreeTypeSrcDir
+        DRMSRCDIR = DRMSrcDir
        MESASRCDIR = MesaSrcDir
   OGLSAMPLESRCDIR = OglSampleSrcDir
         PSWRAPSRC = $(XTOP)/config/pswrap

@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.2 2004/04/23 18:41:58 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.3 2004/05/28 23:34:53 anholt Exp $
 XCOMM
 
 #ifndef OSName
@@ -446,9 +446,6 @@ install:: fonts.alias							@@\
 # if OSMajorVersion > 3 || (OSMajorVersion == 3 && OSMinorVersion > 2)
 #  ifndef BuildXF86DRI
 #   define BuildXF86DRI			NO
-#  endif 
-#  ifndef BuildXF86DRM
-#   define BuildXF86DRM			NO
 #  endif 
 #  ifndef BuildXF86OldDRMCompat
 #   define BuildXF86OldDRMCompat	NO

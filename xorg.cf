@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.5 2004/05/04 22:58:59 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.6 2004/05/18 21:29:45 anholt Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -735,10 +735,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 
 #ifndef BuildXF86DRI
 #define BuildXF86DRI	NO
-#endif
-
-#ifndef BuildXF86DRM
-#define BuildXF86DRM	NO
 #endif
 
 #ifndef GlxUseSGISI

@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.13 2004/04/18 03:00:42 alanc Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.4 2004/05/22 19:20:06 alanc Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -405,9 +405,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define BuildPexExt	  (XsunServer || Xsun24Server)
 # endif
 # undef BuildXF86DRI
-# undef BuildXF86DRM
 # define BuildXF86DRI     NO
-# define BuildXF86DRM     NO
 # if (OSMajorVersion > 4)
 #  if !defined(AsOutputArchSize) || \
       ((AsOutputArchSize != 32) && (AsOutputArchSize != 64))
