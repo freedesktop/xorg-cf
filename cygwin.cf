@@ -307,7 +307,8 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				XWinUpdateStatsDefines \
 				XWinClipboardDefines XWinMultiWindowDefines
 #define ServerOSDefines		-DDDXTIME -DDDXOSINIT \
-				-DDDXOSVERRORF -DDDXOSFATALERROR
+				-DDDXOSVERRORF -DDDXOSFATALERROR \
+				-DDDXOSRESET
 #define XkbServerDefines	-DXKB_ALWAYS_USES_SOFT_REPEAT
 #define ServerExtraDefines	-DGCCUSESGAS XWinServerDefines \
 				AllocateLocalDefines
