@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.8 2004/10/09 22:04:13 herrb Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.9 2005/01/30 20:19:02 herrb Exp $
 XCOMM
 
 #ifndef OSName
@@ -58,6 +58,9 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define HasMkstemp		YES
 #define HasSetProcTitle		YES
 #define HasZlib			YES
+#ifndef HasLibpng
+# define HasLibpng		NO
+#endif
 #ifndef HasKrbIV
 # if OSMajorVersion == 2 || OSMajorVersion == 3 && OSMinorVersion < 3
 #  define HasKrbIV		YES
