@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.1.4.4 2003/12/20 00:28:21 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.1.4.5 2004/02/23 21:31:43 kaleb Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -900,7 +900,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	DefaultGcc2AMD64Opt
 # endif
-# define LinuxMachineDefines   -D__AMD64__
+# define LinuxMachineDefines   -D__amd64__
 # define ServerOSDefines	XFree86ServerOSDefines -DDDXTIME
 # define ServerExtraDefines	-DGCCUSESGAS XFree86ServerDefines -D_XSERVER64
 #endif /* AMD64Architecture */
