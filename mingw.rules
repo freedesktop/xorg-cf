@@ -15,6 +15,7 @@
 #define SharedLibXmu		YES
 #define SharedLibXt		YES
 #define SharedLibFont		NO
+#define SharedLibFontEnc    NO
 #define SharedLibXaw7		YES
 #define SharedLibXaw6		YES
 #define SharedLibSM		YES
