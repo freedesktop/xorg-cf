@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.17 2004/07/20 19:31:48 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.18 2004/07/26 08:24:13 ago Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -1800,6 +1800,7 @@ ProjectUnsharedLibReferences(XONLY,X11,$(XLIBSRC),XBuildLibDir)
       /* Common alternate spellings */
       DEPXLIBONLY = $(DEPXONLYLIB)
          XLIBONLY = $(XONLYLIB)
+     LINTXONLYLIB = $(LINTXONLY)
 
 #if BuildScreenSaverLibrary
 #ifndef SharedLibXss
@@ -4457,7 +4458,7 @@ install:: deps								@@\
 
 #ifndef LinkHardcopyPS
 # if CaseSensitiveFileSystem
-#  define LinkHardcopyPS(name)						@@\
+#  define LinkHardcopyPS(name)						  \
 	@if [ -f name.PS ]; then set -x; \				@@\
 	  RemoveFile(name.ps); \					@@\
 	  $(LN) name.PS name.ps; \					@@\
