@@ -86,6 +86,8 @@
 
 /* snprintf from windows runtime does return -1 if the buffer is to small */
 #define HasSnprintf		NO
+
+#define HasFfs			NO
                                   
 #ifndef HasMakefileSafeInclude
 # define HasMakefileSafeInclude YES
