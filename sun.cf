@@ -383,6 +383,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #define HasSecureRPC	  YES
 #define SetTtyGroup	  YES
 #define HasPutenv	  YES
+#define HasMkstemp        YES
 #if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 8))
 #define HasDevRandom	  YES	/* /dev/random is in Solaris 8 patches 	*/
 #define PollDevRandom	  YES	/* /dev/random is poll()able on Solaris */
