@@ -389,7 +389,8 @@ CenterLoadTarget(debug_src,basename.SRCsuf,NullParameter,$(ALLDEFINES) options)
  */
 
 #ifndef MakeStringsDependency
-# define MakeStringsDependency						@@\
+# ifndef UseInstalled
+#  define MakeStringsDependency						@@\
 MAKESTRS = $(CONFIGSRC)/util/makestrs					@@\
 NoCmpScript(HostProgramTargetName($(MAKESTRS)) $(MAKESTRS).Osuf)	@@\
 									@@\
@@ -397,6 +398,9 @@ HostProgramTargetName($(MAKESTRS)) $(MAKESTRS).Osuf:			@@\
 	cd $(CONFIGSRC)/util && $(MAKE) HostProgramTargetName(makestrs)	@@\
 									@@\
 includes:: HostProgramTargetName($(MAKESTRS))
+# else
+#  define MakeStringsDependency  /**/
+# endif
 #endif
 
 #ifndef ToolkitMakeStrings

@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.6 2004/05/04 22:58:59 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.7 2004/05/06 17:31:16 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -1543,7 +1543,11 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 
 #ifndef PsWrap
-#define PsWrap $(PSWRAPSRC)/pswrap
+# ifndef UseInstalled
+#  define PsWrap $(PSWRAPSRC)/pswrap
+# else
+#  define PsWrap pswrap
+# endif
 #endif
 
 #ifndef ResourceConfigurationManagement
