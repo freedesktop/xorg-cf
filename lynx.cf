@@ -62,10 +62,13 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #endif
 #define HasStickyDirBit		NO
 #ifndef HasPosixRegex
-#define HasPosixRegex		NO
+# define HasPosixRegex		NO
 #endif
 #ifndef HasPerl
-#define HasPerl			NO
+# define HasPerl		NO
+#endif
+#ifndef HasFreetype2
+# define HasFreetype2		NO
 #endif
 
 #if OSMajorVersion <= 2
