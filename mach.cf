@@ -68,5 +68,5 @@ XCOMM operating system:  OSName
 #endif
 
 #ifdef i386Architecture
-# include <xfree86.cf>
+# include <xorg.cf>
 #endif

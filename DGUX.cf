@@ -180,7 +180,7 @@ XCOMM platform:  $XFree86: xc/config/cf/DGUX.cf,v 1.5 2000/07/07 20:06:56 tsi Ex
 #endif
 
 #ifdef i386Architecture
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 
 #include <sv4Lib.rules>

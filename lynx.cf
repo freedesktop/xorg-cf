@@ -399,4 +399,4 @@ install.man:: list                                                      @@\
 #include <lynxLib.rules>
 #endif
 
-#include <xfree86.cf>
+#include <xorg.cf>

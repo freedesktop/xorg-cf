@@ -402,11 +402,11 @@ install:: fonts.alias							@@\
 #  define SharedLibXThrStub	NO
 # endif
 
-# ifndef XF86Server
+# ifndef XorgServer
 #  if OSMajorVersion == 3 && OSMinorVersion >= 2 || OSMajorVersion > 3
-#    define XF86Server		YES
+#    define XorgServer		YES
 #  else
-#    define XF86Server		NO
+#    define XorgServer		NO
 #  endif
 # endif
 
@@ -429,7 +429,7 @@ install:: fonts.alias							@@\
 
 # endif /* XF86Server */
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* AlphaArchitecture */
 
@@ -522,7 +522,7 @@ install:: fonts.alias							@@\
 #  define HasX86Support		UseElfFormat
 # endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* i386Architecture */
 
@@ -559,7 +559,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* AmigaArchitecture */
 
@@ -580,7 +580,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-#include <xfree86.cf>
+#include <xorg.cf>
 
 #endif /* Hp300Architecture */
 
@@ -596,7 +596,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* mac68kArchitecture */
 
@@ -612,7 +612,7 @@ install:: fonts.alias							@@\
 
 # define ServerExtraDefines	-DXFree86Server
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* Mvme68kArchitecture */
 
@@ -672,7 +672,7 @@ install:: fonts.alias							@@\
 #    define XFree86ConsoleDefines -DPCCONS_SUPPORT
 #  endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* ArcArchitecture */
 
@@ -745,7 +745,7 @@ install:: fonts.alias							@@\
 
 # endif /* XF86Server */
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* PpcArchitecture */
 
@@ -792,7 +792,7 @@ install:: fonts.alias							@@\
 # define BuildXF86VidModeExt	NO
 # define BuildXF86DGA		NO
 # define BuildXInputExt		NO
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* SparcArchitecture */
 
@@ -822,7 +822,7 @@ install:: fonts.alias							@@\
 #   define XFree86ConsoleDefines -DWSCONS_SUPPORT
 # endif
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* Sparc64Architecture */
 
@@ -849,7 +849,7 @@ install:: fonts.alias							@@\
 # define BuildGlxExt		NO
 # define BuildGLXLibrary	NO
 
-# include <xfree86.cf>
+# include <xorg.cf>
 
 #endif /* VaxArchitecture */
  

@@ -334,7 +334,7 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildDPMS		YES
 #endif
 #ifndef BuildFontLib
-#if !defined(XF86Server) || !XF86Server
+#if (!defined(XF86Server) || !XF86Server) && (!defined (XorgServer) || !XorgServer)
 #define BuildFontLib		(BuildLibraries || BuildServer)
 #else
 #define BuildFontLib		(BuildLibraries || \
@@ -489,7 +489,7 @@ VENDORMANVERSION = XVendorManVersionString
 #ifndef BuildGlxExt
 #define BuildGlxExt		NO
 #else
-#if     BuildGlxExt && !defined(XFree86Version)
+#if     BuildGlxExt && !defined(XFree86Version) && !defined(XorgVersion)
 #undef  BuildXF86DRI
 #undef  BuildXF86DRM
 #undef  BuildXF86DRIDriverSupport
