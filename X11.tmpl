@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.37 2004/10/30 01:41:46 torrey Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.38 2004/12/03 03:33:25 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -476,7 +476,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define HasPlugin		YES
 #endif
 #ifndef BuildPlugin
-#define BuildPlugin		HasPlugin
+#define BuildPlugin		NO
 #endif
 #ifndef XpRasterDDX
 #define XpRasterDDX             YES
@@ -629,7 +629,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 # define InstallFontconfigLibrary  YES
 #endif
 #ifndef HasExpat
-#define HasExpat		NO
+#define HasExpat		YES
 #endif
 #ifndef UseExpat
 #define UseExpat		(UseFontconfig || BuildXF86DRI)
@@ -685,7 +685,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 
 #ifndef BuildXterm
-#define BuildXterm		BuildClients
+#define BuildXterm		NO
 #endif
 
 #ifndef BuildXcursorLibrary
@@ -3287,6 +3287,9 @@ ProjectUnsharedLibReferences(XPM,Xpm,$(XPMLIBSRC),XBuildLibDir)
 #if UseFreetype2
 
 #if BuildFreetype2Library
+#warning Building your own FreeType library is deprecated and can be harmful.
+#warning If your distribution supplies a FreeType library, you are urged to
+#warning consider using it instead.
 
 #ifndef SharedLibFreetype2
 #define SharedLibFreetype2 HasSharedLibraries
