@@ -1,7 +1,7 @@
 /*
  * GNU/Hurd shared library rules
  *
- * $XFree86: xc/config/cf/gnuLib.rules,v 1.5 2002/01/16 00:39:59 keithp Exp $
+ * $XFree86: xc/config/cf/gnuLib.rules,v 1.9 2003/10/11 09:40:13 herrb Exp $
  */
 
 /*
@@ -88,13 +88,6 @@ install:: Concat(lib,libname.so.rev) 					@@\
  * the library gone for long periods.
  */
 #ifndef SharedLibraryTarget
-#ifdef UseInstalled  
-#define LinkBuildSonameLibrary(lib) true
-#else
-#define LinkBuildSonameLibrary(lib) (RemoveFile($(BUILDLIBDIR)/lib); \
-	cd $(BUILDLIBDIR); $(LN) $(BUILDINCTOP)/$(CURRENT_DIR)/lib .)
-#endif
-
 #define SharedLibraryTarget(libname,rev,solist,down,up)			@@\
 AllTarget(Concat(lib,libname.so.rev))					@@\
 									@@\
@@ -113,7 +106,7 @@ Concat(lib,libname.so.rev):  solist $(EXTRALIBRARYDEPS)			@@\
 	LinkBuildLibraryMaybe(Concat(lib,libname.so),$(SOSYMLINK))	@@\
 									@@\
 clean::									@@\
-	@MAJREV=`expr rev : '\([^.]*\)'`; \				@@\
+	@MAJREV=`echo rev | sed 's/\.[^\.]*$$//'`; \			@@\
 	set -x; $(RM) Concat(lib,libname.so.$$MAJREV)			@@\
 	$(RM) Concat(lib,libname.so.rev) Concat(lib,libname.so)
 
@@ -123,17 +116,6 @@ clean::									@@\
  * SharedDepLibraryTarget - generate rules to create a shared library.
  */
 #ifndef SharedDepLibraryTarget
-#ifdef UseInstalled
-#ifndef LinkBuildSonameLibrary
-#define LinkBuildSonameLibrary(lib) true
-#endif
-#else
-#ifndef LinkBuildSonameLibrary
-#define LinkBuildSonameLibrary(lib) (RemoveFile($(BUILDLIBDIR)/lib); \
-	cd $(BUILDLIBDIR); $(LN) $(BUILDINCTOP)/$(CURRENT_DIR)/lib .)
-#endif
-#endif
-
 #define SharedDepLibraryTarget(libname,rev,deplist,solist,down,up)	@@\
 AllTarget(Concat(lib,libname.so.rev))					@@\
 									@@\
@@ -152,7 +134,7 @@ Concat(lib,libname.so.rev):  deplist $(EXTRALIBRARYDEPS)		@@\
 	LinkBuildLibraryMaybe(Concat(lib,libname.so),$(SOSYMLINK))	@@\
 									@@\
 clean::									@@\
-	@MAJREV=`expr rev : '\([^.]*\)'`; \				@@\
+	@MAJREV=`echo rev | sed 's/\.[^\.]*$$//'`; \			@@\
 	set -x; $(RM) Concat(lib,libname.so.$$MAJREV)			@@\
 	$(RM) Concat(lib,libname.so.rev) Concat(lib,libname.so)
 
