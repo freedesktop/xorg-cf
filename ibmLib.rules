@@ -1,5 +1,5 @@
 XCOMM $Xorg: ibmLib.rules,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
-XCOMM $XdotOrg: ibmLib.rules,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
+XCOMM $XdotOrg: xc/config/cf/ibmLib.rules,v 1.1.4.3 2003/12/15 16:42:40 kaleb Exp $
 
 /*
  * AIX shared library rules
@@ -174,8 +174,15 @@ LintLibReferences(varname,libname,libsource)
  * InstallSharedLibrary - generate rules to install the shared library.
  */
 #ifndef InstallSharedLibrary
-# define InstallSharedLibrary(libname,rev,dest)				@@\
+# if OSMajorVersion < 5
+#  define InstallSharedLibrary(libname,rev,dest)			@@\
 InstallLibrary(libname,dest)
+# else /* OSMajorVersion < 5 */
+#  define InstallSharedLibrary(libname,rev,dest)			@@\
+install:: Concat(lib,libname.so)					@@\
+	MakeDir($(DESTDIR)dest)						@@\
+	$(INSTALL) $(INSTALLFLAGS) $(INSTBINFLAGS) Concat(lib,libname.so) $(DESTDIR)dest
+# endif /* OSMajorVersion < 5 */
 #endif /* InstallSharedLibrary */
 
 /*
