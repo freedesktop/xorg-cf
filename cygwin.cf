@@ -172,7 +172,7 @@
 #  define HasExpat		YES
 # endif
 # ifndef HasFreetype2
-#  define HasFreetype2		NO
+#  define HasFreetype2		YES
 # endif
 # ifndef HasFontconfig
 #  define HasFontconfig		YES
