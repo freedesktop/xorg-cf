@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.16 2004/07/19 21:07:32 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.17 2004/07/20 19:31:48 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -4455,6 +4455,19 @@ install:: deps								@@\
 #endif
 #endif
 
+#ifndef LinkHardcopyPS
+# if CaseSensitiveFileSystem
+#  define LinkHardcopyPS(name)						@@\
+	@if [ -f name.PS ]; then set -x; \				@@\
+	  RemoveFile(name.ps); \					@@\
+	  $(LN) name.PS name.ps; \					@@\
+	fi
+# else
+#  define LinkHardcopyPS(name)
+# endif
+#endif
+
+
 #ifndef InstallHardcopyDoc
 #define InstallHardcopyDoc(name,deps)					@@\
 all:: name.ps PdfTarget(name)						@@\
@@ -4464,10 +4477,7 @@ name.ps: deps								@@\
 	  RemoveFile(name.ps); \					@@\
 	  gzip -d < name.PS.gz > name.ps; \				@@\
 	fi								@@\
-	@if [ -f name.PS ]; then set -x; \				@@\
-	  RemoveFile(name.ps); \					@@\
-	  $(LN) name.PS name.ps; \					@@\
-	fi								@@\
+	LinkHardcopyPS(name)						@@\
 									@@\
 ConvertPsToPdf(name)							@@\
 									@@\
