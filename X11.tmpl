@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.2.2.2 2004/03/17 20:25:00 ago Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.2.2.3 2004/03/18 23:10:21 harold Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -585,7 +585,7 @@ VENDORMANVERSION = XVendorManVersionString
 #endif
 
 #ifndef BuildXterm
-#define BuildXterm		YES
+#define BuildXterm		BuildClients
 #endif
 
 #ifndef BuildXcursorLibrary
