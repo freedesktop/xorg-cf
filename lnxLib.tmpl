@@ -14,15 +14,15 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
 #endif
 
 #define SharedX11Reqs
 #define SharedXlibi18nReqs $(LDPRELIB) $(XONLYLIB)
 #define SharedOldXReqs	  $(LDPRELIB) $(XONLYLIB)
 #define SharedXtReqs	  $(LDPRELIB) $(XONLYLIB) $(SMLIB) $(ICELIB)
-#define SharedXaw6Reqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPLIB) $(XLIB)
-#define SharedXawReqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
+#define SharedXaw6Reqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XLIB)
+#define SharedXawReqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
 #define SharedXmuReqs	  $(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXmuuReqs	  $(LDPRELIB) $(XONLYLIB)
 #define SharedXextReqs	  $(LDPRELIB) $(XONLYLIB)
