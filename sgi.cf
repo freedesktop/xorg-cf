@@ -316,4 +316,4 @@ clean::									@@\
 #define DoLoadableServer YES
 #endif
 
-#include <xfree86.cf>
+#include <xorg.cf>

@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7.2.7.2.2 2004/03/19 17:08:59 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7.2.7.2.6 2004/03/24 15:58:45 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -42,15 +42,28 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 
 /* X.Org release string */
 #ifndef XOrgReleaseString
-#define XOrgReleaseString	Release 6.6
+# if defined XorgVersionString
+#   define XOrgReleaseString	Release XorgVersionString
+# else
+#   define XOrgReleaseString	Release 6.7
+# endif
 #endif
 
 #ifndef XOrgManNameString
 #define XOrgManNameString	X Version 11
 #endif
-
-XORGRELSTRING = XOrgReleaseString
-XORGMANNAME = XOrgManNameString
+#ifndef XOrgNameString
+# define XOrgNameString   The X.Org Foundation
+#endif
+#ifndef XOrgNameStringShort
+# define XOrgNameStringShort   X.Org
+#endif
+#ifndef XOrgStdFilePrefix
+# define XOrgStdFilePrefix     xorg
+#endif
+#ifndef XOrgWebSupportAddress
+# define XOrgWebSupportAddress http://wiki.X.Org
+#endif
 
 #ifndef XOrgManDefs
 #define XOrgManDefs -D__xorgversion__='"$(XORGRELSTRING)" "$(XORGMANNAME)"'
@@ -62,14 +75,32 @@ XORGMANNAME = XOrgManNameString
 #ifndef XVendorManVersionString
 #define XVendorManVersionString XOrgReleaseString
 #endif
-
-VENDORMANNAME = XVendorManNameString
-VENDORMANVERSION = XVendorManVersionString
+#ifndef XVendorNameString
+# define XVendorNameString XOrgNameString
+#endif
+#ifndef XVendorNameStringShort
+# define XVendorNameStringShort XOrgNameStringShort
+#endif
+#ifndef XVendorWebSupport
+# define XVendorWebSupport XOrgWebSupportAddress
+#endif
+#ifndef XVendorStdFilePrefix
+# define XVendorStdFilePrefix XOrgStdFilePrefix
+#endif
 
 #ifndef VendorManDefs
 #define VendorManDefs -D__vendorversion__="$(VENDORMANVERSION) $(VENDORMANNAME)"
 #endif
 
+#ifndef VendorDefines
+#define VendorDefines -DXVENDORNAME='"$(VENDORNAME)"' -DXVENDORNAMESHORT='"$(VENDORNAMESHORT)"'
+#endif
+
+#ifndef VendorSupportDefines
+# if defined XVendorWebSupport
+#  define VendorSupportDefines -D__VENDORDWEBSUPPORT__='"$(VENDORWEBSUPPORT)"'
+# endif
+#endif
 /*
  * X-specific things
  */
@@ -334,7 +365,7 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildDPMS		YES
 #endif
 #ifndef BuildFontLib
-#if !defined(XF86Server) || !XF86Server
+#if (!defined(XF86Server) || !XF86Server) && (!defined (XorgServer) || !XorgServer)
 #define BuildFontLib		(BuildLibraries || BuildServer)
 #else
 #define BuildFontLib		(BuildLibraries || \
@@ -489,7 +520,7 @@ VENDORMANVERSION = XVendorManVersionString
 #ifndef BuildGlxExt
 #define BuildGlxExt		NO
 #else
-#if     BuildGlxExt && !defined(XFree86Version)
+#if     BuildGlxExt && !defined(XFree86Version) && !defined(XorgVersion)
 #undef  BuildXF86DRI
 #undef  BuildXF86DRM
 #undef  BuildXF86DRIDriverSupport
@@ -929,6 +960,12 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #ifndef XkbServerDefines
 #define XkbServerDefines /**/
+#endif
+#ifndef XkbDefRulesDefines
+#define XkbDefRulesDefines  -D__XKBDEFRULES__='"$(XKBDEFRULES)"'
+#endif
+# ifndef XkbDefaultRulesFile
+# define XkbDefaultRulesFile  XVendorStdFilePrefix
 #endif
 #ifndef LbxDefines
 #if BuildLBX
@@ -1645,9 +1682,25 @@ XCOMM X Window System make variables; these need to be coordinated with rules
 #ifdef X11ProjectRoot
      XPROJECTROOT = X11ProjectRoot
 #endif
-
+    VENDORMANNAME = XVendorManNameString
+ VENDORMANVERSION = XVendorManVersionString
       XORGMANDEFS = XOrgManDefs
     VENDORMANDEFS = VendorManDefs
+       VENDORNAME = XVendorNameString
+  VENDORNAMESHORT = XVendorNameStringShort
+
+#if defined (XVendorWebSupport)
+ VENDORWEBSUPPORT = XVendorWebSupport
+#endif
+VENDORSUPPORTDEFS = VendorSupportDefines
+
+      XKBDEFRULES = XkbDefaultRulesFile
+  XKBDEFRULESDEFS = XkbDefRulesDefines
+  
+     XCONFIGFILE = XConfigFile
+      XCONFIGDIR = XConfigDir
+        XLOGFILE = XLogFile
+     XSERVERNAME = XServerName
 
 #if HasSharedLibraries
 #ifndef DontUseLibPathVar

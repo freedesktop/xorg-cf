@@ -343,6 +343,6 @@ InstallManPageAliasesBase(file,destdir,aliases)
 #include <sv3Lib.rules>
 
 #ifdef i386Architecture
-#include <xfree86.cf>
+#include <xorg.cf>
 #endif
 
