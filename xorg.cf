@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.32 2004/10/18 14:26:35 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.33 2004/11/24 02:45:33 krh Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -447,7 +447,7 @@ RELEASE_VERSION = ReleaseVersion
 #  define XF86CardDrivers	mga glint nv tga s3 s3virge sis rendition \
 				neomagic tdfx savage cirrus tseng trident \
 				chips apm i128 ati ark cyrix siliconmotion \
-				vga dummy vesa i810 \
+				vga dummy vesa i810 vmware \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 
