@@ -8,7 +8,6 @@ XCOMM $XdotOrg$
  */
 XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 
-
 /* Get and set version information. */
 
 #include "version.def"
@@ -24,7 +23,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #if !defined(XORG_VERSION_PATCH) && defined(XF86_VERSION_PATCH)
 # define XORG_VERSION_PATCH XF86_VERSION_PATCH
 #endif
-#if defined(XORG_VERSION_SNAP) && defined(XF86_VERSION_SNAP)
+#if !defined(XORG_VERSION_SNAP) && defined(XF86_VERSION_SNAP)
 # define XORG_VERSION_SNAP  XF86_VERSION_SNAP
 #endif
 #if !defined(XORG_VERSION_CURRENT) && defined(XF86_VERSION_CURRENT)
@@ -93,7 +92,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #endif
 
 #ifndef XVendorString
-# define XVendorString	"The X.Org Foundation, Inc"
+# define XVendorString	"The X.Org Foundation L.L.C."
 #endif
 
 #ifndef XVendorRelease
@@ -140,6 +139,9 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #endif
 #ifndef XLogFile
 #define XLogFile		Xorg
+#endif
+#ifndef XServerName
+# define XServerName		Xorg
 #endif
 
 /*

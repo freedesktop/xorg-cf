@@ -48,9 +48,18 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef XOrgManNameString
 #define XOrgManNameString	X Version 11
 #endif
-
-XORGRELSTRING = XOrgReleaseString
-XORGMANNAME = XOrgManNameString
+#ifndef XOrgNameString
+# define XOrgNameString   The X.Org Foundation L.L.C.
+#endif
+#ifndef XOrgNameStringShort
+# define XOrgNameStringShort   X.Org
+#endif
+#ifndef XOrgStdFilePrefix
+# define XOrgStdFilePrefix     xorg
+#endif
+#ifndef XOrgWebSupportAddress
+# define XOrgWebSupportAddress http://wiki.X.org
+#endif
 
 #ifndef XOrgManDefs
 #define XOrgManDefs -D__xorgversion__='"$(XORGRELSTRING)" "$(XORGMANNAME)"'
@@ -62,12 +71,31 @@ XORGMANNAME = XOrgManNameString
 #ifndef XVendorManVersionString
 #define XVendorManVersionString XOrgReleaseString
 #endif
+#ifndef XVendorNameString
+# define XVendorNameString XOrgNameString
+#endif
+#ifndef XVendorNameStringShort
+# define XVendorNameStringShort XOrgNameStringShort
+#endif
+#ifndef XVendorWebSupport
+# define XVendorWebSupport XOrgWebSupportAddress
+#endif
+#ifndef XVendorStdFilePrefix
+# define XVendorStdFilePrefix XOrgStdFilePrefix
+#endif
 
 VENDORMANNAME = XVendorManNameString
 VENDORMANVERSION = XVendorManVersionString
+VENDORNAME = XVendorNameString
+VENDORNAMESHORT = XVendorNameStringShort
+VENDORWEBSUPPORT = XVendorWebSupportAddress
 
 #ifndef VendorManDefs
 #define VendorManDefs -D__vendorversion__="$(VENDORMANVERSION) $(VENDORMANNAME)"
+#endif
+
+#ifndef VendorDefines
+#define VendorDefines -DXVENDORNAME='"$(VENDORNAME)"' -DXVENDORNAMESHORT='"$(VENDORNAMESHORT)"'
 #endif
 
 /*
@@ -930,6 +958,12 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef XkbServerDefines
 #define XkbServerDefines /**/
 #endif
+#ifndef XkbDefRulesDefines
+#define XkbDefRulesDefines  -D__XKBDEFRULES__='"$(XKBDEFRULES)"'
+#endif
+# ifndef XkbDefaultRulesFile
+# define XkbDefaultRulesFile  XVendorStdFilePrefix
+#endif
 #ifndef LbxDefines
 #if BuildLBX
 #define LbxDefines -DLBX
@@ -1648,6 +1682,9 @@ XCOMM X Window System make variables; these need to be coordinated with rules
 
       XORGMANDEFS = XOrgManDefs
     VENDORMANDEFS = VendorManDefs
+
+      XKBDEFRULES = XkbDefaultRulesFile
+  XKBDEFRULESDEFS = XkbDefRulesDefines
 
 #if HasSharedLibraries
 #ifndef DontUseLibPathVar
