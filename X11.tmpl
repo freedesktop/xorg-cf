@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.13 2004/04/21 10:03:12 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.5 2004/04/25 23:06:26 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -140,10 +140,10 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define XserverStaticFontLib	YES
 #endif
 #ifndef BuildSpeedo
-#define BuildSpeedo		YES
+#define BuildSpeedo		NO
 #endif
 #ifndef BuildType1
-#define BuildType1		YES
+#define BuildType1		NO
 #endif
 #ifndef BuildCID
 #define BuildCID		YES
@@ -170,7 +170,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define Build100DpiFonts	YES
 #endif
 #ifndef BuildSpeedoFonts
-#define BuildSpeedoFonts	YES
+#define BuildSpeedoFonts	NO
 #endif
 #ifndef BuildType1Fonts
 #define BuildType1Fonts		YES
@@ -375,7 +375,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #endif
 #ifndef BuildFontCache
-#define BuildFontCache		YES
+#define BuildFontCache		NO
 #endif
 #ifndef BuildFontCacheLib
 #define BuildFontCacheLib	(BuildFontCache && !BuildServersOnly)
@@ -753,16 +753,16 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef DefaultFontPath
 	/*
-	 * Turn off building Speedo, Type1 and CID fonts if you are building
+	 * Turn off building Type1 and CID fonts if you are building
 	 * for low memory footprint
 	 */
 #if BuildLowMem
 #define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
 #else
 #if PrimaryScreenResolution < 88		/* (75 + 100) / 2 */
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
+#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
 #else
-#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
+#define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
 #endif
 #endif
 #endif
@@ -773,9 +773,9 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
          */
 #if BuildLowMem
 #if PrimaryScreenResolution < 88                /* (75 + 100) / 2 */
-#define DefaultFSFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
+#define DefaultFSFontPath $(FONTDIR)/misc/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
 #else
-#define DefaultFSFontPath $(FONTDIR)/misc/,$(FONTDIR)/Speedo/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
+#define DefaultFSFontPath $(FONTDIR)/misc/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
 #endif
 #else
 #define DefaultFSFontPath DefaultFontPath

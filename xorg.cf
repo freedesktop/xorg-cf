@@ -1,4 +1,4 @@
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.4 2004/04/25 22:54:00 gisburn Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -1591,11 +1591,11 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
  * Include fonts support
  */
 #ifndef BuildSpeedo
-# define BuildSpeedo		YES
+# define BuildSpeedo		NO
 #endif
 
 #ifndef BuildType1
-# define BuildType1		YES
+# define BuildType1		NO
 #endif
 
 #ifndef BuildCID
@@ -1620,7 +1620,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define Build100DpiFonts	YES
 #endif
 #ifndef BuildSpeedoFonts
-# define BuildSpeedoFonts	YES
+# define BuildSpeedoFonts	NO
 #endif
 #ifndef BuildType1Fonts
 # define BuildType1Fonts	YES

@@ -169,12 +169,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * To disable support for Type1 fonts, uncomment this.
- *
-#define BuildType1		NO
- */
-
-/*
  * To disable support for CID fonts, uncomment this.
  *
 #define BuildCID		NO
