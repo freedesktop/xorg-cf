@@ -569,17 +569,17 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildRenderLibrary
 #define BuildRenderLibrary	!BuildServersOnly
 #endif
-#ifndef BuildXstLibrary
-#define BuildXstLibrary		YES
-#ifndef Buildxstls
-#define Buildxstls		YES
-#endif
-#ifndef Buildxstshowfont
-#define Buildxstshowfont        YES
-#endif
-#endif
 #ifndef BuildXst
 #define BuildXst                YES
+#endif
+#ifndef BuildXstLibrary
+#define BuildXstLibrary		BuildXst
+#endif
+#ifndef Buildxstls
+#define Buildxstls		BuildXstLibrary
+#endif
+#ifndef Buildxstshowfont
+#define Buildxstshowfont        BuildXstLibrary
 #endif
 #ifndef BuildXftLibrary
 #define BuildXftLibrary		BuildRenderLibrary
@@ -1127,7 +1127,7 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 
 #ifndef XstDefines
 #if BuildXst
-#define XstDefines -DXST
+#define XstDefines -DXST -DUSE_XST_EXTENSION
 #else
 #define XstDefines /**/
 #endif
@@ -1721,6 +1721,24 @@ VENDORSUPPORTDEFS = VendorSupportDefines
       XCONFIGDIR = XConfigDir
         XLOGFILE = XLogFile
      XSERVERNAME = XServerName
+
+#if BuildXstLibrary || BuildXst
+# if UseInstalledSTSF
+#  ifndef STDir
+#   define STDir /usr/local
+#  endif
+           STDIR  = STDir
+           STINC  = -I$(STDIR)/include
+           STLIB  = -L$(STDIR)/lib -lST 
+# else
+#  ifndef STTopDir
+#   define STTopDir $(TOP)/../stsf
+#  endif
+           STDIR  = STTopDir
+           STINC  = -I$(STDIR)/interface
+           STLIB  = -L$(STDIR)/STClientLibrary/src -lST
+# endif
+#endif
 
 #if HasSharedLibraries
 #ifndef DontUseLibPathVar

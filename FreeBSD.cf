@@ -562,6 +562,42 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #define GccOptBug295
 #endif
 
+XCOMM Assumes iconv is installed from /usr/ports/converters/libiconv 
+#ifndef iconvDir
+# define iconvDir /usr/local
+#endif
+          ICONVDIR = iconvDir
+          ICONVINC = -I$(ICONVDIR)/include -Diconv=libiconv \
+			-Diconv_open=libiconv_open -Diconv_close=libiconv_close
+       ICONVSYSLIB = -L$(ICONVDIR)/lib -lgiconv
+/* The inbuf paramter to iconv(3) is "const char**", not "char **" */
+ICONV_INBUF_DEFINE = -DICONV_INBUF_CONST=const
+
+XCOMM Assumes ICU is installed from /usr/ports/devel/icu
+#ifndef icuDir
+# define icuDir /usr/local
+#endif
+            ICUDIR = icuDir
+	    ICUINC = -I$(ICUDIR)/include
+	    ICULIB = -L$(ICUDIR)/lib -licuuc -lstdc++
+
+XCOMM Assumes GNU gettext is installed from /usr/ports/devel/gettext
+#ifndef gettextDir
+# define gettextDir /usr/local
+#endif
+        GETTEXTDIR = gettextDir
+        GETTEXTINC = -I$(GETTEXTDIR)/include
+        GETTEXTLIB = -L$(GETTEXTDIR)/lib -lintl
+
+XCOMM Assumes OpenMotif is installed from /usr/ports/x11-toolkits/open-motif
+#define UseInstalledMotif YES
+#define MTop	/usr/X11R6
+DEPXMLIB = $(MTOP)/lib/libXm.so.2
+
+$(DEPXMLIB):
+	@echo You must install OpenMotif from /usr/ports/x11-toolkits/open-motif
+	@echo in order to compile this program
+
 #include <bsdLib.rules>
 
 #include <xorg.cf>
