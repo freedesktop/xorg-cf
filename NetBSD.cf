@@ -47,6 +47,15 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #ifndef HasLibCrypt
 # define HasLibCrypt		YES
 #endif
+#ifndef HasMotif
+# define HasMotif YES
+#endif /* !HasMotif */
+#ifndef HasMotif2
+# define HasMotif2 YES
+#endif /* !HasMotif2 */
+#ifndef HasGhostScript
+# define HasGhostScript YES
+#endif /* !HasGhostScript */
 #ifndef HasShm
 # if OSMajorVersion == 0 && OSMinorVersion == 9 && OSTeenyVersion == 2
 /*

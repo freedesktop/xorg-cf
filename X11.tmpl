@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.12 2004/04/15 10:13:10 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -462,6 +462,24 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef XprtServer
 #define XprtServer		BuildServer
 #endif
+#ifndef XpRasterDDX
+#define XpRasterDDX             YES
+#endif
+#ifndef XpColorPclDDX
+#define XpColorPclDDX           YES
+#endif
+#ifndef XpMonoPclDDX
+#define XpMonoPclDDX            YES
+#endif
+#ifndef XpPostScriptDDX
+#define XpPostScriptDDX         YES
+#endif
+#ifndef XpPdfDDX
+#define XpPdfDDX                YES
+#endif
+#ifndef XpSvgDDX
+#define XpSvgDDX                YES
+#endif
 #ifndef BuildXprint
 #if XprtServer
 #define BuildXprint		YES
@@ -470,7 +488,7 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #endif
 #ifndef BuildXprintLib
-#define BuildXprintLib		(BuildXprint && !BuildServersOnly)
+#define BuildXprintLib		!BuildServersOnly
 #endif
 #ifndef BuildScreenSaverExt
 #define BuildScreenSaverExt	NO
@@ -3665,10 +3683,10 @@ ProjectUnsharedLibReferences(XKBUI,xkbui,$(XKBUILIBSRC),XBuildLibDir)
 #endif
 
 #ifndef XawClientDepLibs
-#define XawClientDepLibs $(DEPXAWLIB) $(DEPXMULIB) $(DEPXTOOLLIB) $(DEPXPMLIB) $(DEPXLIB)
+#define XawClientDepLibs $(DEPXAWLIB) $(DEPXMULIB) $(DEPXTOOLLIB) $(DEPXPMLIB) $(DEPXPLIB) $(DEPXLIB)
 #endif
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
 #endif
 
 #ifndef SharedLibXTrap
@@ -4092,6 +4110,37 @@ clean::									@@\
 	RemoveFile(name.bdf)
 #endif
 #endif
+
+/* 
+ * InstallXpPMFLink - install link for a Xprint PMF "font" from one
+ * print model to another
+ */
+#ifndef InstallXpPMFLink
+#define InstallXpPMFLink(fontfilename,srcmodelfontdir,destmodelfontdir)				@@\
+	InstallLink(install,srcmodelfontdir/fontfilename,fontfilename,destmodelfontdir)
+#endif /* InstallXpPMFLink */
+/* 
+ * InstallXpMultiplePMFLinks - install multiple links for PMF fonts
+ * from one print model to another
+ */
+#ifndef InstallXpMultiplePMFLinks
+#define InstallXpMultiplePMFLinks(list,srcmodelfontdir,destmodelfontdir)			@@\
+install::											@@\
+	MakeDir($(DESTDIR)destmodelfontdir)							@@\
+	for i in list ; do \									@@\
+	    $(RM) $(DESTDIR)destmodelfontdir/$$i ; \						@@\
+	    $(LN) -s -f srcmodelfontdir/$$i $(DESTDIR)destmodelfontdir/$$i ; \			@@\
+	done
+#endif /* InstallXpPMFLink */
+
+/*
+ * InstallXpPMFFontsDir - make and install a fonts.dir index for model-config fonts
+ */
+#ifndef InstallXpPMFFontsDir
+#define InstallXpPMFFontsDir(destmodelfontdir)			@@\
+install::							@@\
+	(cd $(DESTDIR)destmodelfontdir ; $(DESTDIR)$(BINDIR)/mkfontscale -b -s -l)
+#endif /* InstallXpPMFFontsDir */
 
 
 /*

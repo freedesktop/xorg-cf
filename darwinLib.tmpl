@@ -10,7 +10,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
 #endif
 
 /* Allow for libpthread, as overridden by OS definitions */
@@ -27,8 +27,8 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedGLUReqs       $(LDPRELIB) $(XLIB) $(GLXLIB)
 #define SharedOSMesaReqs    $(LDPRELIB) $(XLIB) $(GLXLIB)
 #define SharedSMReqs        $(LDPRELIB) $(ICELIB)
-#define SharedXawReqs       $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
-#define SharedXaw6Reqs      $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XLIB)
+#define SharedXawReqs       $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
+#define SharedXaw6Reqs      $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPLIB) $(XLIB)
 #define SharedXcursorReqs   $(LDPRELIB) $(XRENDERLIB) $(XLIB)
 #define SharedXextReqs      $(LDPRELIB) $(XONLYLIB)
 #define SharedXiReqs        $(LDPRELIB) $(XLIB)

@@ -66,11 +66,15 @@ Imake.tmpl provides defaults for the following variables:
 	HasGcc2			boolean for system has GNU gcc 2.x compiler
 	HasGcc2ForCplusplus	use gcc 2 for C++ programs?
 	HasGnuMake		use the GNU make program?
+        HasGhostPCL             boolean for system has GhostPCL
+        HasGhostScript          boolean for system has GhostScript
 	HasKrbIV		system has Kerberos version IV support?
 	HasKrb5			system has Kerberos version 5 support?
 	HasLargeTmp		boolean for system has /tmp space
 	HasLatex		system has LaTeX document preparation software
 	HasLibCrypt		boolean for system has libcrypt
+        HasMotif                boolean for system has Motif
+        HasMotif2               boolean for system has Motif2 or OpenMotif
 	HasNdbm			boolean for system has ndbm routines
 	HasPoll			use poll() syscall?
 	HasPurify		boolean for system has Purify
@@ -322,6 +326,12 @@ X11.tmpl provides defaults for the following variables:
 	XinitDir		directory in which to install xinit files
 	XPrintDir		parent of X Print server config directory
 	XprtServer		build the X Print server
+	XpRasterDDX		include the raster print ddx driver
+	XpColorPclDDX		include the color PCL print ddx driver
+	XpMonoPclDDX		include the monochrome PCL print ddx driver
+	XpPostScriptDDX		include the PostScript print ddx driver
+	XpPdfDDX		include the PDF print ddx driver
+	XpSvgDDX		include the SVG print ddx driver
 	XmanLocalSearchPath	non-standard path for man pages
 	XtErrorPrefix		leading text in XtError() msg; eg. 'X Toolkit '
 	XtWarningPrefix		leading text in XtWarning()msg, same as above
@@ -452,10 +462,6 @@ The following variables are used by some part of the tree:
 	HasShadowPasswd		system has getspnam() function
 	XnestServer		build X server with Xlib-based ddx
 	XVirtualFramebufferServer	build X server with virtual memory framebuffer
-	XpRasterDDX		include the raster print ddx driver
-	XpColorPclDDX		include the color PCL print ddx driver
-	XpMonoPclDDX		include the monochrome PCL print ddx driver
-	XpPostScriptDDX		include the PostScript print ddx driver
 	WebServer		host:port of your Web server (see programs/xrx)
 	HtmlDir			path used by Web server for HTML and RX docs
 	CgiBinDir		path used by Web server for CGI programs

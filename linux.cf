@@ -1,4 +1,4 @@
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.1.4.8 2004/04/15 10:13:10 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -205,6 +205,16 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  define LinuxGnuSourceDefines	-D_GNU_SOURCE
 # endif
 #endif
+
+#ifndef HasMotif
+# define HasMotif YES
+#endif /* !HasMotif */
+#ifndef HasMotif2
+# define HasMotif2 YES
+#endif /* !HasMotif2 */
+#ifndef HasGhostScript
+# define HasGhostScript YES
+#endif /* !HasGhostScript */
 
 #if LinuxCLibMajorVersion >= 6
 # define LinuxSourceDefines	-D_POSIX_C_SOURCE=199309L \
@@ -452,7 +462,9 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # endif
 #endif
 #define HasPutenv		YES
-#define HasShm			YES
+#ifndef HasShm
+# define HasShm			YES
+#endif
 #define HasSockets		YES
 #if UseElfFormat || defined(AlphaArchitecture)
 #ifndef HasSnprintf

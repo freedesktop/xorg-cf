@@ -1,4 +1,4 @@
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.13 2004/04/18 03:00:42 alanc Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -531,6 +531,15 @@ man_keywords::								@@\
 #ifndef PamLibraries
 #define PamLibraries		-lpam
 #endif
+
+#ifndef HasMotif
+# define HasMotif YES
+#endif /* !HasMotif */
+#ifndef HasMotif2
+/* Solaris's Motif2 version is broken and misses XmPrintShell
+ * (see http://xprint.mozdev.org/bugs/show_bug.cgi?id=1366) */
+# define HasMotif2 NO
+#endif /* !HasMotif2 */
 
 #define MotifDefines			\
 	-DNO_ISDIR -DNO_REGCOMP -DNO_ALLOCA -DBOGUS_MB_MAX -DNO_CONST
