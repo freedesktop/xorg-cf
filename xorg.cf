@@ -13,6 +13,27 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 
 #include "version.def"
 #include "date.def"
+
+/* Temporary kludge */
+#if !defined(XORG_VERSION_MAJOR) && defined(XF86_VERSION_MAJOR)
+# define  XORG_VERSION_MAJOR XF86_VERSION_MAJOR
+#endif
+#if !defined(XORG_VERSION_MINOR) && defined(XF86_VERSION_MINOR)
+# define XORG_VERSION_MINOR XF86_VERSION_MINOR
+#endif
+#if !defined(XORG_VERSION_PATCH) && defined(XF86_VERSION_PATCH)
+# define XORG_VERSION_PATCH XF86_VERSION_PATCH
+#endif
+#if defined(XORG_VERSION_SNAP) && defined(XF86_VERSION_SNAP)
+# define XORG_VERSION_SNAP  XF86_VERSION_SNAP
+#endif
+#if !defined(XORG_VERSION_CURRENT) && defined(XF86_VERSION_CURRENT)
+# define XORG_VERSION_CURRENT XF86_VERSION_CURRENT
+#endif
+#if !defined(XORG_DATE) && defined(XF86_DATE)
+# define XORG_DATE XF86_DATE
+#endif
+
 /*
  * Xorg versions are M.m.P.s, and XorgVersion is:
  *
@@ -28,27 +49,27 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #endif
 
 #if !defined(XorgVersionString) && \
-    defined(XF86_VERSION_MAJOR) && defined(XF86_VERSION_MINOR) && \
-    defined(XF86_VERSION_PATCH) && defined(XF86_VERSION_SNAP)
-# if XF86_VERSION_SNAP == 0
-#define XorgVersionString `echo XF86_VERSION_MAJOR XF86_VERSION_MINOR XF86_VERSION_PATCH | sed 's/ /./g'`
+    defined(XORG_VERSION_MAJOR) && defined(XORG_VERSION_MINOR) && \
+    defined(XORG_VERSION_PATCH) && defined(XORG_VERSION_SNAP)
+# if XORG_VERSION_SNAP == 0
+#define XorgVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH | sed 's/ /./g'`
 #else
-#define XorgVersionString `echo XF86_VERSION_MAJOR XF86_VERSION_MINOR XF86_VERSION_PATCH XF86_VERSION_SNAP | sed 's/ /./g'`
+#define XorgVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH XORG_VERSION_SNAP | sed 's/ /./g'`
 # endif
 #endif
 
 #if !defined(XorgManVersionString) && \
-    defined(XF86_VERSION_MAJOR) && defined(XF86_VERSION_MINOR) && \
-    defined(XF86_VERSION_PATCH) && defined(XF86_VERSION_SNAP)
-# if XF86_VERSION_SNAP == 0
-#define XorgManVersionString `echo XF86_VERSION_MAJOR XF86_VERSION_MINOR XF86_VERSION_PATCH | sed -e 's/ /./g' -e 's/^/Version\\\ /'`
+    defined(XORG_VERSION_MAJOR) && defined(XORG_VERSION_MINOR) && \
+    defined(XORG_VERSION_PATCH) && defined(XORG_VERSION_SNAP)
+# if XORG_VERSION_SNAP == 0
+#define XorgManVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH | sed -e 's/ /./g' -e 's/^/Version\\\ /'`
 #else
-#define XorgManVersionString `echo XF86_VERSION_MAJOR XF86_VERSION_MINOR XF86_VERSION_PATCH XF86_VERSION_SNAP | sed -e 's/ /./g' -e 's/^/Version\\\ /'`
+#define XorgManVersionString `echo XORG_VERSION_MAJOR XORG_VERSION_MINOR XORG_VERSION_PATCH XORG_VERSION_SNAP | sed -e 's/ /./g' -e 's/^/Version\\\ /'`
 # endif
 #endif
 
-#if !defined(XFree86DateString) && defined(XF86_DATE)
-# define XFree86DateString XF86_DATE
+#if !defined(XFree86DateString) && defined(XORG_DATE)
+# define XFree86DateString XORG_DATE
 #endif
 
 #ifndef BuildDateCmd
@@ -112,7 +133,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
  */
 
 #ifndef XConfigFile
-#define XConfigFile		XorgConfig
+#define XConfigFile		xorg.cfg
 #endif
 #ifndef XConfigDir
 #define XConfigDir		$(LIBDIR)
