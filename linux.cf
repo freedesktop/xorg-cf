@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.17 2004/11/08 06:35:26 fabbione Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.18 2005/01/10 19:18:59 eich Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -779,7 +779,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  define OSXInputDrivers1	/**/
 # endif
 # if HasLinuxInput
-#  define OSXInputDrivers2	aiptek
+#  define OSXInputDrivers2	aiptek evdev
 # else
 #  define OSXInputDrivers2	/**/
 # endif
