@@ -1,4 +1,4 @@
-XCOMM $XdotOrg$
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.4 2003/12/06 13:22:41 kaleb Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -277,11 +277,9 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define HasSnprintf YES
 # endif
 # if OSMinorVersion > 7
-#  define HasStrlcat YES
-# endif
-# if OSMinorVersion > 7
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
+#  define HasZlib	YES
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
