@@ -1,5 +1,3 @@
-XCOMM $XFree86: xc/config/cf/cygwin.rules,v 3.27 2003/10/26 18:17:37 herrb Exp $
-
 /*
  * Cygwin shared library rules (DLL versions)
  */
@@ -7,6 +5,12 @@ XCOMM $XFree86: xc/config/cf/cygwin.rules,v 3.27 2003/10/26 18:17:37 herrb Exp $
 #define HasSharedLibraries	YES
 #define NeedLibInsideFlag	NO
 #define ForceNormalLib		NO
+#ifndef SharedLibX11
+# define SharedLibX11		YES
+#endif
+#ifndef NormalLibX11
+# define NormalLibX11		NO
+#endif
 #define SharedLibXaw		YES
 #define SharedLibXmu		YES
 #define SharedLibXt		YES

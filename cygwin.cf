@@ -1,29 +1,30 @@
-XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 herrb Exp $
-
 /* Cygwin/X vendor strings and version */
 #ifndef CygxVersionMajor
-# define CygxVersionMajor 6
+# define CygxVersionMajor	6
 #endif
 #ifndef CygxVersionMinor
-# define CygxVersionMinor 7
+# define CygxVersionMinor	7
 #endif
-#ifndef CygxVersionPico
-# define CygxVersionPico 0
+#ifndef CygxVersionPatch
+# define CygxVersionPatch	0
 #endif
-#ifndef CygxVersionLocal
-# define CygxVersionLocal 1
+#ifndef CygxVersionSnap
+# define CygxVersionSnap	0
+#endif
+#ifndef CygxVersionServer
+# define CygxVersionServer	1
 #endif
 
 #ifndef CygxVersion
-# define CygxVersion (10000000 * CygxVersionMajor + 100000 * CygxVersionMinor + 1000 * CygxVersionPico + CygxVersionLocal)
+# define CygxVersion (10000000 * CygxVersionMajor + 100000 * CygxVersionMinor + 1000 * CygxVersionPatch + CygxVersionSnap)
 #endif
 
 #ifndef CygxVersionString
-# define CygxVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPico CygxVersionLocal | sed -e 's/ /./g'`
+# define CygxVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPatch CygxVersionSnap%CygxVersionServer| sed -e 's/ /./g' -e 's/%/-/g'`
 #endif
 
 #ifndef CygxManVersionString
-# define CygxManVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPico CygxVersionLocal| sed -e 's/ /./g' -e 's/^/Version\\\ /'`
+# define CygxManVersionString `echo CygxVersionMajor CygxVersionMinor CygxVersionPatch CygxVersionSnap| sed -e 's/ /./g' -e 's/^/Version\\\ /'`
 #endif
 
 #ifndef XVendorString
@@ -101,7 +102,9 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #define HasSockets		YES
 #define GzipFontCompression	YES
 #define HasZlib			YES
-#define GzipLibrary		-lz.dll
+#ifndef GzipLibrary
+# define GzipLibrary		-lz.dll
+#endif
 
 /* We don't need -lm */
 #define MathLibrary		/**/
@@ -416,7 +419,6 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 /* We need libX11 and libXext for the XWin Server */
 #if XWinServer
 # define BuildX11Lib		YES
-# define BuildXextLib		YES
 #endif
 
 /*
