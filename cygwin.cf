@@ -131,7 +131,9 @@
 #define UseGccMakeDepend	NO
 #define ThreadedX		YES
 #define HasThreadSafeAPI	YES
+#if !CrossCompiling
 #define CaseSensitiveFileSystem	NO
+#endif
 #define HasWChar32		YES
 #define HasBasename		NO /* basename() in libc */
 
