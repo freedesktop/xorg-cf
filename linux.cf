@@ -489,7 +489,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #ifndef HasFreetype2
-# define HasFreetype2
+# define HasFreetype2		YES
 #endif
 
 #define AvoidNullMakeCommand	YES
