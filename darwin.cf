@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/darwin.cf,v 1.3 2004/07/30 18:22:06 torrey Exp $
+XCOMM $XdotOrg: xc/config/cf/darwin.cf,v 1.4.2.1 2004/12/15 04:53:05 gisburn Exp $
 XCOMM platform:  $XFree86: xc/config/cf/darwin.cf,v 1.50 2004/01/20 23:54:50 torrey Exp $
 
 /* Darwin / Mac OS X configuration by John Carmack <johnc@idsoftware.com> */
@@ -133,6 +133,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
 #  define GlxExtraDefines -DGLX_DIRECT_RENDERING -DGLX_USE_APPLEGL GlxArchDefines
 # endif
 
+# define BuildRootless          YES
 #define BuildAppleWMLibrary     YES
 
 #endif  /* DarwinQuartzSupport */
