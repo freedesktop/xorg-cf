@@ -184,6 +184,13 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # define Freetype2BuildDefines -DTT_CONFIG_OPTION_BYTECODE_INTERPRETER
 #endif
 
+#ifndef HasDevRandom
+# define HasDevRandom YES
+# ifndef RandomDeviceName
+#  define RandomDeviceName /dev/urandom
+# endif
+#endif
+
 /*
  * The Linux BinUtils major version.  25 => 2.5.x, which is what is included
  * with Slackware 3.0
