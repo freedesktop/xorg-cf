@@ -581,6 +581,20 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildRandRLibrary	!BuildServersOnly
 #endif
 
+#ifndef BuildXfixes
+#define BuildXfixes		YES
+#endif
+#ifndef BuildXfixesLibrary
+#define BuildXfixesLibrary	!BuildServersOnly
+#endif
+
+#ifndef BuildDamage
+#define BuildDamage		YES
+#endif
+#ifndef BuildDamageLibrary
+#define BuildDamageLibrary	!BuildServersOnly
+#endif
+
 #ifndef BuildXcursorLibrary
 #define BuildXcursorLibrary	BuildRenderLibrary
 #endif
@@ -1096,6 +1110,22 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+#ifndef XfixesDefines
+#if BuildXfixes
+#define XfixesDefines -DXFIXES
+#else
+#define XfixesDefines /**/
+#endif
+#endif
+
+#ifndef XDamageDefines
+#if BuildDamage
+#define XDamageDefines -DDAMAGEEXT
+#else
+#define XDamageDefines /**/
+#endif
+#endif
+
 #ifndef SitePervasiveExtensionDefines
 #define SitePervasiveExtensionDefines /**/
 #endif
@@ -1105,7 +1135,8 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 	XCSecurityDefines CupDefines PervasiveDBEDefines \
 	XF86BigfontExtensionDefines DPMSDefines \
 	LowMemDefines XprintDefines XineramaDefines \
-	SitePervasiveExtensionDefines RenderDefines RandRDefines
+	SitePervasiveExtensionDefines RenderDefines RandRDefines \
+	XfixesDefines XDamageDefines
 #endif
 #ifndef SiteExtensionDefines
 #define SiteExtensionDefines /**/
@@ -2084,6 +2115,30 @@ ProjectUnsharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBSRC),XBuildLibDir)
 #define DebugLibXrandr		NO
 #undef  ProfileLibXrandr
 #define ProfileLibXrandr	NO
+#endif
+
+#if BuildDamageLibrary
+#ifndef SharedLibXdamage
+#define SharedLibXdamage	HasSharedLibraries
+#endif
+#ifndef NormalLibXdamage
+#define NormalLibXdamage	(!SharedLibXdamage || ForceNormalLib)
+#endif
+#ifndef DebugLibXdamage
+#define DebugLibXdamage		NO
+#endif
+#ifndef ProfileLibXdamage
+#define ProfileLibXdamage	NO
+#endif
+#else
+#undef  SharedLibXdamage
+#define SharedLibXdamage	NO
+#undef  NormalLibXdamage
+#define NormalLibXdamage	NO
+#undef  DebugLibXdamage
+#define DebugLibXdamage		NO
+#undef  ProfileLibXdamage
+#define ProfileLibXdamage	NO
 #endif
 
 #if BuildXcursorLibrary
