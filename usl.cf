@@ -1,5 +1,10 @@
 XCOMM platform:  $Xorg: usl.cf,v 1.3 2000/08/17 19:41:48 cpqbld Exp $
 
+
+
+
+XCOMM platform:  $XFree86: xc/config/cf/usl.cf,v 3.23 2001/01/17 16:38:50 dawes Exp $
+
 #ifndef OSName
 # define OSName		DefaultOSName
 #endif
@@ -38,8 +43,12 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 #else
 #define XawI18nDefines		-DHAS_WCHAR_H -DHAS_ISW_FUNCS
 #endif
-#if OSTeenyVersion > 1
-# define ExtraLibraries		-lsocket -lnsl -lgen -lw
+#if OSMajorVersion > 1 || OSTeenyVersion > 1
+# if OSMajorVersion >= 7
+#  define ExtraLibraries		-lsocket -lnsl -lgen
+# else
+#  define ExtraLibraries		-lsocket -lnsl -lgen -lw
+# endif
 # define ThreadedX		YES
 # define HasThreadSafeAPI	NO
 /* UnixWare does not have MT-safe pwd routines. */
@@ -48,15 +57,32 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 # define SystemMTDefines	-D_REENTRANT
 # define ThreadsLibraries	-lthread
 # define ThreadsCplusplusLibraries	-lthread
-# define DefaultCCOptions	-W0,-2A -Xa -Dasm=__asm
+# ifndef DefaultCCOptions
+#  define DefaultCCOptions	-W0,-2A -Xa -Dasm=__asm
+# endif
 #endif
 #define BuildLibPathVar	  LD_LIBRARY_PATH
+
+/* UnixWare 7.x comes with perl. */
+#ifndef HasPerl
+# if OSMajorVersion >= 7
+#  define HasPerl		YES
+# else
+#  define HasPerl		NO
+# endif
+#endif
 
 #ifndef UseExportLists
 # define UseExportLists YES
 #endif
 
 #define GencatFlags		-m
+
+#define HasStrcasecmp		NO
+#ifndef HasSnprintf
+#define HasSnprintf		YES
+#endif
+
 
 #include <svr4.cf>
 
@@ -81,8 +107,6 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 #define DtSearchDefines		-DI18N_MSG DtSvcDefines
 #define DtWidgetDefines		DtSearchDefines
 #define DtPrintDefines		DtSearchDefines
-
-#define HasStrcasecmp		NO
 
 /* For DtHelp's TIFF processing routines. */
 #define LSBBitOrder		YES

@@ -1,4 +1,4 @@
-XCOMM platform:  $Xorg: hp.cf,v 1.6 2000/12/12 12:49:13 coskrey Exp $
+XCOMM platform:  $Xorg: hp.cf,v 1.5 2000/08/17 19:41:47 cpqbld Exp $
 
 #ifndef OSName
 # define OSName		DefaultOSName
@@ -120,14 +120,12 @@ XCOMM operating system:  OSName (OSMajorVersion.OSMinorVersion.OSTeenyVersion)
 #define RemoveTargetProgramByMoving	YES
 #define ExpandManNames		YES
 #define HasPutenv		YES
-#define HasDlopen		YES
 #define HasNdbm			YES
 #define DBMLibrary		/usr/lib/libdbm.a
 #define PrimaryScreenResolution	91
 #define ExtensionOSDefines	-DHPINPUT -DXTESTEXT1
 #define XhpServer		YES
 #define ServerExtraSysLibs	-ldld
-#define DlLibrary		-ldld
 #ifndef BuildXInputExt
 # define BuildXInputExt		YES
 #endif
