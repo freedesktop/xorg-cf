@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.1 2004/03/04 17:45:37 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.2 2004/03/14 03:27:09 alanc Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -278,16 +278,29 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #   define UseExportLists NO
 #  endif
 # endif
-# if OSMinorVersion > 5
+# if OSMinorVersion > 5 /* Solaris 2.6 and later */
 #  define HasSnprintf YES
 # endif
-# if OSMinorVersion > 7
+# if OSMinorVersion > 7 /* Solaris 8 and later */
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
 #  define HasZlib	YES
 # endif
-# if OSMinorVersion > 9
+# if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
+/* Solaris 10 includes FreeType already.  It's also available in GNOME 2.0 for
+ * Solaris 8 & 9, and in Solaris 9 4/03 and later, but there's no easy way to
+ * detect that in imake, so users of those releases who want to use the 
+ * installed FreeType instead of the one in this tree should copy the following
+ * two settings to their host.def.  Those who want to use the in-tree copy
+ * regardless of OS version should add "#define HasFreetype2 NO" to host.def.
+ */
+#  ifndef HasFreetype2
+#   define HasFreetype2 YES 
+#   ifndef Freetype2Dir
+#    define Freetype2Dir /usr/sfw
+#   endif
+#  endif
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
