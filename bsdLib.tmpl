@@ -90,4 +90,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedXxf86vmReqs	$(LDPRELIB) $(XLIB)
 #define SharedxkbfileReqs	$(LDPRELIB) $(XONLYLIB)
 #define SharedxkbuiReqs $(LDPRELIB) $(XKBFILELIB) $(XONLYLIB)
+#define SharedXfixesReqs	$(LDPRELIB) $(XLIB)
+#define SharedXdamageReqs	$(LDPRELIB) $(XFIXESLIB) $(XLIB)
+#define SharedXcompositeReqs	$(LDPRELIB) $(XDAMAGELIB) $(XFIXESLIB) $(XLIB)
 #endif /* UseElfFormat */
