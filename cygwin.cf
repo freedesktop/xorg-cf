@@ -273,9 +273,6 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #ifndef BuildXWinEmulatePseudo
 # define BuildXWinEmulatePseudo	NO
 #endif
-#ifndef BuildXWinLayer
-# define BuildXWinLayer		NO
-#endif
 #ifndef BuildXWinMultiWindow
 # define BuildXWinMultiWindow	YES
 #endif
@@ -313,11 +310,6 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #else
 # define XWinEmulatePseudoDefines 
 #endif /* BuildXWinEmulatePseudo */
-#if BuildXWinLayer
-# define XWinLayerDefines	-DXWIN_LAYER
-#else
-# define XWinLayerDefines 
-#endif /* BuildXWinLayer */
 #if BuildXWinMultiWindow
 # define XWinMultiWindowDefines	-DXWIN_MULTIWINDOW
 #else
@@ -358,7 +350,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 				-DX_BYTE_ORDER=ByteOrder \
 				XvExtensionDefines \
 				XWinXF86ConfigDefines XWinNativeGDIDefines \
-				XWinPrimaryFBDefines XWinLayerDefines \
+				XWinPrimaryFBDefines \
 				XWinEmulatePseudoDefines \
 				XWinUpdateStatsDefines \
 				XWinClipboardDefines XWinMultiWindowDefines \
@@ -389,7 +381,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 # define BuildXInputExt		YES	/* Not enabled by default */
 #endif
 #ifndef BuildRandR
-# define BuildRandR		NO	/* Not supported by XWin Server */
+# define BuildRandR		YES	/* Not supported by XWin Server */
 #endif
 #ifndef BuildXF86BigfontExt
 # define BuildXF86BigfontExt	YES	/* Not enabled by default */
