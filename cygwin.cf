@@ -271,7 +271,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 
 /* XWin Server specific build flags */
 #ifndef GlxUseWindows
-# define GlxUseWindows		NO
+# define GlxUseWindows		YES
 #endif
 #ifndef BuildXWinClipboard
 # define BuildXWinClipboard	YES
@@ -389,6 +389,7 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #define BuildRandR		NO	/* Not supported by XWin Server */
 #define BuildXF86BigfontExt	YES	/* Not enabled by default */
 #define BuildGlxExt		YES	/* Not enabled by default */
+#define BuildXprintLib		YES     /* Not enabled when Xprt disabled */
 
 /* Server build rules */
 #ifndef XnestServer
