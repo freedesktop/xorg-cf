@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.27.2.2 2004/09/17 15:38:18 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.27.2.3 2004/12/15 03:26:32 gisburn Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -422,7 +422,7 @@ RELEASE_VERSION = ReleaseVersion
 #  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200 \
 				sis tdfx
 # endif
-#endif
+#endif /* i386Architecture || ia64Architecture */
 
 #if defined(AMD64Architecture)
 /* vgahw module */
@@ -448,7 +448,7 @@ RELEASE_VERSION = ReleaseVersion
 /* The tdfx driver needs Glide, which is not available for AMD64.  SiS is 64-bit
  * unclean as of this writing.
  */
-# define DriDrivers		gamma mga r128 radeon r200
+# define DriDrivers		i915 gamma mga r128 radeon r200
 
 #endif /*AMD64Arcitecture*/
 
@@ -534,7 +534,7 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-#endif
+#endif /* OpenBSDArchitecture && Sparc64Architecture */
 
 /* MIPS drivers */
 
@@ -558,7 +558,7 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers newport \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-#endif
+#endif /* MipsArchitecture */
 
 /*
  * DEC Alpha drivers
@@ -587,7 +587,7 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef DriDrivers
 #  define DriDrivers		gamma tdfx mga r128 radeon r200
 # endif
-#endif
+#endif /* AlphaArchitecture */
 
 /*
  * Motorola 68k and PowerPC drivers
@@ -666,10 +666,6 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XorgServer
 #  define XorgServer		YES
 # endif
-/* Amiga framebuffer module */
-# ifndef XF86AFB
-#  define XF86AFB		NO
-# endif
 /* 1bpp module */
 # ifndef XF1Bpp
 #  define XF1Bpp		NO
@@ -693,10 +689,6 @@ RELEASE_VERSION = ReleaseVersion
 /* shadow fb module */
 # ifndef XFShadowFB
 #  define XFShadowFB		YES
-# endif
-/* vgahw module */
-# ifndef XF86VgaHw
-#  define XF86VgaHw		NO
 # endif
 /* fbdevhw module */
 # ifndef XF86FBDevHw
@@ -722,10 +714,22 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86RAC
 #  define XF86RAC		YES
 # endif
-
 /* int10 module */
 # ifndef XF86Int10
 #  define XF86Int10		YES
+# endif
+/* vbe module */
+# ifndef XF86VBE
+#  define XF86VBE		YES
+# endif
+
+/* vgahw module */
+# ifndef XF86VgaHw
+#  define XF86VgaHw		NO
+# endif
+/* Amiga framebuffer module */
+# ifndef XF86AFB
+#  define XF86AFB		NO
 # endif
 
 # ifndef DevelDrivers
@@ -750,7 +754,7 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef DriDrivers
 #  define DriDrivers		gamma r128
 # endif
-#endif
+#endif /* Ppc64Architecture */
 
 /*
  * For Mips/Arc platforms, the default is to build all modules which
@@ -1544,7 +1548,7 @@ XFREE86JAPANESEDOCDIR = $(DOCDIR)/Japanese
 # endif
 #endif
 
-#if  (GccMajorVersion == 3) &&  (GccMinorVersion >= 1)
+#if  ((GccMajorVersion == 3) &&  (GccMinorVersion >= 1)) || (GccMajorVersion > 3)
 # define GccAliasingArgs      -fno-strict-aliasing
 #else
 # define GccAliasingArgs      /* */
