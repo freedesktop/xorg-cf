@@ -1,10 +1,6 @@
 XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.18 2003/10/19 08:27:05 herrb Exp $
 
-#if UseCygIPC
-# define SharedX11Reqs		-lcygipc
-#else
-# define SharedX11Reqs
-#endif
+#define SharedX11Reqs 
 #define SharedXlibi18nReqs	$(LDPRELIB) $(XONLYLIB)
 #define SharedOldXReqs		$(LDPRELIB) $(XONLYLIB)
 #define SharedXReqs		$(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS)
