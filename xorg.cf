@@ -1403,6 +1403,14 @@ XFREE86JAPANESEDOCDIR = $(DOCDIR)/Japanese
 #  else
 #   define Gcc28Warnings /* */
 #  endif
+# ifndef HasGcc34
+#  if (((GccMajorVersion == 3) && (GccMinorVersion >= 4)) ||	\
+ 	(GccMajorVersion > 3))
+#   define HasGcc34 YES
+#  else
+#   define HasGcc34 NO
+#  endif
+# endif
 # endif
 # ifndef GccWarningOptions
 #  if XFree86Devel
