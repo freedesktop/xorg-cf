@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.38 2004/12/03 03:33:25 gisburn Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.39 2005/01/24 06:37:31 daniels Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -3137,7 +3137,7 @@ ProjectUnsharedLibReferences(XBSD,Xbsd,$(LIBSRC)/Xbsd,XBuildLibDir)
            ICESRC = $(LIBSRC)/ICE
 #if SharedLibICE
 #ifndef SharedICERev
-#define SharedICERev 6.3
+#define SharedICERev 6.4
 #endif
 SharedLibReferences(ICE,ICE,$(ICESRC),SOICEREV,SharedICERev)
 #else
