@@ -297,6 +297,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 # if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
+#  define HasGetpeerucred YES
 /* Solaris 10 includes FreeType already.  It's also available in GNOME 2.0 for
  * Solaris 8 & 9, and in Solaris 9 4/03 and later, but there's no easy way to
  * detect that in imake, so users of those releases who want to use the 

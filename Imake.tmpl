@@ -465,6 +465,9 @@ XCOMM the platform-specific parameters - edit site.def to change
 #ifndef HasGetpeereid
 #define HasGetpeereid		NO
 #endif
+#ifndef HasGetpeerucred
+#define HasGetpeerucred		NO
+#endif
 #ifndef NoStrstr
 #define NoStrstr		NO
 #endif
@@ -506,7 +509,7 @@ XCOMM the platform-specific parameters - edit site.def to change
 #define ByteOrder		X_LITTLE_ENDIAN
 #elif defined(RsArchitecture)
 #define ByteOrder		X_BIG_ENDIAN
-#elif defined(PpcArchitecture)
+#elif defined(PpcArchitecture) || defined(Ppc64Architecture)
 #define ByteOrder		X_BIG_ENDIAN
 #elif defined(HPArchitecture)
 #define ByteOrder		X_BIG_ENDIAN
