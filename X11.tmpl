@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.6 2004/02/23 21:31:43 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7 2004/02/25 21:46:22 kaleb Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -891,7 +891,7 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #ifndef XineramaDefines
 #if BuildXinerama
-#define XineramaDefines -DXINERAMA
+#define XineramaDefines -DPANORAMIX
 #else
 #define XineramaDefines /**/
 #endif
