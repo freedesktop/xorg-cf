@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.13 2004/07/23 05:36:14 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.14 2004/07/23 17:53:33 anholt Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -212,6 +212,12 @@ RELEASE_VERSION = ReleaseVersion
 				wacom void magellan /* magictouch */ hyperpen \
 				jamstudio fpit \
 				palmax OSXInputDrivers ExtraXInputDrivers
+#endif
+
+
+/* Deprecated keyboard driver */
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver NO
 #endif
 
 /* <linux/input.h> support mainly for USB support */
