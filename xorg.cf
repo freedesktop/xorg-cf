@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.10 2004/07/06 14:37:46 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/xorg.cf,v 1.12 2004/07/22 19:24:50 sandmann Exp $
 /*
  * This configuration file contains all of the configuration
  * information for the Xorg based X Servers.
@@ -234,6 +234,13 @@ RELEASE_VERSION = ReleaseVersion
 #define HasAgpGart NO
 #endif
 
+/* Some DRI drivers are disabled because they are either insecure or unusable on
+ * this architecture.  This switch allows you to enable building these drivers.
+ */
+#ifndef BuildDevelDRIDrivers
+#define BuildDevelDRIDrivers NO
+#endif
+
 /* The glide driver only works for the loadable server at the moment */
 #ifndef HasGlide2
 #define HasGlide2 NO
@@ -396,16 +403,8 @@ RELEASE_VERSION = ReleaseVersion
 				dummy XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 
-/*
- * DRI drivers under development, or drivers included on this platform
- * only for build testing.
- */
 # ifndef DevelDRIDrivers
-#  if XFree86Devel
-#   define DevelDRIDrivers	ffb
-#  else
-#   define DevelDRIDrivers	/**/
-#  endif
+#  define DevelDRIDrivers	ffb mach64 savage
 # endif
 
 # ifndef DriDrivers
@@ -415,7 +414,7 @@ RELEASE_VERSION = ReleaseVersion
 #   define i386DRIDrivers /**/
 #  endif
 #  define DriDrivers		gamma i386DRIDrivers mga r128 radeon r200 \
-				sis tdfx DevelDRIDrivers
+				sis tdfx unichrome
 # endif
 #endif
 
@@ -440,13 +439,11 @@ RELEASE_VERSION = ReleaseVersion
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
 
-/* DRI tdfx driver needs Glide, which is not available for AMD64 */
-# define TdfxDriDriver		/**/
+/* The tdfx driver needs Glide, which is not available for AMD64.  SiS is 64-bit
+ * unclean as of this writing.
+ */
+# define DriDrivers		gamma mga r128 radeon r200
 
-# define DevelDRIDrivers	/**/
-
-# define DriDrivers		gamma i810 mga r128 radeon r200 \
-				TdfxDriDriver DevelDRIDrivers
 #endif /*AMD64Arcitecture*/
 
 /* SPARC and UltraSPARC drivers */
@@ -524,10 +521,6 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-# define TdfxDriDriver		/**/
-# ifndef DriDrivers
-#  define DriDrivers		/**/
-# endif
 #endif
 
 /* MIPS drivers */
@@ -577,8 +570,9 @@ RELEASE_VERSION = ReleaseVersion
 				savage nv cirrus DevelDrivers siliconmotion  \
 				vga XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
+/* SiS is 64-bit unclean as of this writing. */
 # ifndef DriDrivers
-#  define DriDrivers		gamma tdfx mga r128 radeon r200 /*sis*/
+#  define DriDrivers		gamma tdfx mga r128 radeon r200
 # endif
 #endif
 
@@ -639,13 +633,8 @@ RELEASE_VERSION = ReleaseVersion
 				DevelDrivers vga \
 				XF86OSCardDrivers XF86ExtraCardDrivers
 # endif
-# if HasGlide3
-#  define TdfxDriDriver		tdfx
-# else
-#  define TdfxDriDriver		/**/
-# endif
 # ifndef DriDrivers
-#  define DriDrivers		gamma tdfx mga r128 radeon r200
+#  define DriDrivers		gamma mga r128 radeon r200
 # endif
 #endif
 
@@ -747,6 +736,14 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 
 #if BuildXF86DRI
+
+#ifndef DriDrivers
+#define DriDrivers /**/
+#endif
+
+#ifndef DevelDRIDrivers
+#define DevelDRIDrivers /**/
+#endif
 
 #ifndef BuildGLXLibrary
 #  if defined (BuildServersOnly) && BuildServersOnly

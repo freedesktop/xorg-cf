@@ -120,6 +120,11 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 				wacom void magictouch aiptek
  */
 
+/* To enable building of development DRI drivers (insecure, or not useful on the
+ * chosen architecture, uncomment this define.
+#define BuildDevelDRIDrivers YES
+ */
+
 /*
  * There are three parameters that determine where and how the Matrox HAL
  * library is used:
