@@ -242,6 +242,9 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #ifndef BuildXWinMultiWindow
 # define BuildXWinMultiWindow	YES
 #endif
+#ifndef BuildXWinMultiWindowExtWM
+# define BuildXWinMultiWindowExtWM YES
+#endif
 #ifndef BuildXWinNativeGDI
 # define BuildXWinNativeGDI	NO
 #endif
@@ -254,6 +257,13 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #ifndef BuildXWinXF86Config
 # define BuildXWinXF86Config	NO
 #endif
+
+/* XWin specific build flags - 1st order dependency */
+#if BuildXWinMultiWindowExtWM && !defined(BuildWindowsWMLibrary)
+# define BuildWindowsWMLibrary	YES
+#elif !defined(BuildWindowsWMLibrary)
+# define BuildWindowsWMLibrary	NO
+#endif /* BuildXWinMultiWindowExtWM && BuildWindowsWMLibrary */
 
 /* XWin Server specific defines */
 #if BuildXWinClipboard
@@ -276,6 +286,11 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #else
 # define XWinMultiWindowDefines 
 #endif /* BuildXWinMultiWindow */
+#if BuildXWinMultiWindowExtWM
+# define XWinMultiWindowExtWMDefines -DXWIN_MUTLIWINDOWEXTWM
+#else /* BuildXWinMultiWindowExtWM */
+# define XWinMultiWindowExtWMDefines 
+#endif /* BuildXWinMultiWindowExtWM */
 #if BuildXWinNativeGDI
 # define XWinNativeGDIDefines	-DXWIN_NATIVEGDI
 #else
@@ -296,8 +311,6 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 #else
 # define XWinXF86ConfigDefines 
 #endif /* BuildXWinXF86Config */
-
-#define BuildWindowsWMLibrary  YES
 
 /*
  * XFree86Server is defined for the w32api headers, which protects some
