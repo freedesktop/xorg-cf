@@ -569,6 +569,18 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #ifndef BuildRenderLibrary
 #define BuildRenderLibrary	!BuildServersOnly
 #endif
+#ifndef BuildXstLibrary
+#define BuildXstLibrary		YES
+#ifndef Buildxstls
+#define Buildxstls		YES
+#endif
+#ifndef Buildxstshowfont
+#define Buildxstshowfont        YES
+#endif
+#endif
+#ifndef BuildXst
+#define BuildXst                YES
+#endif
 #ifndef BuildXftLibrary
 #define BuildXftLibrary		BuildRenderLibrary
 #endif
@@ -1112,6 +1124,14 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+
+#ifndef XstDefines
+#if BuildXst
+#define XstDefines -DXST
+#else
+#define XstDefines /**/
+#endif
+#endif
 #ifndef RenderDefines
 #if BuildRender
 #define RenderDefines -DRENDER
@@ -3270,6 +3290,34 @@ ProjectUnsharedLibReferences(XFT1,Xft,$(XFT1LIBSRC),XBuildLibDir)
 #endif
 #endif
 
+#ifndef SharedLibXst
+#define SharedLibXst HasSharedLibraries
+#endif
+#ifndef NormalLibXst
+#define NormalLibXst (!SharedLibXst | ForceNormalLib)
+#endif
+#ifndef DebugLibXst
+#define DebugLibXst		NO
+#endif
+#ifndef ProfileLibXst
+#define ProfileLibXst		NO
+#endif
+          XSTLIBSRC = $(LIBSRC)/Xst
+#if SharedLibXst
+#ifndef SharedXstRev
+#define SharedXstRev 0.7
+#endif
+SharedLibReferences(XST,Xst,$(XSTLIBSRC),SOXSTREV,1)
+#else
+ProjectUnsharedLibReferences(XST,Xst,$(XSTLIBSRC),XBuildLibDir)
+#endif
+
+#ifndef XstClientDepLibs
+#define XstClientDepLibs $(DEPXSTLIB) 
+#endif
+#ifndef XstClientLibs
+#define XstClientLibs $(XSTLIB) -L$(TOP)/../stsf/stsflib -lstsf
+#endif
 #ifndef SharedLibXft
 #define SharedLibXft HasSharedLibraries
 #endif
