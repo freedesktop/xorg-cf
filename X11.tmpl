@@ -2066,27 +2066,27 @@ ProjectUnsharedLibReferences(XTHRSTUB,XThrStub,$(XTHRSTUBSRC),XBuildLibDir)
 #endif
 
 #if BuildRandRLibrary
-#ifndef SharedLibXrandr
-#define SharedLibXrandr		HasSharedLibraries
-#endif
-#ifndef NormalLibXrandr
-#define NormalLibXrandr		(!SharedLibXrandr || ForceNormalLib)
-#endif
-#ifndef DebugLibXrandr
-#define DebugLibXrandr		NO
-#endif
-#ifndef ProfileLibXrandr
-#define ProfileLibXrandr	NO
-#endif
+# ifndef SharedLibXrandr
+#  define SharedLibXrandr		HasSharedLibraries
+# endif
+# ifndef NormalLibXrandr
+#  define NormalLibXrandr		(!SharedLibXrandr || ForceNormalLib)
+# endif
+# ifndef DebugLibXrandr
+#  define DebugLibXrandr	NO
+# endif
+# ifndef ProfileLibXrandr
+#  define ProfileLibXrandr	NO
+# endif
 #else
-#undef  SharedLibXrandr
-#define SharedLibXrandr		NO
-#undef  NormalLibXrandr
-#define NormalLibXrandr		NO
-#undef  DebugLibXrandr
-#define DebugLibXrandr		NO
-#undef  ProfileLibXrandr
-#define ProfileLibXrandr	NO
+# undef  SharedLibXrandr
+# define SharedLibXrandr	NO
+# undef  NormalLibXrandr
+# define NormalLibXrandr	NO
+# undef  DebugLibXrandr
+# define DebugLibXrandr		NO
+# undef  ProfileLibXrandr
+# define ProfileLibXrandr	NO
 #endif
 
 #if BuildXcursorLibrary
