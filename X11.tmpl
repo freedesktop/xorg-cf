@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.5 2004/02/11 17:46:29 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.6 2004/02/23 21:31:43 kaleb Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -2361,7 +2361,7 @@ ProjectUnsharedLibReferences(XVMC,XvMC,$(XVMCLIBSRC),XBuildLibDir)
     XINERAMALIBSRC = $(LIBSRC)/Xinerama
 #if SharedLibXinerama
 #ifndef SharedXineramaRev
-#define SharedXineramaRev 2.0
+#define SharedXineramaRev 1.0
 #endif
 SharedLibReferences(XINERAMA,Xinerama,$(XINERAMALIBSRC),SOXINERAMAREV,SharedXineramaRev)
 #else
