@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7 2004/02/25 21:46:22 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.7.2.1 2004/02/27 21:30:42 eich Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -340,7 +340,7 @@ VENDORMANVERSION = XVendorManVersionString
 #define BuildFontLib		(BuildLibraries || \
 				 (BuildServer && !DoLoadableServer) || \
 				 XnestServer || XVirtualFramebufferServer || \
-				 XprtServer || KDriveXServer)
+				 XprtServer)
 #endif
 #endif
 #ifndef BuildFontCache

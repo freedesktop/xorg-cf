@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.1.4.5 2003/12/20 00:28:21 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.1.4.6 2004/02/23 21:31:43 kaleb Exp $
 XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
 /*
  * To add support for another platform:
@@ -904,12 +904,12 @@ XCOMM Keep cpp from replacing path elements containing i486/i586/i686
 #  define s390xArchitecture
 #  undef __s390x__
 # endif
-# if defined(__AMD64__) || defined (__x86_64__)
-#  undef __AMD64__
+# if defined(__amd64__) || defined (__x86_64__)
+#  undef __amd64__
 #  undef __x86_64__
 #  define AMD64Architecture
 # endif
-# if defined(AMD64__) || defined (x86_64__)
+# if defined(amd64__) || defined (x86_64__)
 #  undef AMD64__
 #  undef x86_64__
 #  ifndef AMD64Architecture
