@@ -14,7 +14,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWCLIENTLIBS) $(XLIB)
 #endif
 
 #define SharedX11Reqs
@@ -22,7 +22,8 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedOldXReqs	  $(LDPRELIB) $(XONLYLIB)
 #define SharedXtReqs	  $(LDPRELIB) $(XONLYLIB) $(SMLIB) $(ICELIB)
 #define SharedXaw6Reqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XLIB)
-#define SharedXawReqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define SharedXaw7Reqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define SharedXawReqs	  $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWREQS) $(XLIB)
 #define SharedXmuReqs	  $(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXmuuReqs	  $(LDPRELIB) $(XONLYLIB)
 #define SharedXextReqs	  $(LDPRELIB) $(XONLYLIB)
@@ -35,6 +36,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedXvReqs	  $(LDPRELIB) $(XLIB)
 #define SharedSMReqs	  $(LDPRELIB) $(ICELIB)
 #define SharedXcursorReqs $(LDPRELIB) $(XRENDERLIB) $(XLIB)
+#define SharedFontencReqs $(LDPRELIB) GzipLibrary
 
 #if GlxUseBuiltInDRIDriver
 #define ExtraSharedGLReqs /**/

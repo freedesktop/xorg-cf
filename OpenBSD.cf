@@ -1,5 +1,5 @@
 XCOMM platform:  $XFree86: xc/config/cf/OpenBSD.cf,v 3.100 2004/01/08 22:51:41 herrb Exp $
-XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.1.4.3.2.1 2004/03/04 17:45:37 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/OpenBSD.cf,v 1.6 2004/08/29 22:02:35 kem Exp $
 XCOMM
 
 #ifndef OSName
@@ -399,7 +399,6 @@ install:: fonts.alias							@@\
 
 # if (OSMajorVersion < 3)
 #  define HasSharedLibraries	NO
-#  define SharedLibXThrStub	NO
 # endif
 
 # ifndef XorgServer
@@ -433,6 +432,45 @@ install:: fonts.alias							@@\
 
 #endif /* AlphaArchitecture */
 
+/*
+ * Definitions for the AMD64 architecture
+ */
+#ifdef AMD64Architecture
+
+# define HasWeakSymbols		YES
+# define HasSharedLibraries	YES
+# define HasDlopen		YES
+
+# define XorgServer		YES
+
+# ifndef DoLoadableServer
+#  define DoLoadableServer	NO
+# endif
+
+# ifndef HasNetBSDApertureDriver
+#  define HasNetBSDApertureDriver	YES
+# endif
+
+# define HasAgpGart		YES
+
+# define ServerExtraSysLibs	-lamd64
+# define ServerExtraDefines	GccGasOption -D_XSERVER64 XFree86ServerDefines
+
+
+# ifndef XFree86ConsoleDefines
+#  define XFree86ConsoleDefines	-DWSCONS_SUPPORT -DPCVT_SUPPORT
+# endif
+
+# ifndef HasMMXSupport
+#   define HasMMXSupport	YES
+# endif
+
+# ifndef HasX86Support
+#  define HasX86Support		YES
+# endif
+# include <xorg.cf>
+
+#endif /* AMD64Architecture */
 
 /*
  * Definitions for the i386 architecture
@@ -447,9 +485,6 @@ install:: fonts.alias							@@\
 # if OSMajorVersion > 3 || (OSMajorVersion == 3 && OSMinorVersion > 2)
 #  ifndef BuildXF86DRI
 #   define BuildXF86DRI			NO
-#  endif 
-#  ifndef BuildXF86DRM
-#   define BuildXF86DRM			NO
 #  endif 
 #  ifndef BuildXF86OldDRMCompat
 #   define BuildXF86OldDRMCompat	NO
@@ -882,14 +917,9 @@ install:: fonts.alias							@@\
 #if HasWeakSymbols == YES && (OSMajorVersion == 2 && OSMinorVersion >= 6 || OSMajorVersion >= 3)
 #  define HasPosixThreads		YES
 #  define ThreadedX			YES
-#  define SystemMTDefines		/**/
-#  define BuildThreadStubLibrary	YES
 #  define NeedUIThrStubs		YES
 #  define ThreadsCompileFlag		-pthread
 #  define ThreadsLibraries		-pthread
-#  define SharedX11Reqs			$(LDPRELIBS) $(XTHRSTUBLIB)
-#  define SharedXtReqs			$(LDPRELIB) $(XONLYLIB) $(SMLIB) \
-					$(ICELIB) $(XTHRSTUBLIB)
 #else
 #  define ThreadedX			NO
 #endif

@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.1.4.6.2.5 2004/03/15 15:37:38 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.cf,v 1.4 2004/08/11 21:14:01 kem Exp $
 XCOMM $Xorg: Imake.cf,v 1.4 2000/08/17 19:41:45 cpqbld Exp $
 /*
  * To add support for another platform:
@@ -145,6 +145,12 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 #   define AlphaArchitecture
 #   undef __alpha__
 #   undef alpha
+# endif
+# if defined(__amd64__) || defined(__x86_64__)
+#   define AMD64Architecture
+#   undef __amd64__
+#   undef __x86_64__
+#   undef amd64
 # endif
 # if defined(__mc68020__) || defined(mc68020)
 #  define Mc68020Architecture
@@ -828,6 +834,12 @@ XCOMM Keep cpp from replacing path elements containing i486/i586/i686
 #   define PpcArchitecture
 #  endif
 #  undef __powerpc__
+# endif
+# ifdef __powerpc64__
+#  ifndef Ppc64Architecture
+#   define Ppc64Architecture
+#  endif
+#  undef __powerpc64__
 # endif
 # ifdef sparc
 #  define SparcArchitecture

@@ -42,6 +42,10 @@ XCOMM platform:  $XFree86: xc/config/cf/isc.cf,v 3.15 1999/07/10 12:17:09 dawes 
 #  define BuildXF86DRI   NO
 #endif
 
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
+#endif
+
 /*
  * disable building DRI support into video drivers, which can be done
  * even on platforms that don't have functional DRI support.

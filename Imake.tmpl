@@ -1,7 +1,7 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM Makefile generated from IMAKE_TEMPLATE and INCLUDE_IMAKEFILE
 XCOMM $Xorg: Imake.tmpl,v 1.4 2000/08/17 19:41:46 cpqbld Exp $
-XCOMM $XdotOrg: xc/config/cf/Imake.tmpl,v 1.1.4.6.2.1.4.1 2004/03/19 17:08:59 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/Imake.tmpl,v 1.6 2004/07/28 03:24:29 gisburn Exp $
 XCOMM
 XCOMM
 XCOMM
@@ -371,6 +371,9 @@ XCOMM the platform-specific parameters - edit site.def to change
 #ifndef HasMotif
 #define HasMotif		NO
 #endif
+#ifndef HasMotif2
+#define HasMotif2		NO      /* only if system has working Motif2 or OpenMotif */
+#endif
 #ifndef HasBSDAuth
 #define HasBSDAuth		NO
 #endif
@@ -465,6 +468,9 @@ XCOMM the platform-specific parameters - edit site.def to change
 #ifndef HasGetpeereid
 #define HasGetpeereid		NO
 #endif
+#ifndef HasGetpeerucred
+#define HasGetpeerucred		NO
+#endif
 #ifndef NoStrstr
 #define NoStrstr		NO
 #endif
@@ -506,7 +512,7 @@ XCOMM the platform-specific parameters - edit site.def to change
 #define ByteOrder		X_LITTLE_ENDIAN
 #elif defined(RsArchitecture)
 #define ByteOrder		X_BIG_ENDIAN
-#elif defined(PpcArchitecture)
+#elif defined(PpcArchitecture) || defined(Ppc64Architecture)
 #define ByteOrder		X_BIG_ENDIAN
 #elif defined(HPArchitecture)
 #define ByteOrder		X_BIG_ENDIAN
@@ -1019,7 +1025,11 @@ TCLIBDIR = TclLibDir
 #define NoRConst NO /* YES if const for structs of funcs is bad */
 #endif
 #ifndef InstPgmFlags
-#define InstPgmFlags -s
+# ifdef CrossCompiling
+#  define InstPgmFlags
+# else
+#  define InstPgmFlags -s
+# endif
 #endif
 #ifndef InstBinFlags
 #define InstBinFlags -m 0755
@@ -1182,6 +1192,9 @@ TCLIBDIR = TclLibDir
 #endif
 #ifndef InstallFlags
 #define InstallFlags -c
+#endif
+#ifndef StripCmd
+#define StripCmd strip
 #endif
 #ifndef LdCmd
 #define LdCmd ld
@@ -1523,10 +1536,16 @@ TCLIBDIR = TclLibDir
 #ifndef GhostScriptCmd
 #define GhostScriptCmd gs
 #endif
+#ifndef HasGhostPCL
+#define HasGhostPCL NO
+#endif
 #ifndef HasGhostScript
 #define HasGhostScript NO
 #endif
-#if HasGhostScript
+#ifndef BuildPDFdocs
+#define BuildPDFdocs (HasGhostScript)
+#endif
+#if BuildPDFdocs
 #define PsToPdfCmd GhostScriptCmd -q -sOutputFile=- -sDEVICE=pdfwrite -dSAFER -dNOPAUSE -
 #endif
 #if HasSentinel
@@ -1684,6 +1703,9 @@ TCLIBDIR = TclLibDir
 # endif
 # ifndef CrossAsCmd
 #  define CrossAsCmd Concat3(CrossCompileDir,/,StripPath(AsCmd))
+# endif
+# ifndef CrossStripCmd
+#  define CrossStripCmd Concat3(CrossCompileDir,/,StripPath(StripCmd))
 # endif
 #endif
 
@@ -2015,7 +2037,7 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
  * LOCAL_LDFLAGS contains client-specific ld flags flags set in Imakefile
  */
       ALLINCLUDES = $(INCLUDES) $(EXTRA_INCLUDES) $(TOP_INCLUDES) $(INSTALLED_INCLUDES) $(STD_INCLUDES)
-       ALLDEFINES = $(ALLINCLUDES) $(STD_DEFINES) $(PROTO_DEFINES) $(THREADS_DEFINES) $(MODULE_DEFINES) $(DEFINES) $(EXTRA_DEFINES) $(VENDOR_DEFINES)
+       ALLDEFINES = $(ALLINCLUDES) $(STD_DEFINES) $(PROTO_DEFINES) $(THREADS_DEFINES) $(MODULE_DEFINES) $(DEFINES) $(EXTRA_DEFINES)
            CFLAGS = $(CDEBUGFLAGS) $(CCOPTIONS) $(THREADS_CFLAGS) $(MODULE_CFLAGS) $(ALLDEFINES)
         LINTFLAGS = $(LINTOPTS) -DLINT $(ALLDEFINES) $(DEPEND_DEFINES)
          LDPRELIB = LdPreLib $(INSTALLED_LIBS)
@@ -2212,6 +2234,9 @@ CleanSubdirs($(SUBDIRS))
 
 #endif
 
+#if !DontPreprocessManPages || defined(PreprocessManPages)
+    PREPROCESSMANPAGES = true
+#endif
 /* must be after all install.man rules that install anything */
 #ifndef MakeManKeywords
 #define MakeManKeywords		NO

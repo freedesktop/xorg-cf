@@ -43,7 +43,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWCLIENTLIBS) $(XLIB)
 #endif
 
 /* Allow for libpthread, as overridden by OS definitions */
@@ -56,7 +56,10 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #ifndef SharedXtReqs
 #define SharedXtReqs	$(LDPRELIBS) $(XONLYLIB) $(SMLIB) $(ICELIB)
 #endif
-#define SharedXawReqs	$(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#ifndef SharedXawReqs
+#define SharedXawReqs	$(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWREQS) $(XLIB)
+#endif
+#define SharedXaw7Reqs	$(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
 #define SharedXaw6Reqs	$(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XLIB)
 #define SharedXmuReqs	$(LDPRELIBS) $(XTOOLLIB) $(XLIB)
 #define SharedXmuuReqs	$(LDPRELIB)  $(XONLYLIB)
@@ -90,4 +93,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedXxf86vmReqs	$(LDPRELIB) $(XLIB)
 #define SharedxkbfileReqs	$(LDPRELIB) $(XONLYLIB)
 #define SharedxkbuiReqs $(LDPRELIB) $(XKBFILELIB) $(XONLYLIB)
+#define SharedXfixesReqs	$(LDPRELIB) $(XLIB)
+#define SharedXdamageReqs	$(LDPRELIB) $(XFIXESLIB) $(XLIB)
+#define SharedXcompositeReqs	$(LDPRELIB) $(XDAMAGELIB) $(XFIXESLIB) $(XLIB)
 #endif /* UseElfFormat */

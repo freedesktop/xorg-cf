@@ -159,9 +159,7 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 #define BuildIPv6	NO
 #endif
 
-#undef  BuildXF86DRM
 #undef  BuildXF86DRI
-#define BuildXF86DRM	NO
 #define BuildXF86DRI	NO
 
 #if !HasGcc
@@ -218,12 +216,14 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 
 #define ServerOSDefines		-DDDXTIME XFree86ServerOSDefines
 
+#ifndef ServerExtraDefines
 #ifndef Mips64Architecture
 #define ServerExtraDefines	-DNEED_LINEHELPER AllocateLocalDefines \
 				XFree86ServerDefines
 #else
 #define ServerExtraDefines	-DNEED_LINEHELPER AllocateLocalDefines \
 				XFree86ServerDefines -D_XSERVER64
+#endif
 #endif
 
 /* Changed to a single shell command for pmake/smake */
@@ -314,6 +314,10 @@ clean::									@@\
 
 #ifndef DoLoadableServer
 #define DoLoadableServer YES
+#endif
+
+#ifndef UseDeprecatedKeyboardDriver
+#define UseDeprecatedKeyboardDriver YES
 #endif
 
 #include <xorg.cf>

@@ -15,6 +15,7 @@
 #define SharedLibXmu		YES
 #define SharedLibXt		YES
 #define SharedLibFont		NO
+#define SharedLibXaw7		YES
 #define SharedLibXaw6		YES
 #define SharedLibSM		YES
 #define SharedLibICE		YES
@@ -89,11 +90,7 @@ Concat3(lib,libname,.dll.a)
 #define SharedDepLibraryTarget(libname,rev,deplist,solist,down,up)	@@\
 AllTarget(SharedLibraryName(libname,rev))                             @@\
 									@@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-									@@\
-                                                                        @@\
-									@@\
-SharedLibraryName(libname,rev): deplist libname.def			@@\
+SharedLibraryName(libname,rev): deplist 				@@\
 	RemoveFile(ImportLibraryName(libname,rev))			@@\
 	RemoveFile(SharedLibraryName(libname,rev))			@@\
 	MakeDLL(libname,solist,rev)					@@\
@@ -131,11 +128,7 @@ clean::									@@\
 #define SharedDepCplusplusLibraryTarget(libname,rev,deplist,solist,down,up) @@\
 AllTarget(SharedLibraryName(libname,rev))                             @@\
                                                                             @@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-                                                                            @@\
-                                                                            @@\
-                                                                            @@\
-SharedLibraryName(libname,rev): deplist libname.def                     @@\
+SharedLibraryName(libname,rev): deplist					@@\
 	RemoveFile(ImportLibraryName(libname,rev))                      @@\
 	RemoveFile(SharedLibraryName(libname,rev))                      @@\
 	MakeCplusplusDLL(libname,solist,rev)                            @@\
@@ -188,7 +181,7 @@ clean::									@@\
  */ 
     
 #define MakeDLLProg(libname,solist,prog,rev)			        @@\
-	prog -shared -Wl,--out-implib=ImportLibraryName(libname,rev) -Wl,--enable-auto-import,--enable-runtime-pseudo-reloc --def libname.def -Wl,--exclude-libs,ALL -o SharedLibraryName(libname,rev) solist $(REQUIREDLIBS)
+	prog -shared -Wl,--out-implib=ImportLibraryName(libname,rev) -Wl,--enable-auto-import,--enable-runtime-pseudo-reloc -Wl,--exclude-libs,ALL -o SharedLibraryName(libname,rev) solist $(REQUIREDLIBS)
     
 /*
  * MakeDll
@@ -212,11 +205,8 @@ clean::									@@\
 
 #define SharedLibraryTarget(libname,rev,solist,down,up)                 @@\
 AllTarget(SharedLibraryName(libname,rev))				@@\
-									@@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-									@@\
                                                                         @@\
-SharedLibraryName(libname,rev): solist libname.def			@@\
+SharedLibraryName(libname,rev): solist					@@\
 	RemoveFile(ImportLibraryName(libname,rev))			@@\
 	RemoveFile(SharedLibraryName(libname,rev))			@@\
 	MakeDLL(libname,solist,rev)					@@\
@@ -328,28 +318,6 @@ all:: binary								@@\
 	RemoveFile($(BUILDBINDIR)/binary)				@@\
 	cd $(BUILDBINDIR) && $(CP) -p $(BUILDBINTOP)/$(CURRENT_DIR)/binary .
 #endif /* LinkBuildBinary */
-
-/*
- * ComplexProgramTarget_1 - Imake.rules doesn't wrap the program names
- * with ProgramTargetName(), so we need this rule for Cygwin.
- */
-
-#define ComplexProgramTarget_1(program,locallib,syslib)			@@\
-  OBJS = $(OBJS1) $(OBJS2) $(OBJS3) $(OBJS4) $(OBJS5) \			@@\
-         $(OBJS6) $(OBJS7) $(OBJS8) $(OBJS9) $(OBJS10)			@@\
-  SRCS = $(SRCS1) $(SRCS2) $(SRCS3) $(SRCS4) $(SRCS5) \			@@\
-         $(SRCS6) $(SRCS7) $(SRCS8) $(SRCS9) $(SRCS10)			@@\
-  PROGS_EXE = $(foreach prog,$(PROGRAMS),ProgramTargetName($(prog)))	@@\
-									@@\
-AllTarget($(PROGS_EXE))							@@\
-									@@\
-ProgramTargetHelper(program,SRCS1,OBJS1,DEPLIBS1,locallib,syslib)	@@\
-									@@\
-DependTarget()								@@\
-LintTarget()								@@\
-									@@\
-clean::									@@\
-	RemoveFiles($(PROGS_EXE))
 
 /*
  * ProfiledRelocatableTarget - generate rules to produce a  profiled
@@ -471,3 +439,18 @@ clean::									@@\
 	RemoveFiles(basename.RESsuf)
 
 #endif /* ResourceObjectRule */
+
+/* The arglist can get quite long. Make sure we can delete it though */
+#ifndef MakeFonts
+# define MakeFonts()							@@\
+all::  $(OBJS)								@@\
+									@@\
+MakeFontsDir($(OBJS))							@@\
+									@@\
+clean::									@@\
+	find -name "*.pcf" -o -name "*.pcf.Z" -o -name "*.pcf.gz" | xargs -r rm
+#endif /* MakeFonts */
+
+#ifndef IncludeMakefile
+#define IncludeMakefile(file) @@sinclude file
+#endif

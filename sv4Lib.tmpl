@@ -13,7 +13,7 @@ XMULIBONLY = -lXmu
 XMULIB = $(XMULIBONLY) -z nodefs
 #endif
 #ifndef XawClientLibs
-# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWCLIENTLIBS) $(XLIB)
 #endif
 
 #if 0

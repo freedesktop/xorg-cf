@@ -1,5 +1,5 @@
 XCOMM $Xorg: ibmLib.tmpl,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
-XCOMM $XdotOrg: xc/config/cf/ibmLib.tmpl,v 1.1.4.4.4.1 2004/03/04 17:45:37 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/ibmLib.tmpl,v 1.5 2004/09/02 01:10:28 kem Exp $
 
 /*
  * AIX shared library template
@@ -35,7 +35,8 @@ XCOMM $XFree86: xc/config/cf/ibmLib.tmpl,v 1.3tsi Exp $
 #define SharedXmuuReqs	$(XLIBONLY)
 #define SharedOldXReqs	$(XLIBONLY)
 #define SharedXtReqs	$(XLIBONLY) $(SMLIB) $(ICELIB) SharedThreadReqs
-#define SharedXawReqs	$(XMULIB) $(XTOOLLIB) $(XLIB) $(XPMLIB)
+#define SharedXawReqs	$(XMULIB) $(XTOOLLIB) $(EXTRAXAWREQS) $(XLIB) $(XPMLIB)
+#define SharedXaw7Reqs	$(XMULIB) $(XTOOLLIB) $(XLIB) $(XPMLIB)
 #define SharedXaw6Reqs	$(XMULIB) $(XTOOLLIB) $(XLIB)
 #define SharedXiReqs	$(XLIB)
 #define SharedXtstReqs	$(XLIB)
@@ -54,6 +55,10 @@ XCOMM $XFree86: xc/config/cf/ibmLib.tmpl,v 1.3tsi Exp $
 #define SharedFontencReqs	$(BUILDLIBDIR)/libz.a
 #define SharedXfontcacheReqs	$(XLIB)
 #define SharedXfontReqs	stubs/libfntstubs.a $(FREETYPE2LIB)
+#define SharedXfixesReqs	$(XONLYLIB)
+#define SharedXdamageReqs	$(XONLYLIB)
+#define SharedXcompositeReqs	$(XONLYLIB)
+#define SharedXevieReqs		$(XONLYLIB) $(EXTENSIONLIB)
 
 #define SharedXReqs	$(XTOOLLIB) $(XPLIB) $(XLIB) SharedThreadReqs
 #define SharedXmReqs	$(LDPRELIBS) SharedXReqs

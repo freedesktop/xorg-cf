@@ -20,9 +20,9 @@ XCOMM $XFree86: xc/config/cf/osfLib.tmpl,v 1.3tsi Exp $
 #endif
 #define SharedXtReqs $(LDPRELIBS) $(XONLYLIB) $(SMLIB) $(ICELIB) SharedThreadReqs
 #if ModernOSF1
-#define SharedXawReqs $(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XLIB)
+#define SharedXawReqs $(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(EXTRAXAWREQS) $(XLIB)
 #else
-#define SharedXawReqs $(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(XLIB) -init _XawFixupVendorShell
+#define SharedXawReqs $(LDPRELIBS) $(XMULIB) $(XTOOLLIB) $(EXTRAXAWREQS) $(XLIB) -init _XawFixupVendorShell
 #endif
 #define SharedXmuReqs $(LDPRELIBS) $(XTOOLLIB) $(XLIB)
 #define SharedXextReqs $(LDPRELIBS) $(XONLYLIB)

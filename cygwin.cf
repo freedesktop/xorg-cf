@@ -3,7 +3,7 @@
 # define CygxVersionMajor	6
 #endif
 #ifndef CygxVersionMinor
-# define CygxVersionMinor	7
+# define CygxVersionMinor	8
 #endif
 #ifndef CygxVersionPatch
 # define CygxVersionPatch	0
@@ -12,7 +12,7 @@
 # define CygxVersionSnap	0
 #endif
 #ifndef CygxVersionServer
-# define CygxVersionServer	1
+# define CygxVersionServer	0
 #endif
 
 #ifndef CygxVersion
@@ -73,7 +73,7 @@
 #define GnuCpp			YES
 #define UnixCpp /* Just a flag that affects Concat macros in Imake.rules */
 
-#define ExtraLoadFlags		-Wl,--enable-auto-import
+#define ExtraLoadFlags		-Wl,--enable-auto-import,--enable-runtime-pseudo-reloc
 
 #define HasShadowPasswd		NO
 #define HasLibCrypt		YES
@@ -131,7 +131,9 @@
 #define UseGccMakeDepend	NO
 #define ThreadedX		YES
 #define HasThreadSafeAPI	YES
+#if !CrossCompiling
 #define CaseSensitiveFileSystem	NO
+#endif
 #define HasWChar32		YES
 #define HasBasename		NO /* basename() in libc */
 
@@ -203,6 +205,14 @@
 # else
 #  define ExtraIncDir		/usr/include/w32api
 # endif
+#endif
+
+#ifndef BourneShell
+/*
+ * This will cause builds/installs to terminate on errors, as on other
+ * platforms.
+ */
+#define BourneShell		/bin/sh -e
 #endif
 
 #define LdCombineFlags		-r
@@ -434,8 +444,15 @@
 	for flag in ${MAKEFLAGS} ''; do \				@@\
 	  case "$$flag" in *=*) ;;--*) ;; *[makeflags]*) shellcmd;; esac; done
 
+#define MakeNamedTargetSubdir(dir,flags,subname)\
+	$(MAKE) -C dir $(MFLAGS) $(PARALLELMFLAGS) flags subname
+
 #ifndef ManSuffix
 # define ManSuffix	1
+#endif
+
+#ifndef XtransFailSoft
+#define XtransFailSoft		YES
 #endif
 
 #include <cygwin.rules>

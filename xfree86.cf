@@ -85,7 +85,7 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 #endif
 
 #ifndef XVendorString
-# define XVendorString	"The XFree86 Project, Inc"
+# define XVendorString	"The X.Org Foundation, Inc"
 #endif
 
 #ifndef XVendorRelease
@@ -1192,10 +1192,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #define BuildXF86DRI	NO
 #endif
 
-#ifndef BuildXF86DRM
-#define BuildXF86DRM	NO
-#endif
-
 #ifndef GlxUseSGISI
 #define GlxUseSGISI	NO
 #endif
@@ -1580,11 +1576,11 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
  * Include fonts support
  */
 #ifndef BuildSpeedo
-# define BuildSpeedo		YES
+# define BuildSpeedo		NO
 #endif
 
 #ifndef BuildType1
-# define BuildType1		YES
+# define BuildType1		NO
 #endif
 
 #ifndef BuildCID
@@ -1593,10 +1589,6 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 
 #ifndef BuildFreeType
 # define BuildFreeType		YES
-#endif
-
-#ifndef BuildXTrueType
-# define BuildXTrueType		YES
 #endif
 
 /*
@@ -1609,7 +1601,7 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # define Build100DpiFonts	YES
 #endif
 #ifndef BuildSpeedoFonts
-# define BuildSpeedoFonts	YES
+# define BuildSpeedoFonts	NO
 #endif
 #ifndef BuildType1Fonts
 # define BuildType1Fonts	YES

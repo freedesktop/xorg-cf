@@ -35,6 +35,14 @@ XCOMM $XFree86: xc/config/cf/X11.rules,v 1.6 2001/01/17 16:22:31 dawes Exp $
 # define ImportX11		NO
 #endif
 
+#if defined(X11ProjectRoot)
+# define XBinDir	$(XPROJECTROOT)/bin
+#elif defined(ProjectRoot) 
+# define XBinDir	$(PROJECTROOT)/bin
+#else
+# define XBinDir	$(BINDIR)
+#endif
+
 #ifdef X11ProjectRoot
 # define XUsrLibDirPath	$(USRLIBDIR):$(XPROJECTROOT)/lib
 #else
@@ -116,3 +124,13 @@ XCOMM $XFree86: xc/config/cf/X11.rules,v 1.6 2001/01/17 16:22:31 dawes Exp $
 # define X11CplusplusProjectDefines	X11ProjectDefines
 #endif
 #define CplusplusProjectDefines	X11CplusplusProjectDefines
+
+#ifndef XtransFailSoft
+# define XtransFailSoft NO
+#endif
+
+#if  XtransFailSoft
+# define XtransFailDefine /**/
+#else 
+# define XtransFailDefine -DFAIL_HARD
+#endif

@@ -57,6 +57,12 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
+ * To enable building Xdmx, uncomment this.
+ *
+#define XdmxServer YES
+ */
+
+/*
  * To disable building Xprt, uncomment this.
  *
 #define XprtServer NO
@@ -93,7 +99,7 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 				neomagic i740 tdfx savage \
 				cirrus vmware tseng trident chips apm \
 				GlideDriver fbdev i128 \
-				ati AgpGartDrivers DevelDrivers ark cyrix \
+				ati DevelDrivers ark cyrix \
 				siliconmotion \
 				vesa vga XF86OSCardDrivers XF86ExtraCardDrivers
  */
@@ -112,6 +118,20 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
 				digitaledge dmc dynapro elographics \
 				microtouch mutouch penmount spaceorb summa \
 				wacom void magictouch aiptek
+ */
+
+/* To enable building of development DRI drivers (insecure, or not
+ * useful on the chosen architecture, uncomment this define.
+#define BuildDevelDRIDrivers YES
+ */
+
+/*
+ * To use the deprecated, old keyboard driver, uncomment this.  But
+ * even better, make the new keyboard driver (hw/xfree86/input/keyboard)
+ * work for your architechture.  The old driver will be removed in the
+ * next release.
+ *
+#define UseDeprecatedKeyboardDriver YES
  */
 
 /*
@@ -169,12 +189,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * To disable support for Type1 fonts, uncomment this.
- *
-#define BuildType1		NO
- */
-
-/*
  * To disable support for CID fonts, uncomment this.
  *
 #define BuildCID		NO
@@ -184,7 +198,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * To disable support for TrueType fonts, uncomment these.
  *
 #define BuildFreeType		NO
-#define BuildXTrueType		NO
  */
 
 /*
@@ -192,15 +205,6 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  * add them here and uncomment.
  *
 #define Freetype2BuildDefines	-DFREETYPE_BUILD_DEFINES
- */
-
-/*
- * If you want to use FreeType 1.x build options that differ from the FreeType2
- * build options, set them here and uncomment.  Otherwise the Freetype2 build
- * options will be used for both FreeType 2.x and 1.x.  Note: FreeType 1.x
- * is currently only used for the X-TrueType (xtt) module.
- *
-#define Freetype1BuildDefines	-DFREETYPE1_BUILD_DEFINES
  */
 
 /*
@@ -580,10 +584,11 @@ XCOMM $XFree86: xc/config/cf/xf86site.def,v 3.186 2003/06/25 18:06:22 eich Exp $
  */
 
 /*
- * If you want XDMAUTH support (if you have Wraphelp.c), uncomment this.
+ * If you don't want XDMAUTH support (if you don't have Wraphelp.c), 
+ *  comment this out.
  *
-#define HasXdmAuth		YES
  */
+#define HasXdmAuth		YES
 
 /*
  * If you have Linux DECnet support, and want to build XFree86 with support
