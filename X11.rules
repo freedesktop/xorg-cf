@@ -125,7 +125,11 @@ XCOMM $XFree86: xc/config/cf/X11.rules,v 1.6 2001/01/17 16:22:31 dawes Exp $
 #endif
 #define CplusplusProjectDefines	X11CplusplusProjectDefines
 
-#ifdef XtransFailSoft
+#ifndef XtransFailSoft
+# define XtransFailSoft NO
+#endif
+
+#if  XtransFailSoft
 # define XtransFailDefine /**/
 #else 
 # define XtransFailDefine -DFAIL_HARD
