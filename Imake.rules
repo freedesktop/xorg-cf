@@ -1494,6 +1494,7 @@ clean::									@@\
 #if BuildHtmlManPages
 #define InstallHtmlManPageAliases(file,aliases,suffix)			@@\
 install.man:: file.suffix.html						@@\
+	MakeDir($(DESTDIR)$(DOCHTMLDIR))				@@\
 	@SUF=`expr suffix \: '\(.\)'`; \				@@\
 	for i in aliases; do (set -x; \					@@\
 	  RemoveFile($(DESTDIR)$(DOCHTMLDIR)/$$i.$$SUF.html); \		@@\
@@ -1509,6 +1510,7 @@ install.man:: file.suffix.html						@@\
 #if BuildHtmlManPages
 #define HtmlManIndex							@@\
 html_index::								@@\
+	MakeDir($(DESTDIR)$(DOCHTMLDIR))				@@\
 	$(HTMLINDEXCMD) $(DESTDIR)$(DOCHTMLDIR)
 #else
 #define HtmlManIndex	html_index::
