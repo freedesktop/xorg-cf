@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.40 2005/01/28 19:15:39 daniels Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.41 2005/02/01 04:06:03 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -418,13 +418,15 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef BuildXKBlib
 #define BuildXKBlib		(BuildXKB && (!BuildServersOnly || \
-					      XnestServer || XdmxServer))
+					      XnestServer || XdmxServer || \
+					      BuildXkbcomp ))
 #endif
 #ifndef BuildXKBuilib
 #define BuildXKBuilib		(BuildXKB && !BuildServersOnly)
 #endif
 #ifndef BuildXKBfilelib
-#define BuildXKBfilelib		(BuildXKB && !BuildServersOnly)
+#define BuildXKBfilelib		(BuildXKB && (!BuildServersOnly || \
+					      BuildXkbcomp ))
 #endif
 #ifndef BuildXTrap
 #define BuildXTrap		YES
@@ -689,6 +691,10 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 
 #ifndef BuildXterm
 #define BuildXterm		NO
+#endif
+
+#ifndef BuildXkbcomp
+#define BuildXkbcomp		BuildClients
 #endif
 
 #ifndef BuildXcursorLibrary
