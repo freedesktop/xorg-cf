@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.15 2004/07/17 21:14:36 anholt Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.16 2004/07/19 21:07:32 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -4419,14 +4419,12 @@ install:: deps								@@\
 	@if [ -f name.ps -a X$(NOPS) = X ]; then set -x; \		@@\
 	  $(INSTALL) $(INSTALLFLAGS) $(INSTDATFLAGS) name.ps \		@@\
 		$(DESTDIR)$(DOCPSDIR); \				@@\
-	fi								@@\
-	RemoveOldFile(name.ps,name.PS,$(DOCPSDIR))			@@\
+	fi ; RemoveOldFile(name.ps,name.PS,$(DOCPSDIR))			@@\
 	MakeDir($(DESTDIR)$(DOCDIR))					@@\
 	@if [ -f name.txt -a X$(NOTXT) = X ]; then set -x; \		@@\
 	  $(INSTALL) $(INSTALLFLAGS) $(INSTDATFLAGS) name.txt \		@@\
 		$(DESTDIR)$(DOCDIR); \					@@\
-	fi								@@\
-	RemoveOldFile(name.txt,name.TXT,$(DOCDIR))			@@\
+	fi ; RemoveOldFile(name.txt,name.TXT,$(DOCDIR))			@@\
 	MakeDir($(DESTDIR)$(DOCHTMLDIR))				@@\
 	@if [ -f name.html -a X$(NOHTML) = X ]; then (set -x; \		@@\
 	  $(INSTALL) $(INSTALLFLAGS) $(INSTDATFLAGS) name.html \	@@\
