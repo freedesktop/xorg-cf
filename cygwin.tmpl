@@ -5,7 +5,8 @@ XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.18 2003/10/19 08:27:05 herrb Exp $
 #define SharedOldXReqs		$(LDPRELIB) $(XONLYLIB)
 #define SharedXReqs		$(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS)
 #define SharedXtReqs		$(LDPRELIB) $(SMLIB) $(ICELIB) $(XONLYLIB)
-#define SharedXawReqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define SharedXawReqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWREQS) $(XLIB)
+#define SharedXaw7Reqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
 #define SharedXaw6Reqs		$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
 #define SharedXmuReqs 		$(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXextReqs		$(LDPRELIB) $(XONLYLIB)
@@ -56,7 +57,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+# define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWCLIENTLIBS) $(XLIB)
 #endif
 
 

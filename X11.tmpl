@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.31 2004/08/27 22:47:44 eich Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.32 2004/08/29 21:06:00 kem Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -2961,6 +2961,14 @@ SharedLibReferences(XA,Xa,$(XALIBSRC),SOXAREV,SharedXaRev)
 UnsharedLibReferences(XA,Xa,$(XALIBSRC))
 #endif
 
+#ifndef BuildXaw
+#define BuildXaw YES
+#endif
+
+       /* AWIDGETSRC is needed by libXaw6 and libXaw7 */
+       AWIDGETSRC = $(LIBSRC)/Xaw
+
+#if BuildXaw
 #ifndef SharedLibXaw
 #define SharedLibXaw HasSharedLibraries
 #endif
@@ -2973,15 +2981,50 @@ UnsharedLibReferences(XA,Xa,$(XALIBSRC))
 #ifndef ProfileLibXaw
 #define ProfileLibXaw		NO	/* profiled widget library */
 #endif
-       AWIDGETSRC = $(LIBSRC)/Xaw
 #if SharedLibXaw
 #ifndef SharedXawRev
-#define SharedXawRev 7.0
+#define SharedXawRev 8.0
 #endif
 SharedDSLibReferences(XAW,Xaw,$(AWIDGETSRC),SOXAWREV,SharedXawRev)
 #else
 ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGETSRC),XBuildLibDir)
 #endif
+#endif
+
+#ifndef BuildXaw7
+#define BuildXaw7 HasSharedLibraries
+#endif
+
+#if BuildXaw7
+#ifndef SharedLibXaw7
+#define SharedLibXaw7 HasSharedLibraries
+#endif
+#ifndef NormalLibXaw7
+#define NormalLibXaw7		NO
+#endif
+#ifndef DebugLibXaw7
+#define DebugLibXaw7		NO	/* debugged widget library */
+#endif
+#ifndef ProfileLibXaw7
+#define ProfileLibXaw7		NO	/* profiled widget library */
+#endif
+       AWIDGET7SRC = $(LIBSRC)/Xaw7
+#if SharedLibXaw7
+#ifndef SharedXaw7Rev
+#define SharedXaw7Rev 7.0
+#endif
+SharedDSLibReferences(XAW7,Xaw,$(AWIDGET7SRC),SOXAW7REV,SharedXaw7Rev)
+#if !BuildXaw
+SharedDSLibReferences(XAW,Xaw,$(AWIDGET7SRC),SOXAWREV,SharedXawRev)
+#endif
+#else
+ProjectUnsharedLibReferences(XAW7,Xaw,$(AWIDGET7SRC),XBuildLibDir)
+#if !BuildXaw
+ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGET7SRC),XBuildLibDir)
+#endif
+#endif
+#endif
+
 
 #ifndef BuildXaw6
 #define BuildXaw6 HasSharedLibraries
@@ -3006,8 +3049,14 @@ ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGETSRC),XBuildLibDir)
 #define SharedXaw6Rev 6.1
 #endif
 SharedDSLibReferences(XAW6,Xaw,$(AWIDGET6SRC),SOXAW6REV,SharedXaw6Rev)
+#if !BuildXaw && !BuildXaw7
+SharedDSLibReferences(XAW,Xaw,$(AWIDGET6SRC),SOXAWREV,SharedXawRev)
+#endif
 #else
 ProjectUnsharedLibReferences(XAW6,Xaw,$(AWIDGET6SRC),XBuildLibDir)
+#if !BuildXaw && !BuildXaw7
+ProjectUnsharedLibReferences(XAW,Xaw,$(AWIDGET6SRC),XBuildLibDir)
+#endif
 #endif
 #endif
 
@@ -3862,11 +3911,42 @@ ProjectUnsharedLibReferences(XKBUI,xkbui,$(XKBUILIBSRC),XBuildLibDir)
 # define	XkbuiDepLibs $(DEPXKBFILELIB)
 #endif
 
-#ifndef XawClientDepLibs
-#define XawClientDepLibs $(DEPXAWLIB) $(DEPXMULIB) $(DEPXTOOLLIB) $(DEPXPMLIB) $(DEPXLIB)
+#ifndef ExtraXawReqs
+# if BuildXaw
+#  define ExtraXawReqs $(XPLIB)
+# else
+#  define ExtraXawReqs /**/
+# endif
 #endif
+
+EXTRAXAWREQS = ExtraXawReqs
+
+#ifndef ExtraXawClientDepLibs
+# if BuildXaw
+#  define ExtraXawClientDepLibs $(DEPXPLIB)
+# else
+#  define ExtraXawClientDepLibs /**/
+# endif
+#endif
+
+EXTRAXAWCLIENTDEPLIBS = ExtraXawClientDepLibs
+
+#ifndef XawClientDepLibs
+#define XawClientDepLibs $(DEPXAWLIB) $(DEPXMULIB) $(DEPXTOOLLIB) $(DEPXPMLIB) $(EXTRAXAWCLIENTDEPLIBS) $(DEPXLIB)
+#endif
+
+#ifndef ExtraXawClientLibs
+# if BuildXaw
+#  define ExtraXawClientLibs $(XPLIB)
+# else
+#  define ExtraXawClientLibs /**/
+# endif
+#endif
+
+EXTRAXAWCLIENTLIBS = ExtraXawClientLibs
+
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWCLIENTLIBS) $(XLIB)
 #endif
 
 #ifndef SharedLibXTrap
