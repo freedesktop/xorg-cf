@@ -31,9 +31,11 @@ XCOMM $XFree86: xc/config/cf/ibmLib.tmpl,v 1.4 2003/05/27 21:56:40 tsi Exp $
 
 #define SharedXextReqs	$(XONLYLIB)
 #define SharedXmuReqs	$(XTOOLLIB) $(XLIB)
-#define SharedOldXReqs	$(XONLYLIB)
-#define SharedXtReqs	$(XONLYLIB) $(SMLIB) $(ICELIB) SharedThreadReqs
-#define SharedXawReqs	$(XMULIB) $(XTOOLLIB) $(XLIB)
+#define SharedXmuuReqs	$(XLIBONLY)
+#define SharedOldXReqs	$(XLIBONLY)
+#define SharedXtReqs	$(XLIBONLY) $(SMLIB) $(ICELIB) SharedThreadReqs
+#define SharedXawReqs	$(XMULIB) $(XTOOLLIB) $(XLIB) $(XPMLIB)
+#define SharedXaw6Reqs	$(XMULIB) $(XTOOLLIB) $(XLIB)
 #define SharedXiReqs	$(XLIB)
 #define SharedXtstReqs	$(XLIB)
 #define SharedPexReqs	$(XONLYLIB)
@@ -41,6 +43,16 @@ XCOMM $XFree86: xc/config/cf/ibmLib.tmpl,v 1.4 2003/05/27 21:56:40 tsi Exp $
 #define SharedSMReqs	$(ICELIB)
 #define SharedXpReqs	$(XLIB)
 #define SharedXpmReqs	$(XLIB)
+#define SharedDPSReqs	$(XTOOLLIB) $(XLIB)
+#define SharedDPSTKReqs	$(DPSLIB) $(XTOOLLIB) $(XLIB)
+#define SharedXrenderReqs	$(XLIB)
+#define SharedXrandrReqs	$(XRENDERLIB) $(XLIB)
+#define SharedXcursorReqs	$(XRENDERLIB) $(XLIB)
+#define SharedxkbfileReqs	$(XLIBONLY)
+#define SharedxkbuiReqs	$(XLIBONLY) $(XKBFILELIB)
+#define SharedFontencReqs	$(BUILDLIBDIR)/libz.a
+#define SharedXfontcacheReqs	$(XLIB)
+#define SharedXfontReqs	stubs/libfntstubs.a $(FREETYPE2LIB)
 
 #define SharedXReqs	$(XTOOLLIB) $(XPLIB) $(XLIB) SharedThreadReqs
 #define SharedXmReqs	$(LDPRELIBS) SharedXReqs
