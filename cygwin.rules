@@ -89,11 +89,7 @@ Concat3(lib,libname,.dll.a)
 #define SharedDepLibraryTarget(libname,rev,deplist,solist,down,up)	@@\
 AllTarget(SharedLibraryName(libname,rev))                             @@\
 									@@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-									@@\
-                                                                        @@\
-									@@\
-SharedLibraryName(libname,rev): deplist libname.def			@@\
+SharedLibraryName(libname,rev): deplist 				@@\
 	RemoveFile(ImportLibraryName(libname,rev))			@@\
 	RemoveFile(SharedLibraryName(libname,rev))			@@\
 	MakeDLL(libname,solist,rev)					@@\
@@ -131,11 +127,7 @@ clean::									@@\
 #define SharedDepCplusplusLibraryTarget(libname,rev,deplist,solist,down,up) @@\
 AllTarget(SharedLibraryName(libname,rev))                             @@\
                                                                             @@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-                                                                            @@\
-                                                                            @@\
-                                                                            @@\
-SharedLibraryName(libname,rev): deplist libname.def                     @@\
+SharedLibraryName(libname,rev): deplist					@@\
 	RemoveFile(ImportLibraryName(libname,rev))                      @@\
 	RemoveFile(SharedLibraryName(libname,rev))                      @@\
 	MakeCplusplusDLL(libname,solist,rev)                            @@\
@@ -188,7 +180,7 @@ clean::									@@\
  */ 
     
 #define MakeDLLProg(libname,solist,prog,rev)			        @@\
-	prog -shared -Wl,--out-implib=ImportLibraryName(libname,rev) -Wl,--enable-auto-import,--enable-runtime-pseudo-reloc --def libname.def -Wl,--exclude-libs,ALL -o SharedLibraryName(libname,rev) solist $(REQUIREDLIBS)
+	prog -shared -Wl,--out-implib=ImportLibraryName(libname,rev) -Wl,--enable-auto-import,--enable-runtime-pseudo-reloc -Wl,--exclude-libs,ALL -o SharedLibraryName(libname,rev) solist $(REQUIREDLIBS)
     
 /*
  * MakeDll
@@ -212,11 +204,8 @@ clean::									@@\
 
 #define SharedLibraryTarget(libname,rev,solist,down,up)                 @@\
 AllTarget(SharedLibraryName(libname,rev))				@@\
-									@@\
-CppFileTarget(libname.def,libname-def.cpp,-DLIBRARY_VERSION=rev,$(ICONFIGFILES)) @@\
-									@@\
                                                                         @@\
-SharedLibraryName(libname,rev): solist libname.def			@@\
+SharedLibraryName(libname,rev): solist					@@\
 	RemoveFile(ImportLibraryName(libname,rev))			@@\
 	RemoveFile(SharedLibraryName(libname,rev))			@@\
 	MakeDLL(libname,solist,rev)					@@\
