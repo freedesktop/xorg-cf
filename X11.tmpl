@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.3 2003/12/18 19:29:11 kaleb Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.1.4.4 2003/12/20 00:28:21 kaleb Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -1363,6 +1363,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef BuildModuleDir
 #define BuildModuleDir $(BUILDLIBDIR)/modules
 #endif
+#ifndef BuildI18NDir
+# define BuildI18NDir $(BUILDLIBDIR)/locale
+#endif
 #ifndef BuildModuleTop
 #define BuildModuleTop $(BUILDLIBTOP)/..
 #endif
@@ -1538,6 +1541,7 @@ XCOMM X Window System make variables; these need to be coordinated with rules
       BUILDBINDIR = BuildBinDir		/* built binaries */
       BUILDBINTOP = BuildBinTop		/* top relative to BUILDBINDIR */
    BUILDMODULEDIR = BuildModuleDir	/* built server modules */
+     BUILDI18NDIR = BuildI18NDir	/* built i81n modules */
    BUILDMODULETOP = BuildModuleTop	/* top relative to BUILDMODULEDIR */
     XBUILDINCROOT = XBuildIncRoot	/* base of X build loc */
      XBUILDINCDIR = XBuildIncDir
@@ -1662,8 +1666,9 @@ XCOMM X Window System make variables; these need to be coordinated with rules
 # ifdef SystemBuildLibPath
   SYSTEMENVLIBDIR = SystemBuildLibPath
 # endif
+#define XlocaleClientSetup Concat3(XLOCALEDIR,=,BuildI18NDir)
        XENVLIBDIR = X11BuildLibPath
-   CLIENTENVSETUP = Concat3(BuildLibPathVar,=,BuildLibPath)
+   CLIENTENVSETUP = Concat3(BuildLibPathVar,=,BuildLibPath) XlocaleClientSetup
 #else
    CLIENTENVSETUP =
 #endif
