@@ -1,5 +1,9 @@
-XCOMM platform:  $Xorg: osf1.cf,v 1.4 2000/12/12 12:49:13 coskrey Exp $
+XCOMM platform:  $Xorg: osf1.cf,v 1.3 2000/08/17 19:41:48 cpqbld Exp $
 /* only tested with Digital OSF/1 */
+
+
+
+XCOMM platform:  $XFree86: xc/config/cf/osf1.cf,v 3.9 2001/03/02 02:45:33 dawes Exp $
 
 #ifndef OSName
 # define OSName		DefaultOSName
@@ -15,7 +19,6 @@ XCOMM operating system: OSName (OSMajorVersion.OSMinorVersion)
 #define StandardCppDefines	-D__osf__ StandardDefines
 #define BuildLibPathVar		_RLD_ROOT=/dev/null LD_LIBRARY_PATH
 #define HasPutenv		YES
-#define HasDlopen		YES
 #define Malloc0ReturnsNull	YES
 #define HasNdbm			YES
 #define HasShm			YES
@@ -28,7 +31,6 @@ XCOMM operating system: OSName (OSMajorVersion.OSMinorVersion)
 #define HasVFork                NO
 #define HasPlugin		YES
 #define InstallCmd		installbsd
-#define DlLibrary		/**/
 #define RanlibCmd		ranlib -t
 #if OSMajorVersion > 1 || OSMinorVersion > 0
 #define ModernOSF1		YES
@@ -37,6 +39,9 @@ XCOMM operating system: OSName (OSMajorVersion.OSMinorVersion)
 #define ShLibDir		/usr/shlib
 #define SharedLibPex		NO  /* losing, no shared -lm */
 #endif
+
+#define InstallXloadSetGID	NO
+
 #define ThreadedX		ModernOSF1
 
 #if ThreadedX
@@ -75,6 +80,9 @@ XCOMM operating system: OSName (OSMajorVersion.OSMinorVersion)
 #endif
 #if OSMajorVersion > 3
 #define TermcapLibrary		-lcurses
+#endif
+#if OSMajorVersion >= 3
+#define HasMkstemp		YES
 #endif
 #endif
 
