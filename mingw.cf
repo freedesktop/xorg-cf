@@ -274,10 +274,10 @@
 # define BuildXWinEmulatePseudo	NO
 #endif
 #ifndef BuildXWinMultiWindow
-# define BuildXWinMultiWindow	NO
+# define BuildXWinMultiWindow	HasPThreads
 #endif
 #ifndef BuildXWinMultiWindowExtWM
-# define BuildXWinMultiWindowExtWM NO
+# define BuildXWinMultiWindowExtWM HasPThreads
 #endif
 #ifndef BuildXWinNativeGDI
 # define BuildXWinNativeGDI	NO
@@ -401,7 +401,7 @@
 # define BuildXF86BigfontExt	NO
 #endif
 #ifndef BuildGlxExt
-# define BuildGlxExt		YES
+# define BuildGlxExt		GlxUseWindows
 #endif
 #ifndef BuildXprintLib
 # define BuildXprintLib		NO
