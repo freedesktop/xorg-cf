@@ -178,6 +178,9 @@
 #  define HasFontconfig		YES
 # endif
 #endif
+#ifndef HasLibpng
+# define HasLibpng		YES
+#endif
 
 /* Cygwin-specific Windows resource compiler command */
 #ifdef CrossCompileDir
