@@ -215,15 +215,21 @@ XCOMM platform:  $XFree86: xc/config/cf/cygwin.cf,v 3.56 2003/10/27 22:34:02 her
 # define BuildIPv6		NO
 #endif
 
+#if 0
+/* 2004/02/29 - Harold - This doesn't do anything yet.  Stay tuned. */
 /* Support for accelerating OpenGL with Win32's OpenGL layer. */
-#ifndef BuildWindowsDRI
-# define BuildWindowsDRI	NO
+#ifndef BuildXWinDRI
+# define BuildXWinDRI		NO
 #endif
-#if BuildWindowsDRI
+#if BuildXWinDRI
 # define GlxExtraDefines	-DGLX_DIRECT_RENDERING GlxArchDefines
+#endif
 #endif
 
 /* XWin Server specific build flags */
+#ifndef GlxUseWindows
+# define GlxUseWindows		NO
+#endif
 #ifndef BuildXWinClipboard
 # define BuildXWinClipboard	YES
 #endif
