@@ -16,7 +16,7 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #endif
 
 #ifndef XawClientLibs
-#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XLIB)
+#define XawClientLibs $(XAWLIB) $(XMULIBONLY) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
 #endif
 
 #define FrescoSysLibs	CplusplusLibC MathLibrary
@@ -25,8 +25,8 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedXlibi18nReqs $(LDPRELIB) $(XONLYLIB)
 #define SharedOldXReqs	$(LDPRELIB) $(XONLYLIB)
 #define SharedXtReqs	$(LDPRELIB) $(XONLYLIB) $(SMLIB) $(ICELIB)
-#define SharedXawReqs	$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XLIB)
-#define SharedXaw6Reqs	$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XLIB)
+#define SharedXawReqs	$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(XPLIB) $(XLIB)
+#define SharedXaw6Reqs	$(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPLIB) $(XLIB)
 #define SharedXmuReqs	$(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXextReqs	$(LDPRELIB) $(XONLYLIB)
 #define SharedXiReqs	$(LDPRELIB) $(XLIB)
