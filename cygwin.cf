@@ -434,6 +434,10 @@
 	for flag in ${MAKEFLAGS} ''; do \				@@\
 	  case "$$flag" in *=*) ;;--*) ;; *[makeflags]*) shellcmd;; esac; done
 
+#ifndef ManSuffix
+# define ManSuffix	1
+#endif
+
 #include <cygwin.rules>
 
 #if CrossCompiling
