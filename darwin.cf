@@ -153,6 +153,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVe
  */
 #if OSMajorVersion >= 7
 # define CppCmd                 /usr/bin/cpp3
+# define StandardCppOptions	-traditional
 #else
 # define CppCmd                 /usr/bin/cpp
 #endif
