@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.2 2004/03/14 03:27:09 alanc Exp $
+XCOMM $XdotOrg: xc/config/cf/sun.cf,v 1.1.4.8.2.3 2004/03/17 17:16:56 alanc Exp $
 XCOMM platform:  $Xorg: sun.cf,v 1.4 2000/08/17 19:41:48 cpqbld Exp $
 
 
@@ -174,19 +174,28 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #ifdef i386Architecture
 # if OSMajorVersion > 4
 #  if OSMinorVersion >= 8
-#   define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines \
-				-D__SOL8__
-#  else
-#   define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines
+#   define OSServerExtraDefines	-D__SOL8__
 #  endif
-# else
-#  define ServerExtraDefines	AllocateLocalDefines
+#  if HasSunC
+#   define CompilerServerExtraDefines $(XF86SRC)/os-support/sunos/ia32.il
+#  endif
 # endif
 #else
-# define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines
 # define HasPlugin		YES
 #endif
+
+#ifndef CompilerServerExtraDefines
+# define CompilerServerExtraDefines /**/
+#endif
+
+#ifndef OSServerExtraDefines
+# define OSServerExtraDefines	/**/
+#endif
+
+
 #define ServerOSDefines		XFree86ServerOSDefines IncludeCG2HeaderDefine
+#define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines \
+				CompilerServerExtraDefines OSServerExtraDefines
 
 #ifndef HasPerl
 /* Solaris 8 comes with perl.  Earlier versions don't. */
