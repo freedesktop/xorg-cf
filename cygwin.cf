@@ -73,7 +73,7 @@
 #define GnuCpp			YES
 #define UnixCpp /* Just a flag that affects Concat macros in Imake.rules */
 
-#define ExtraLoadFlags		-Wl,--enable-auto-import
+#define ExtraLoadFlags		-Wl,--enable-auto-import,--enable-runtime-pseudo-reloc
 
 #define HasShadowPasswd		NO
 #define HasLibCrypt		YES
@@ -203,6 +203,14 @@
 # else
 #  define ExtraIncDir		/usr/include/w32api
 # endif
+#endif
+
+#ifndef BourneShell
+/*
+ * This will cause builds/installs to terminate on errors, as on other
+ * platforms.
+ */
+#define BourneShell		/bin/sh -e
 #endif
 
 #define LdCombineFlags		-r
@@ -433,6 +441,9 @@
 #define MakeFlagsToShellFlags(makeflags,shellcmd) \
 	for flag in ${MAKEFLAGS} ''; do \				@@\
 	  case "$$flag" in *=*) ;;--*) ;; *[makeflags]*) shellcmd;; esac; done
+
+#define MakeNamedTargetSubdir(dir,flags,subname)\
+	$(MAKE) -C dir $(MFLAGS) $(PARALLELMFLAGS) flags subname
 
 #ifndef ManSuffix
 # define ManSuffix	1
