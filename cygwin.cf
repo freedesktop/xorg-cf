@@ -6,7 +6,7 @@
 # define CygxVersionMinor	8
 #endif
 #ifndef CygxVersionPatch
-# define CygxVersionPatch	0
+# define CygxVersionPatch	1
 #endif
 #ifndef CygxVersionSnap
 # define CygxVersionSnap	0
@@ -329,6 +329,7 @@
 # define XWinMultiWindowDefines 
 #endif /* BuildXWinMultiWindow */
 #if BuildXWinMultiWindowExtWM
+# define BuildRootless		YES
 # define XWinMultiWindowExtWMDefines -DXWIN_MULTIWINDOWEXTWM
 #else /* BuildXWinMultiWindowExtWM */
 # define XWinMultiWindowExtWMDefines 

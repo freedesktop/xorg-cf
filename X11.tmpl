@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.35 2004/09/03 16:18:18 kem Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.35.4.1 2004/09/16 23:37:20 deronj Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -687,6 +687,10 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #define BuildLg3dLibrary	!BuildServersOnly
 #endif
 
+#ifndef BuildRootless
+#define BuildRootless	NO
+#endif
+
 #ifndef BuildXterm
 #define BuildXterm		BuildClients
 #endif
@@ -1252,6 +1256,14 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #endif
 
+#ifndef RootlessDefines
+#if BuildRootless
+#define RootlessDefines -DROOTLESS
+#else
+#define RootlessDefines /**/
+#endif
+#endif
+
 #ifndef SitePervasiveExtensionDefines
 #define SitePervasiveExtensionDefines /**/
 #endif
@@ -1262,7 +1274,8 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 	XF86BigfontExtensionDefines DPMSDefines \
 	LowMemDefines XprintDefines XineramaDefines \
 	SitePervasiveExtensionDefines RenderDefines RandRDefines \
-	XfixesDefines XDamageDefines CompositeDefines XevieDefines Lg3dDefines
+	XfixesDefines XDamageDefines CompositeDefines XevieDefines RootlessDefines \
+	Lg3dDefines 
 #endif
 #ifndef SiteExtensionDefines
 #define SiteExtensionDefines /**/
