@@ -44,7 +44,9 @@ XCOMM $XFree86: xc/config/cf/cygwin.tmpl,v 3.18 2003/10/19 08:27:05 herrb Exp $
 #define SharedXmuuReqs		$(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXrandrReqs	$(LDPRELIB) $(XRENDERLIB) $(XLIB)
 #define SharedXcursorReqs	$(LDPRELIB) $(XRENDERLIB) $(XLIB) 
-
+#define SharedXfixesReqs	$(LDPRELIB) $(XLIB)
+#define SharedXdamageReqs	$(LDPRELIB) $(XFIXESLIB) $(XLIB)
+#define SharedXcompositeReqs	$(LDPRELIB) $(XDAMAGELIB) $(XFIXESLIB) $(XLIB)
 
 #ifndef FixupLibReferences
 # define FixupLibReferences()						@@\
