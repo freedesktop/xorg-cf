@@ -2075,11 +2075,11 @@ XCOMM Not sure this belongs here
 #endif
 #include LocalTmplFile
 
-#if !BuildLibraries && AlternateIncRoot
+#if !BuildLibraries && AlternateIncRoot && !defined(CrossCompileDir)
 INSTALLED_INCLUDES = -I$(INCROOT)
 #endif
 
-#if !defined(UseInstalled) && !BuildLibraries && AlternateUsrLibDir
+#if !defined(UseInstalled) && !BuildLibraries && AlternateUsrLibDir && !defined(CrossCompileDir)
 INSTALLED_LIBS = -L$(USRLIBDIR)
 #endif
 
