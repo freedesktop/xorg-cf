@@ -5,7 +5,7 @@ XCOMM
 XCOMM
 XCOMM
 XCOMM
-XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.235 2003/11/21 04:58:54 dawes Exp $
+XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.239 2003/12/12 03:20:32 dawes Exp $
 
 /***************************************************************************
  *                                                                         *
@@ -1218,7 +1218,8 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 
 #ifndef MesaUseX86Asm
-# if HasX86Support
+/* The current Mesa X86 ASM code doesn't work well with SVR4 shared libs. */
+# if HasX86Support && !SystemV4
 #  define MesaUseX86Asm YES
 # else
 #  define MesaUseX86Asm NO
@@ -1373,6 +1374,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #endif
 #ifndef ModuleDir
 #define ModuleDir $(USRLIBDIR)/modules
+#endif
+#ifndef InstSrcDir
+#define InstSrcDir Concat(ProjectRoot,/src)
 #endif
 #ifndef LibexecDir
 #ifdef ProjectRoot
@@ -1544,6 +1548,8 @@ XCOMM X Window System make variables; these need to be coordinated with rules
        LIBEXECDIR = LibexecDir
         MODULEDIR = ModuleDir
    TOP_X_INCLUDES = TopXInclude
+
+       INSTSRCDIR = InstSrcDir		/* Installed source (kernel modules). */
 
 #ifdef EtcX11Directory
         ETCX11DIR = EtcX11Directory
@@ -3002,6 +3008,9 @@ FREETYPE2INCDIR=$(BUILDINCDIR)
 
 #ifndef Freetype2IncDir
 #define Freetype2IncDir Freetype2Dir/include
+# if Freetype2DirStandard
+#  define Freetype2IncDirStandard YES
+# endif
 #endif
 
 FREETYPE2DIR = Freetype2Dir
@@ -3017,8 +3026,16 @@ FREETYPE2LIB = -L$(FREETYPE2LIBDIR) -lfreetype
 
 #endif /* else BuildFreetype2Library */
 
+#ifndef Freetype2IncDirStandard
+# define Freetype2IncDirStandard NO
+#endif
+
 #if BuildFreetype2Library || HasFreetype2
+#if Freetype2IncDirStandard
+FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR)/freetype2
+#else
 FREETYPE2INCLUDES = -I$(FREETYPE2INCDIR) -I$(FREETYPE2INCDIR)/freetype2
+#endif
 FREETYPE2DEFINES = -DFREETYPE2
 #endif
 
@@ -4102,7 +4119,7 @@ all:: file.idx.ps							@@\
 file.idx.ps: srcs index.raw						@@\
 	sed -n '$$p' index.raw > index.pageno				@@\
 	grep '^[1-9]' index.raw | \					@@\
-		(sort -f '-t:' -k1,1n 2>/dev/null || \			@@\
+		(sort -f '-t:' -k2,2 -k1,1n 2>/dev/null || \		@@\
 		 sort -f '-t:' +1 -3 +0n -1n) | \			@@\
 		awk -f $(DOCUTILSRC)/fixindex.awk | \			@@\
 		awk -f $(DOCUTILSRC)/block.awk > index.troff		@@\
