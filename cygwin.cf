@@ -9,7 +9,7 @@
 # define CygxVersionPatch	99
 #endif
 #ifndef CygxVersionSnap
-# define CygxVersionSnap	1
+# define CygxVersionSnap	2
 #endif
 #ifndef CygxVersionServer
 # define CygxVersionServer	0
