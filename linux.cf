@@ -1,4 +1,4 @@
-XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.23 2005/02/01 02:02:31 daniels Exp $
+XCOMM $XdotOrg: xc/config/cf/linux.cf,v 1.24 2005/03/06 01:05:00 branden Exp $
 XCOMM platform:  $Xorg: linux.cf,v 1.3 2000/08/17 19:41:47 cpqbld Exp $
 
 
@@ -822,7 +822,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif /* AlphaArchitecture */
 
 #ifdef Arm32Architecture
-# define DefaultCCOptions	-fsigned-char
+# define DefaultCCOptions
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	-O3
 # endif
@@ -875,7 +875,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #ifdef Ppc64Architecture
-# define DefaultCCOptions	-fsigned-char -mminimal-toc
+# define DefaultCCOptions	-mminimal-toc
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	DefaultGcc2Ppc64Opt
 # endif
@@ -885,7 +885,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif /* Ppc64Architecture */
 
 #ifdef PpcArchitecture
-# define DefaultCCOptions	-fsigned-char
+# define DefaultCCOptions	
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	DefaultGcc2PpcOpt
 # endif
