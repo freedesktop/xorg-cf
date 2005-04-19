@@ -31,6 +31,7 @@
 #define SharedLibDpsTk		YES
 #define SharedLibGlu		YES
 #define SharedLibWindowsWM	NO
+#define NormalLibGLw		YES
 #ifndef SharedDataSeparation
 #define SharedDataSeparation	NO
 #endif
