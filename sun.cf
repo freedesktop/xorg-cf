@@ -316,16 +316,24 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if OSMinorVersion > 3
 #  define InstallCmd	    /usr/ucb/install
 # endif
+#ifndef LargefileDefines
+# if (OSMajorVersion > 5) || (OSMajorVersion == 5 && OSMinorVersion >= 6)
+#  define LargefileDefines -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+# else
+#  define LargefileDefines /* */
+# endif
+#endif
 # ifdef i386Architecture
 #  if (OSMajorVersion < 4) || ((OSMajorVersion == 5) && (OSMinorVersion <= 5))
 #   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
-				-D__SOL64__
+				-D__SOL64__ LargefileDefines
 #  else
-#   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386
+#   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
+                                LargefileDefines
 #  endif
 #  define ToolkitStringsABIOptions	-intelabi
 # else
-#  define StandardDefines	  -Dsun -Dsparc -DSVR4 -D__EXTENSIONS__
+#  define StandardDefines	  -Dsun -Dsparc -DSVR4 -D__EXTENSIONS__ LargefileDefines
 #  define ToolkitStringsABIOptions	-sparcabi
 # endif
 # define ExtraLibraries    -lsocket -lnsl
