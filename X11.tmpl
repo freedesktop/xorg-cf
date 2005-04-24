@@ -988,9 +988,9 @@ FCHOWN_DEFINES = -DHAS_FCHOWN
 #ifndef XprintDefines
 #if BuildXprint
 #if PrintOnlyServer
-#define XprintDefines -DPIXPRIV
-#else
 #define XprintDefines -DXPRINT -DPIXPRIV
+#else
+#define XprintDefines -DXPRINT -DLOADABLEPRINTDDX -DPIXPRIV
 #endif
 #else
 #define XprintDefines /**/
