@@ -1,6 +1,6 @@
 XCOMM ----------------------------------------------------------------------
 XCOMM X Window System Build Parameters and Rules
-XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.44 2005/03/23 21:54:49 herrb Exp $
+XCOMM $XdotOrg: xc/config/cf/X11.tmpl,v 1.43 2005/03/07 19:00:11 gisburn Exp $
 XCOMM $Xorg: X11.tmpl,v 1.6 2000/08/17 19:41:46 cpqbld Exp $
 XCOMM
 XCOMM
@@ -797,6 +797,16 @@ XCOMM $XFree86: xc/config/cf/X11.tmpl,v 1.248 2004/02/16 04:07:37 dawes Exp $
 #endif
 #ifndef PrimaryScreenResolution
 #define PrimaryScreenResolution 72		/* a common resolution */
+#endif
+#ifndef DefaultFontPath
+# if PrimaryScreenResolution < 88		/* (75 + 100) / 2 */
+#  define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/75dpi/,$(FONTDIR)/100dpi/
+# else
+#  define DefaultFontPath $(FONTDIR)/misc/,$(FONTDIR)/TTF/,$(FONTDIR)/Type1/,$(FONTDIR)/CID/,$(FONTDIR)/100dpi/,$(FONTDIR)/75dpi/
+# endif
+#endif
+#ifndef DefaultFSFontPath
+# define DefaultFSFontPath DefaultFontPath
 #endif
 #ifndef DefaultRGBDatabase
 #define DefaultRGBDatabase $(LIBDIR)/rgb
