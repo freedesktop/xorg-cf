@@ -162,7 +162,11 @@ Concat(lib,libname.so.rev):  deplist $(EXTRALIBRARYDEPS)		@@\
 	(cd down; $(CXX) -o up/$@~ $(SHLIBLDFLAGS) solist $(REQUIREDLIBS)) @@\
 	$(RM) $@ 							@@\
 	$(MV) $@~ $@							@@\
+	@if $(SOSYMLINK); then (set -x; \				@@\
+	  $(RM) Concat(lib,libname.so); \				@@\
+	  $(LN) $@ Concat(lib,libname.so)); fi				@@\
 	LinkBuildLibrary($@)						@@\
+	LinkBuildLibraryMaybe(Concat(lib,libname.so),$(SOSYMLINK))	@@\
 									@@\
 clean::									@@\
 	$(RM) Concat(lib,libname.so.rev)				

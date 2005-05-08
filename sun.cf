@@ -176,6 +176,11 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 #   define CplusplusCompilerMinorVersion 0
 #  endif
 # endif
+# ifndef CplusplusLibC
+#  if CplusplusCompilerMajorVersion >= 5
+#   define CplusplusLibC -lCrun
+#  endif
+# endif
 XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #endif
 
