@@ -791,6 +791,12 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # define XF86OSCardDrivers	fbdev v4l sisusb
 #endif
 
+#if (OSMajorVersion > 2) || (OSMajorVersion == 2 && OSMinorVersion >= 6)
+# define Linux26InputDrivers evdev
+#else
+# define Linux26InputDrivers
+#endif
+
 #ifndef OSXInputDrivers
 # if HasLinuxJoystick
 #  define OSXInputDrivers1	ur98
@@ -798,7 +804,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  define OSXInputDrivers1	/**/
 # endif
 # if HasLinuxInput
-#  define OSXInputDrivers2	aiptek evdev
+#  define OSXInputDrivers2	aiptek Linux26InputDrivers
 # else
 #  define OSXInputDrivers2	/**/
 # endif
