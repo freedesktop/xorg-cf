@@ -20,6 +20,61 @@ XCOMM platform:  $XFree86: xc/config/cf/sun.cf,v 3.70 2004/01/13 02:42:51 tsi Ex
 #endif
 XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVersion)
 
+/* For various reasons, Sun uses different settings when compiling the 
+ * X Window System packages included in Solaris than are normally used
+ * by most people building the X.Org software releases.   Sun also has
+ * two different X server hierarchies in Solaris - Xsun in /usr/openwin
+ * and Xorg in /usr/X11.
+ *
+ * If you want to try to match Sun's settings as closely as possible
+ * add this setting to your host.def:
+ *  #define BuildLikeSun YES
+ *
+ * If you're trying to match the openwin directory layout as well, you'll 
+ * need to also add:
+ *  #define ProjectRoot /usr/openwin
+ * otherwise it will use /usr/X11.  (Note that these settings match closer
+ * to Sun's Xorg delivery in /usr/X11 than the older X11R6.6-based delivery
+ * in /usr/openwin though.)
+ */
+#ifndef BuildLikeSun
+# define BuildLikeSun NO
+#endif
+
+#if BuildLikeSun
+# ifndef ProjectRoot
+#  define ProjectRoot		/usr/X11
+# endif
+# ifndef DocDir
+#  define DocDir		Concat(ProjectRoot,/share/doc)
+# endif
+# ifndef ManDirectoryRoot
+#  define ManDirectoryRoot	Concat(ProjectRoot,/share/man)
+# endif
+# ifndef ManSuffix
+#  define ManSuffix		1
+# endif
+# ifndef LibraryCCOptions
+#  if DoSharedLib && defined(SharedLibraryCCOptions)
+#   define LibraryCCOptions SharedLibraryCCOptions ArchLibraryCCOptions
+#  else
+#   define LibraryCCOptions DefaultCCOptions ArchLibraryCCOptions
+#  endif
+# endif
+#endif
+
+/* Flag passed to makestrs in Xt build to control string array names in the
+ * libXt headers.   -solarisabinames matches those used in the libXt in 
+ * Solaris, but not in other OS'es.
+ */
+#ifndef SolarisABIFlag
+# if BuildLikeSun
+#  define SolarisABIFlag -solarisabinames
+# else
+#  define SolarisABIFlag /**/
+# endif
+#endif
+
 /*
  * Compiler setup.  This sun.cf file knows what options to use with 
  * certain compilers, including Sun C, CenterLine C, and gcc.  It 
@@ -101,9 +156,24 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 #    else
 #     define ArchOptimizedFlags -xarch=v8
 #    endif
-#   elif defined(i386Architecture)
-#    if OSMinorVersion > 8 /* Solaris 9 and later require Pentium or better */
-#     define ArchOptimizedFlags -xpentium
+#   else if !defined(Sparc64Architecture)
+#    if (CCompilerMajorVersion > 5) || \
+	(CCompilerMajorVersion == 5 && CCompilerMinorVersion >= 7)
+/* -xregs=no%frameptr is required on x86 when compiling at -xO4 or higher to
+ * avoid losing stack frame pointers so you can't get stack traces or debug.
+ * This may lose a small bit of performance, so you can override by adding
+ * #define FramePtrFlags -xregs=frameptr if you care about performance more 
+ * than debuggability.
+ */
+#     ifndef FramePtrFlags
+#      define FramePtrFlags -xregs=no%frameptr
+#     endif
+#    endif
+#    if defined(i386Architecture) && (OSMinorVersion > 8)
+       /* Solaris 9 and later require Pentium or better */
+#      define ArchOptimizedFlags -xpentium FramePtrFlags
+#    else
+#     define ArchOptimizedFlags FramePtrFlags
 #    endif
 #   endif
 #  endif
@@ -142,6 +212,14 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 # endif /* Lint Flags for Solaris */
 
 #endif /* HasSunC */
+
+#ifndef ArchLibraryCCOptions
+# if HasSunC && defined(SparcArchitecture) && CCompilerMajorVersion > 3
+#  define ArchLibraryCCOptions -xregs=no%appl
+# else
+#  define ArchLibraryCCOptions
+# endif
+#endif /* ArchLibraryCCOptions */
 
 /* we used to have this here :
  *
@@ -236,16 +314,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #endif
 
 #ifdef i386Architecture
-# if OSMajorVersion > 4
-#  if OSMinorVersion >= 8
-#   define OSServerExtraDefines	-D__SOL8__
-#  endif
-#  if HasSunC
-#   define CompilerServerExtraDefines $(XF86SRC)/os-support/sunos/ia32.il
-#  endif
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 8))
+#  define OSServerExtraDefines	-D__SOL8__
 # endif
-#else
-# define HasPlugin		YES
+# if HasSunC
+#  define CompilerServerExtraDefines $(XF86SRC)/os-support/sunos/ia32.il
+# endif
 #endif
 
 #ifndef CompilerServerExtraDefines
@@ -336,10 +410,10 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
                                 LargefileDefines
 #  endif
-#  define ToolkitStringsABIOptions	-intelabi
+#  define ToolkitStringsABIOptions	-intelabi SolarisABIFlag
 # else
 #  define StandardDefines	  -Dsun -Dsparc -DSVR4 -D__EXTENSIONS__ LargefileDefines
-#  define ToolkitStringsABIOptions	-sparcabi
+#  define ToolkitStringsABIOptions	-sparcabi SolarisABIFlag
 # endif
 # define ExtraLibraries    -lsocket -lnsl
 # if OSMinorVersion > 1
@@ -391,6 +465,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #    define Freetype2Dir /usr/sfw
 #   endif
 #  endif
+#  ifndef HasExpat
+#   define HasExpat YES 
+#   ifndef ExpatDir
+#    define ExpatDir /usr/sfw
+#   endif
+#  endif
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
@@ -428,7 +508,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 9))
 # define HasIssetugid	  YES
 #endif
-#ifndef i386Architecture
+#if defined(SparcArchitecture) || defined(Sun3Architecture)
 # ifndef Xsun24Server
 #  define Xsun24Server	  NO		/* color, mono, multiple depths */
 # endif
@@ -468,7 +548,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #   endif
 #  endif
 # endif
-#endif /* not i386Architecture */
+#endif /* SPARC or Sun3/M68k */
 
 #if OSMajorVersion >= 4
 #define HasUsableFileMap YES
@@ -593,9 +673,9 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 /* ExtraLoadFlags apply to all binaries - programs & libraries */
 # ifndef ExtraLoadFlags
-#  define ExtraLoadFlags LazyLoadFlag
+#  define ExtraLoadFlags LazyLoadFlag $(CDEBUGFLAGS)
 # endif
-/* Build progams with non-executable stacks on Solaris 9 & later */
+/* Build programs with non-executable stacks on Solaris 9 & later */
 # if OSMinorVersion >= 9 
 #  define NonExecStackLoadFlag -Wl,-M,/usr/lib/ld/map.noexstk
 # else
