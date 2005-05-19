@@ -521,9 +521,6 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # ifndef XorgServer
 #  define XorgServer	(!(Xsun24Server || XsunServer || XsunMonoServer))
 # endif 
-# ifndef BuildPexExt
-#  define BuildPexExt	  (XsunServer || Xsun24Server)
-# endif
 # undef BuildXF86DRI
 # define BuildXF86DRI     NO
 # if (OSMajorVersion > 4)
@@ -656,8 +653,6 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  endif
 # endif
 
-
-# define PexCCOptions DefaultCCOptions
 
 #endif /* HasGcc (else) */
 

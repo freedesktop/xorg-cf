@@ -1,5 +1,5 @@
 XCOMM $XFree86: xc/config/cf/sco5.cf,v 3.15 2003/12/19 02:05:37 dawes Exp $
-XCOMM $XdotOrg: xc/config/cf/sco5.cf,v 1.4 2004/08/16 16:36:13 krh Exp $
+XCOMM $XdotOrg: xc/config/cf/sco5.cf,v 1.5 2004/09/02 01:10:28 kem Exp $
 
 /*
  * This is for SCO Open Server 5.0.6A or later. You must have the
@@ -87,14 +87,6 @@ XCOMM $XdotOrg: xc/config/cf/sco5.cf,v 1.4 2004/08/16 16:36:13 krh Exp $
 #endif
 
 #define LogDirectory		/var/adm
-
-#ifndef PexDynamicModule
-#define PexDynamicModule        YES
-#endif
-
-#ifndef XieDynamicModule
-#define XieDynamicModule        YES
-#endif
 
 #ifndef HasSymLinks
 # define HasSymLinks            YES
@@ -226,7 +218,6 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedGLReqs        $(LDPRELIB) $(XLIB)
 #define SharedGLUReqs       $(LDPRELIB) $(XLIB) $(GLXLIB)
 #define SharedOSMesaReqs    $(LDPRELIB) $(XLIB) $(GLXLIB)
-#define SharedPexReqs       $(LDPRELIB) $(XONLYLIB) MathLibrary
 #define SharedSMReqs        $(LDPRELIB) $(ICELIB)
 #define SharedX11Reqs       $(LDPRELIB) -lsocket
 #define SharedXawReqs       $(LDPRELIB) $(XMULIB) $(XTOOLLIB) $(XPMLIB) $(EXTRAXAWREQS) $(XLIB)
@@ -235,7 +226,6 @@ XMULIB = $(XMULIBONLY) $(XTOOLLIB) $(XLIB)
 #define SharedXcursorReqs   $(LDPRELIB) $(XRENDERLIB) $(XLIB)
 #define SharedXextReqs      $(LDPRELIB) $(XONLYLIB)
 #define SharedXiReqs        $(LDPRELIB) $(XLIB)
-#define SharedXieReqs       $(LDPRELIB) $(XONLYLIB)
 #define SharedXmuReqs       $(LDPRELIB) $(XTOOLLIB) $(XLIB)
 #define SharedXmuuReqs      $(LDPRELIB) $(XONLYLIB)
 #define SharedXpReqs        $(LDPRELIB) $(XLIB)
