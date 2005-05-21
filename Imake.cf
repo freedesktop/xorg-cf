@@ -352,11 +352,22 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 # endif
 # ifdef sparc
 #  undef sparc
-# define SparcArchitecture
+#  define SparcArchitecture
+# endif
+# ifdef __sparcv9
+#  undef __sparcv9
+#  define Sparc64Architecture
 # endif
 # ifdef mc68000
 #  undef mc68000
-# define Sun3Architecture
+#  define Sun3Architecture
+# endif
+# if defined(__amd64) || defined(__x86_64)
+#  undef __amd64
+#  undef __x86_64
+#  undef amd64
+#  undef i386
+#  define AMD64Architecture
 # endif
 # ifdef i386
 #  undef i386

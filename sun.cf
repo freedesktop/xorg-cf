@@ -156,7 +156,7 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 #    else
 #     define ArchOptimizedFlags -xarch=v8
 #    endif
-#   else if !defined(Sparc64Architecture)
+#   else if defined(i386Architecture) || defined(AMD64Architecture)
 #    if (CCompilerMajorVersion > 5) || \
 	(CCompilerMajorVersion == 5 && CCompilerMinorVersion >= 7)
 /* -xregs=no%frameptr is required on x86 when compiling at -xO4 or higher to
@@ -313,12 +313,29 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define IncludeCG2HeaderDefine /**/
 #endif
 
-#ifdef i386Architecture
+#if defined(i386Architecture) || defined(AMD64Architecture)
 # if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 8))
 #  define OSServerExtraDefines	-D__SOL8__
 # endif
+#endif
+
+#if !HasGcc 
 # if HasSunC
-#  define CompilerServerExtraDefines $(XF86SRC)/os-support/sunos/ia32.il
+#  if defined(AMD64Architecture)
+#   define AsmArch amd64
+#   define AsmFlags -xarch=amd64
+#  elif defined(i386Architecture)
+#   define AsmArch ia32
+#   define AsmFlags /**/
+#  elif defined(SparcArchitecture) && !defined(Sparc64Architecture)
+#   define AsmArch sparcv8plus
+#   define AsmFlags -xarch=v8plus
+#  else
+#   error "Unsupported Architecture for building with Sun Compilers"
+#  endif
+#  ifndef CompilerServerExtraDefines
+#   define CompilerServerExtraDefines $(SERVERSRC)/hw/xfree86/os-support/sunos/AsmArch.il
+#  endif
 # endif
 #endif
 
@@ -330,10 +347,18 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define OSServerExtraDefines	/**/
 #endif
 
+#ifndef ArchServerExtraDefines
+# if defined(Sparc64Architecture) || defined(AMD64Architecture)
+#  define ArchServerExtraDefines -D_XSERVER64
+# else
+#  define ArchServerExtraDefines /**/
+# endif
+#endif
 
 #define ServerOSDefines		XFree86ServerOSDefines IncludeCG2HeaderDefine
 #define ServerExtraDefines	AllocateLocalDefines XFree86ServerDefines \
-				CompilerServerExtraDefines OSServerExtraDefines
+				CompilerServerExtraDefines \
+				OSServerExtraDefines ArchServerExtraDefines
 
 #ifndef HasPerl
 /* Solaris 8 comes with perl.  Earlier versions don't. */
@@ -402,7 +427,10 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define LargefileDefines /* */
 # endif
 #endif
-# ifdef i386Architecture
+# ifdef AMD64Architecture
+#  define StandardDefines	-Dsun -DSVR4 -D__EXTENSIONS__ -D__amd64
+#  define ToolkitStringsABIOptions	-intelabi
+# elif defined(i386Architecture)
 #  if (OSMajorVersion < 4) || ((OSMajorVersion == 5) && (OSMinorVersion <= 5))
 #   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
 				-D__SOL64__ LargefileDefines
@@ -484,6 +512,9 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if HasSunC || HasCenterLineC
 #  define PositionIndependentCFlags -Kpic
 #  define LargePositionIndependentCFlags -KPIC
+#  ifdef Sparc64Architecture
+#   define LargePICTable YES
+#  endif
 # endif
 # if HasSunCplusplus || HasCenterLineCplusplus
 #  define PositionIndependentCplusplusFlags -pic
@@ -508,7 +539,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 9))
 # define HasIssetugid	  YES
 #endif
-#if defined(SparcArchitecture) || defined(Sun3Architecture)
+#if defined(Sun3Architecture) || defined(SparcArchitecture) || defined(Sparc64Architecture)
 # ifndef Xsun24Server
 #  define Xsun24Server	  NO		/* color, mono, multiple depths */
 # endif
@@ -579,6 +610,8 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  ifndef OptimizedCDebugFlags
 #   ifdef i386Architecture
 #    define OptimizedCDebugFlags DefaultGcc2i386Opt
+#   elif defined(AMD64Architecture)
+#    define OptimizedCDebugFlags DefaultGcc2AMD64Opt
 #   else
 #    define OptimizedCDebugFlags -O2
 #   endif
@@ -610,8 +643,8 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 
 /* Set up compiler-dependent options for Sun C */
 /*
- * To build 64-bit binaries define Sparc64Architecture in your site.def 
- * or host.def file.
+ * To build 64-bit binaries define Sparc64Architecture or AMD64Architecture
+ * in your site.def or host.def file.
  */
 # if HasSunC
 #  ifdef Sun3Architecture
@@ -624,12 +657,22 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #     define DefaultCCOptions -pipe
 #    endif
 #   else /* OSMajorVersion >= 5*/
-#    ifndef DefaultCCOptions
-#     ifndef Sparc64Architecture
-#      define DefaultCCOptions -Xa -v -zlazyload -zcombreloc -xstrconst -xildoff
-#     else
-#      define DefaultCCOptions -Xa -v -xarch=v9 -zlazyload -zcombreloc -xstrconst -xildoff
-#      define LargePICTable YES
+#     ifndef DefaultXArchOptions
+#      ifdef Sparc64Architecture
+#	define DefaultXArchOptions -xarch=v9
+#      elif defined(AMD64Architecture)
+#	define DefaultXArchOptions -xarch=generic64
+#      else
+#       define DefaultXArchOptions /* */
+#     endif
+#     ifndef DefaultCCOptions
+#      define DefaultCCOptions -Xa -v DefaultXArchOptions -z lazyload -z combreloc -xstrconst -xildoff
+#     endif
+#     ifndef DefaultCplusplusOptions
+#      define DefaultCplusplusOptions DefaultXArchOptions -z lazyload -z combreloc -xildoff
+#     endif
+#     ifndef SharedLibraryLoadFlags
+#      define SharedLibraryLoadFlags -G DefaultXArchOptions -z text $(EXTRA_LOAD_FLAGS)
 #     endif
 #    endif
 #   endif	
@@ -662,13 +705,13 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #else /* OSMajorVersion >= 5, i.e. Solaris 2.0 & later */
 /* Only load libraries when needed on Solaris 7 & later */
 # if OSMinorVersion >= 7 
-#  define LazyLoadFlag -Wl,-z,lazyload
+#  define LazyLoadFlag -Wl,-zlazyload
 # else
 #  define LazyLoadFlag /* */
 # endif
 /* ExtraLoadFlags apply to all binaries - programs & libraries */
 # ifndef ExtraLoadFlags
-#  define ExtraLoadFlags LazyLoadFlag $(CDEBUGFLAGS)
+#  define ExtraLoadFlags LazyLoadFlag
 # endif
 /* Build programs with non-executable stacks on Solaris 9 & later */
 # if OSMinorVersion >= 9 
@@ -681,6 +724,19 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define ExtraLoadOptions NonExecStackLoadFlag
 # endif
 #endif /* OSMajorVersion < 5 */
+
+/* 64-bit build support */
+#ifndef Solaris64bitSubdir
+# ifdef Sparc64Architecture
+#  define Solaris64bitSubdir	sparcv9
+# elif defined(AMD64Architecture)
+#  define Solaris64bitSubdir	amd64
+# endif
+#endif
+
+#ifdef Solaris64bitSubdir
+# define LibDirName Concat3(lib,/,Solaris64bitSubdir)
+#endif
 
 #if OSMajorVersion > 4
 # include <svr4.cf>
@@ -729,7 +785,7 @@ man_keywords::								@@\
 
 #define baseDtMailDefines	\
 	-DSunOS=OSMajorVersion\#\#OSMinorVersion -DMMAP_NORESERVE -DSPRO_V2
-#ifndef i386Architecture
+#if !defined(i386Architecture) && !defined(AMD64Architecture)
 # define DtMailDefines		baseDtMailDefines
 #else
 # define DtMailDefines		-DBIG_ENDIAN baseDtMailDefines
