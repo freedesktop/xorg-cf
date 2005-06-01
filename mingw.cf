@@ -66,10 +66,70 @@
 # define ProjectRoot 		/usr/X11R6
 #endif
 
-#if !CrossCompiling
-# define HasGcc2		YES
-#endif /* !CrossCompiling */
-#define HasGcc2ForCplusplus	YES
+/*
+ * GNU Compiler stuff
+ */
+#ifndef HasGcc3
+# define HasGcc3 NO
+#endif
+#ifndef HasGcc2
+# define HasGcc2 HasGcc3
+#endif
+#ifndef HasGcc
+# define HasGcc HasGcc2
+#endif
+#ifndef HasGcc2ForCplusplus
+# define HasGcc2ForCplusplus HasGcc2
+#endif
+
+#if HasGcc
+# ifndef Gcc28Warnings
+#  if (GccMajorVersion > 2) || \
+      ((GccMajorVersion == 2) && (GccMinorVersion >= 8))
+#   define Gcc28Warnings -Wundef
+#  else
+#   define Gcc28Warnings /* */
+#  endif
+# ifndef HasGcc33
+#  if (((GccMajorVersion == 3) && (GccMinorVersion >= 3)) ||	\
+ 	(GccMajorVersion > 3))
+#   define HasGcc33 YES
+#  else
+#   define HasGcc33 NO
+#  endif
+# endif
+# ifndef HasGcc34
+#  if (((GccMajorVersion == 3) && (GccMinorVersion >= 4)) ||	\
+ 	(GccMajorVersion > 3))
+#   define HasGcc34 YES
+#  else
+#   define HasGcc34 NO
+#  endif
+# endif
+# endif
+# ifndef GccWarningOptions
+#  if XFree86Devel
+#   define GccWarningOptions -Wall -Wpointer-arith -Wstrict-prototypes \
+			  -Wmissing-prototypes -Wmissing-declarations \
+			  -Wredundant-decls -Wnested-externs Gcc28Warnings
+#  else
+#   define GccWarningOptions -Wall -Wpointer-arith Gcc28Warnings
+#  endif
+# endif
+# ifndef DefaultCCOptions
+#  if defined(UseInstalled)
+#   define DefaultCCOptions 
+#  else
+#   define DefaultCCOptions GccWarningOptions
+#  endif
+# endif
+# if defined(UseInstalled)
+#  ifndef UseGccMakeDepend
+#   define UseGccMakeDepend YES
+#  endif
+# endif
+#endif
+
 #define GccUsesGas		YES
 #define UseGas			YES
 #define GnuCpp			YES
@@ -283,6 +343,10 @@
 #ifndef GlxUseWindows
 # define GlxUseWindows		YES
 #endif
+#if !GlxUseWindows
+# define GlxExtraDefines -DAPIENTRY=GLAPIENTRY
+#endif
+
 #ifndef BuildXWinClipboard
 # define BuildXWinClipboard	HasPThreads
 #endif
@@ -415,7 +479,7 @@
 # define BuildXF86BigfontExt	NO
 #endif
 #ifndef BuildGlxExt
-# define BuildGlxExt		GlxUseWindows
+# define BuildGlxExt		YES
 #endif
 #ifndef BuildXprintLib
 # define BuildXprintLib		NO
