@@ -444,6 +444,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define ToolkitStringsABIOptions	-sparcabi SolarisABIFlag
 # endif
 # define ExtraLibraries    -lsocket -lnsl
+# define HasWeakSymbols	  YES
 # if OSMinorVersion > 1
 #  ifndef ThreadedX
 #   define ThreadedX	  YES
@@ -767,6 +768,7 @@ man_keywords::								@@\
 
 #ifndef HasMotif
 # define HasMotif YES
+# define MotifDir /usr/dt
 #endif /* !HasMotif */
 #ifndef HasMotif2
 /* Solaris's Motif2 version is broken and misses XmPrintShell
