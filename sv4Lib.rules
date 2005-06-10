@@ -27,6 +27,9 @@ XCOMM $XFree86: xc/config/cf/sv4Lib.rules,v 3.8tsi Exp $
 #ifndef SharedLibraryLdCmd
 # define SharedLibraryLdCmd $(LD)
 #endif
+#ifndef SharedLibraryLdPlusplusCmd
+# define SharedLibraryLdPlusplusCmd $(CXX)
+#endif
 #ifndef SharedLibraryLoadFlags
 # define SharedLibraryLoadFlags -G -z text
 #endif
@@ -102,6 +105,23 @@ install:: Concat(lib,libname.so.rev) 					@@\
 # endif
 #endif
 
+#ifndef LinkPlusplusWithExports
+# if UseExportLists
+#  define LinkPlusplusWithExports(libname,rev,solist,down,up) \
+	(cd down; $(CXXENVSETUP) SharedLibraryLdPlusplusCmd -o up/$@~ $(SHLIBLDFLAGS) -h $@ solist $(REQUIREDLIBS))	@@\
+	if [ -f Concat(lib,libname.elist) ]; then \			@@\
+	    $(RM) down/$@.exports $@.list; \				@@\
+	    $(CPP) $(ALLINCLUDES) $(EXTRA_DEFINES) $(PROTO_DEFINES) $(THREADS_DEFINES) $(DEFINES) Concat(lib,libname.elist) | CppSedMagic >$@.list; \	@@\
+	    $(EXPORTLISTGEN) $@~ $@.list > down/$@.exports; \		@@\
+	    (cd down; $(CXXENVSETUP) SharedLibraryLdPlusplusCmd -o up/$@~ $(SHLIBLDFLAGS) -h $@ ShlibExportListOpt($@.exports) solist $(REQUIREDLIBS)); \	@@\
+	    $(RM) down/$@.exports $@.list; \				@@\
+	fi;
+# else
+#  define LinkPlusplusWithExports(libname,rev,solist,down,up) \
+	(cd down; $(CXXENVSETUP) SharedLibraryLdPlusplusCmd -o up/$@~ $(SHLIBLDFLAGS) -h $@ solist $(REQUIREDLIBS))
+# endif
+#endif
+
 /*
  * SharedLibraryTarget - generate rules to create a shared library;
  * build it into a different name so that we do not hose people by having
@@ -159,10 +179,14 @@ AllTarget(Concat(lib,libname.so.rev))					@@\
 									@@\
 Concat(lib,libname.so.rev):  deplist $(EXTRALIBRARYDEPS)		@@\
 	$(RM) $@~							@@\
-	(cd down; $(CXX) -o up/$@~ $(SHLIBLDFLAGS) solist $(REQUIREDLIBS)) @@\
+	LinkPlusplusWithExports(libname,rev,solist,down,up)		@@\
 	$(RM) $@ 							@@\
 	$(MV) $@~ $@							@@\
+	@if $(SOSYMLINK); then (set -x; \				@@\
+	  $(RM) Concat(lib,libname.so); \				@@\
+	  $(LN) $@ Concat(lib,libname.so)); fi				@@\
 	LinkBuildLibrary($@)						@@\
+	LinkBuildLibraryMaybe(Concat(lib,libname.so),$(SOSYMLINK))	@@\
 									@@\
 clean::									@@\
 	$(RM) Concat(lib,libname.so.rev)				

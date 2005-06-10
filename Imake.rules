@@ -2404,16 +2404,16 @@ clean::									@@\
 #endif
 
 #ifndef AssembleObject
-#define AssembleObject(flags) CPPOnlyAsm($*,flags)			@@\
-	RemoveFile($*.o)						@@\
-	$(AS) -o $*.o $*.i						@@\
-	RemoveFile($*.i)
+#define AssembleObject(basename,flags) CPPOnlyAsm(basename,flags)	@@\
+	RemoveFile(basename.o)						@@\
+	$(AS) -o basename.o basename.i					@@\
+	RemoveFile(basename.i)
 #endif
 
 #ifndef NormalAsmObjectRule
 #define NormalAsmObjectRule()						@@\
 .S.o:									@@\
-	AssembleObject($(_NOOP_))					@@\
+	AssembleObject($*,$(_NOOP_))					@@\
 									@@\
 .S.i:									@@\
 	CPPOnlyAsm($*,$(_NOOP_))
@@ -2426,7 +2426,7 @@ dst.S:  src.S								@@\
 	$(LN) $? $@							@@\
 									@@\
 dst.o:  dst.S								@@\
-	AssembleObject(flags)						@@\
+	AssembleObject(dst,flags)					@@\
 									@@\
 dst.i:  dst.S								@@\
 	CPPOnlyAsm(dst,flags)						@@\
@@ -2441,7 +2441,7 @@ clean::									@@\
 #define ObjectFromAsmSource(src,flags)					@@\
 									@@\
 src.o:  src.S								@@\
-	AssembleObject(flags)						@@\
+	AssembleObject(src,flags)					@@\
 									@@\
 src.i:  src.S								@@\
 	CPPOnlyAsm(src,flags)						@@\

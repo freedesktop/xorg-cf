@@ -369,9 +369,10 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 # define HPArchitecture
 #endif /* hpux */
 
-#ifdef sco
+#ifdef __SCO__
 # define MacroIncludeFile <sco5.cf>
 # define MacroFile sco5.cf
+# undef __SCO__
 # undef sco
 # undef USL
 # undef SYSV
@@ -403,18 +404,41 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 # undef __pentium
 # undef pentiumpro
 # undef __pentiumpro
-#endif /* sco - SCO Open Server 5 */
+#endif /* __SCO__ - SCO Open Server 5 */
 
-#ifdef USL
+#ifdef __UNIXWARE__
 # define MacroIncludeFile <usl.cf>
 # define MacroFile usl.cf
+# undef __UNIXWARE__
 # undef USL
 # undef SVR4
 # undef i386
+# undef SVR5
+# undef SYSV5
 # define SVR4Architecture
 # define i386Architecture
 # define USLArchitecture
-#endif /* USL */
+# define UnixWareArchitecture
+# undef i386
+# undef i486
+# undef i586
+# undef i686
+# undef k6
+# undef __i386__
+# undef __i486__
+# undef __i586__
+# undef __i686__
+# undef __k6__
+# undef __i386
+# undef __i486
+# undef __i586
+# undef __i686
+# undef __k6
+# undef pentium
+# undef __pentium
+# undef pentiumpro
+# undef __pentiumpro
+#endif /* __UNIXWARE__ */
 
 #ifdef NCR
 # define MacroIncludeFile <ncr.cf>
