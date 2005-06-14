@@ -112,7 +112,7 @@ InstallNamedTarget(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class)
 #  define InstallAppDefaultsLong(file,class)				@@\
 InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class)
 # endif /* InstallAppDefFiles */
-# endif /* !defined(NotingOutsideProjectRoot) || !NothingOutsideProjectRoot */
+# endif /* !defined(NothingOutsideProjectRoot) || !NothingOutsideProjectRoot */
 # define SharedLibXdmGreet	NO
 # define LinkGLToUsrInclude	NO
 # define LinkGLToUsrLib		NO
