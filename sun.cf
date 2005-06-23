@@ -706,7 +706,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #else /* OSMajorVersion >= 5, i.e. Solaris 2.0 & later */
 /* Only load libraries when needed on Solaris 7 & later */
 # if OSMinorVersion >= 7 
-#  define LazyLoadFlag -Wl,-zlazyload
+#  define LazyLoadFlag -z lazyload
 # else
 #  define LazyLoadFlag /* */
 # endif
