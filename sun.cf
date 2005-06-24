@@ -481,19 +481,6 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
 #  define HasGetpeerucred YES
-/* Solaris 10 includes FreeType already.  It's also available in GNOME 2.0 for
- * Solaris 8 & 9, and in Solaris 9 4/03 and later, but there's no easy way to
- * detect that in imake, so users of those releases who want to use the 
- * installed FreeType instead of the one in this tree should copy the following
- * two settings to their host.def.  Those who want to use the in-tree copy
- * regardless of OS version should add "#define HasFreetype2 NO" to host.def.
- */
-#  ifndef HasFreetype2
-#   define HasFreetype2 YES 
-#   ifndef Freetype2Dir
-#    define Freetype2Dir /usr/sfw
-#   endif
-#  endif
 #  ifndef HasExpat
 #   define HasExpat YES 
 #   ifndef ExpatDir
@@ -525,6 +512,25 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #define InstKmemFlags	  -g kmem -m 2711
 #include <sunLib.rules>
 #endif /* OSMajorVersion > 4 (else) */
+
+/* Solaris 10 includes FreeType already.  It's also available in GNOME 2.0 for
+ * Solaris 8 & 9, and in Solaris 9 4/03 and later, but there's no easy way to
+ * detect that in imake, so users of those releases who want to use the 
+ * installed FreeType instead of the one in this tree should copy the following
+ * two settings to their host.def.  Those who want to use the in-tree copy
+ * regardless of OS version should add "#define HasFreetype2 NO" to host.def.
+ */
+#ifndef HasFreetype2
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 9))
+#  define HasFreetype2 YES 
+#  ifndef Freetype2Dir
+#   define Freetype2Dir /usr/sfw
+#  endif
+# else
+#  define HasFreetype2 NO
+# endif
+#endif
+
 
 #define BuildLibPathVar	  LD_LIBRARY_PATH
 #define HasNdbm		  YES
