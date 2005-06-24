@@ -476,17 +476,10 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if OSMinorVersion > 7 /* Solaris 8 and later */
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
-#  define HasZlib	YES
 # endif
 # if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
 #  define HasGetpeerucred YES
-#  ifndef HasExpat
-#   define HasExpat YES 
-#   ifndef ExpatDir
-#    define ExpatDir /usr/sfw
-#   endif
-#  endif
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
@@ -521,7 +514,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
  * regardless of OS version should add "#define HasFreetype2 NO" to host.def.
  */
 #ifndef HasFreetype2
-# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 9))
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 10))
 #  define HasFreetype2 YES 
 #  ifndef Freetype2Dir
 #   define Freetype2Dir /usr/sfw
@@ -531,6 +524,32 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 #endif
 
+#ifndef HasExpat
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 10))
+#  define HasExpat YES 
+#  ifndef ExpatDir
+#   define ExpatDir /usr/sfw
+#  endif
+# else
+#  define HasExpat NO
+# endif
+#endif
+
+#ifndef HasFontconfig
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 10))
+#  define HasFontconfig YES 
+# else
+#  define HasFontconfig NO
+# endif
+#endif
+
+#ifndef HasZlib
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 8))
+#  define HasZlib YES
+# else
+#  define HasZlib NO
+# endif
+#endif
 
 #define BuildLibPathVar	  LD_LIBRARY_PATH
 #define HasNdbm		  YES
