@@ -535,12 +535,11 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 #endif
 
+/* Solaris 10 includes fontconfig, but not the fcprivate.h header needed by
+ * Xft1 library.
+ */
 #ifndef HasFontconfig
-# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 10))
-#  define HasFontconfig YES 
-# else
-#  define HasFontconfig NO
-# endif
+# define HasFontconfig NO
 #endif
 
 #ifndef HasZlib
@@ -792,7 +791,10 @@ man_keywords::								@@\
 #endif
 
 #ifndef HasMotif
-# define HasMotif YES
+/* Solaris's Motif depends on Solaris libX11 and won't work with libX11 built
+ * from this tree, so only use it when using libX11 from outside the tree.
+ */
+# define HasMotif (defined(UseInstalled) || UseInstalledX11)
 # define MotifDir /usr/dt
 #endif /* !HasMotif */
 #ifndef HasMotif2
