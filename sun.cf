@@ -542,6 +542,18 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define HasFontconfig NO
 #endif
 
+/* libpng was in /usr/sfw/lib on Solaris 9, moved to /usr/lib in Solaris 10 */
+#ifndef HasLibpng
+# if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 9))
+#  define HasLibpng YES 
+#  if !defined(LibpngDir) && ((OSMajorVersion == 5) && (OSMinorVersion == 9))
+#   define LibpngDir /usr/sfw
+#  endif
+# else
+#  define HasLibpng NO
+# endif
+#endif
+
 #ifndef HasZlib
 # if (OSMajorVersion > 5) || ((OSMajorVersion == 5) && (OSMinorVersion >= 8))
 #  define HasZlib YES
