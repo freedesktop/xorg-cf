@@ -3520,7 +3520,7 @@ EXPATINCLUDES = -I$(EXPATINCDIR)
 #if ExpatLibDirStandard
 EXPATLIB = -lexpat
 #else
-EXPATLIB = -L$(EXPATLIBDIR) -lexpat
+EXPATLIB = -L$(EXPATLIBDIR) LinkerRuntimeLibraryPathFlag($(EXPATLIBDIR)) -lexpat
 #endif
 EXPATDEFINES = -DEXPAT
 #endif /* HasExpat */
@@ -3685,7 +3685,7 @@ FONTCONFIGBINDIR = FontconfigBinDir
 #if FontconfigLibDirStandard
 FONTCONFIGLIB = -lfontconfig
 #else
-FONTCONFIGLIB = -L$(FONTCONFIGLIBDIR) -lfontconfig
+FONTCONFIGLIB = -L$(FONTCONFIGLIBDIR) LinkerRuntimeLibraryPathFlag($(FONTCONFIGLIBDIR)) -lfontconfig
 #endif
 
 #if FontconfigIncDirStandard
@@ -3776,7 +3776,7 @@ LIBPNGINCDIR = LibpngIncDir
 #if LibpngLibDirStandard
 LIBPNGLIB = -lpng
 #else
-LIBPNGLIB = -L$(LIBPNGLIBDIR) -lpng
+LIBPNGLIB = -L$(LIBPNGLIBDIR) LinkerRuntimeLibraryPathFlag($(LIBPNGLIBDIR)) -lpng
 #endif
 
 #endif
