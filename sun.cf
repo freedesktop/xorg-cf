@@ -480,6 +480,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
 #  define HasGetpeerucred YES
+#  define HasGetoptLong YES
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
