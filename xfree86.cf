@@ -316,6 +316,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* EXA module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -439,6 +443,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* EXA module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -534,6 +542,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 /* XAA module */
 # ifndef XF86XAA
 #  define XF86XAA		YES
+# endif
+/* EXA module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
 # endif
 /* ramdac module */
 # ifndef XF86Ramdac
@@ -633,6 +645,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* EXA module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -724,6 +740,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -808,6 +828,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 /* XAA module */
 # ifndef XF86XAA
 #  define XF86XAA		YES
+# endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
 # endif
 /* ramdac module */
 # ifndef XF86Ramdac
@@ -900,6 +924,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -987,6 +1015,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 /* XAA module */
 # ifndef XF86XAA
 #  define XF86XAA		YES
+# endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
 # endif
 /* ramdac module */
 # ifndef XF86Ramdac
@@ -1076,6 +1108,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -1153,6 +1189,10 @@ XCOMM $Xorg: xfree86.cf,v 1.4 2000/08/17 19:41:49 cpqbld Exp $
 /* XAA module */
 # ifndef XF86XAA
 #  define XF86XAA		YES
+# endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
 # endif
 /* ramdac module */
 # ifndef XF86Ramdac

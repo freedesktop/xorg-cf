@@ -338,6 +338,10 @@ RELEASE_VERSION = ReleaseVersion
 # ifndef XF86XAA
 #  define XF86XAA		YES
 # endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
+# endif
 /* ramdac module */
 # ifndef XF86Ramdac
 #  define XF86Ramdac		YES
@@ -705,6 +709,10 @@ RELEASE_VERSION = ReleaseVersion
 /* XAA module */
 # ifndef XF86XAA
 #  define XF86XAA		YES
+# endif
+/* Exa module */
+# ifndef XF86EXA
+#  define XF86EXA		YES
 # endif
 /* ramdac module */
 # ifndef XF86Ramdac
