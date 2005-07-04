@@ -563,6 +563,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 #endif
 
+#ifndef TroffCmd
+# if !(HasGroff)
+#  define TroffCmd troff -Tpost
+# endif
+#endif
+
 #define BuildLibPathVar	  LD_LIBRARY_PATH
 #define HasNdbm		  YES
 #define HasShm		  YES
