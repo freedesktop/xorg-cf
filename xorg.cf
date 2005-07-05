@@ -1526,7 +1526,7 @@ XFREE86JAPANESEDOCDIR = $(DOCDIR)/Japanese
 #  if defined(UseInstalled)
 #   define DefaultCCOptions /* -ansi */
 #  else
-#   define DefaultCCOptions -ansi -pedantic GccWarningOptions
+#   define DefaultCCOptions -ansi GccWarningOptions
 #  endif
 # endif
 # if defined(UseInstalled)
