@@ -187,9 +187,11 @@ RELEASE_VERSION = ReleaseVersion
 #define DoLoadableServer	NO
 #endif
 #if DoLoadableServer
+#ifndef MakeDllModules
 #define MakeDllModules		YES
 #else
 #define MakeDllModules		NO
+#endif
 #endif 
 
 /*
