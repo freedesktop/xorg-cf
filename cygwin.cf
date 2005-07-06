@@ -361,7 +361,7 @@
  * XFree86Server is defined for the w32api headers, which protects some
  * colliding names with #ifdef XFree86Server.
  */
-#define XWinServerDefines	-DAVOID_GLYPHBLT -DPIXPRIV -DSINGLEDEPTH \
+#define XWinServerDefines	-DPIXPRIV \
 				-DXFree86Server \
 				-DX_BYTE_ORDER=ByteOrder \
 				XvExtensionDefines \
