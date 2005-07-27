@@ -484,6 +484,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES
+# define InstallXloadSetGID	NO /* libkstat doesn't require gid kmem */
 # define InstKmemFlags	-g sys -m 2711
 # define ShLibIncludeFile <sunLib.tmpl>
 # define LinkerRuntimeLibraryPathFlag(path) Concat(-R,path)
