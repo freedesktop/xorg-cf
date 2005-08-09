@@ -429,7 +429,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #endif
 # ifdef AMD64Architecture
 #  define StandardDefines	-Dsun -DSVR4 -D__EXTENSIONS__ -D__amd64
-#  define ToolkitStringsABIOptions	-intelabi
+#  define ToolkitStringsABIOptions	-intelabi SolarisABIFlag
 # elif defined(i386Architecture)
 #  if (OSMajorVersion < 4) || ((OSMajorVersion == 5) && (OSMinorVersion <= 5))
 #   define StandardDefines	-Dsun -Di386 -DSVR4 -D__EXTENSIONS__ -D__i386 \
@@ -750,7 +750,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #else /* OSMajorVersion >= 5, i.e. Solaris 2.0 & later */
 /* Only load libraries when needed on Solaris 7 & later */
 # if OSMinorVersion >= 7 
-#  define LazyLoadFlag -z lazyload
+#  define LazyLoadFlag -z lazyload -z combreloc
 # else
 #  define LazyLoadFlag /* */
 # endif
@@ -766,7 +766,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 /* ExtraLoadOptions only apply to programs */
 # ifndef ExtraLoadOptions
-#  define ExtraLoadOptions NonExecStackLoadFlag
+#  define ExtraLoadOptions NonExecStackLoadFlag -B direct
 # endif
 #endif /* OSMajorVersion < 5 */
 
