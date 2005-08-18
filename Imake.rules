@@ -559,7 +559,7 @@ install::								@@\
 
 #ifndef InstallCreateLink
 # define InstallCreateLink(dest,from,to)				@@\
-install:: $(DESTDIR)dest/from						@@\
+install::								@@\
 	  cd $(DESTDIR)dest && \					@@\
 	  $(LN) -sf from to
 #endif
