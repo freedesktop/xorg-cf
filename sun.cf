@@ -369,7 +369,15 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # endif
 #endif
 
-#define XkbServerDefines  -DXKB_ALWAYS_USES_SOFT_REPEAT
+#ifndef XkbServerDefines
+# if BuildLikeSun
+#  define XkbServerDefines  -DXKB_ALWAYS_USES_SOFT_REPEAT \
+	-DXKM_OUTPUT_DIR='"/var/run/xkb/"' -DXKM_OUTPUT_DIR_MODE=0775 \
+	-DMAKE_XKM_OUTPUT_DIR
+# else
+#  define XkbServerDefines  -DXKB_ALWAYS_USES_SOFT_REPEAT
+# endif
+#endif
 
 #if OSMajorVersion > 4
 # define ConnectionFlags		-DTCPCONN -DUNIXCONN -DLOCALCONN
