@@ -762,19 +762,58 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # else
 #  define LazyLoadFlag /* */
 # endif
+/* Link with extra mapfiles for some performance & security enhancements */
+#ifndef MapfileFlag
+# if HasSunC
+#  define MapfileFlag -M
+# else
+#  define MapfileFlag -Wl,-M,
+# endif
+#endif
+#ifndef Mapfile_BssAlign
+# if OSMinorVersion >= 9
+#  define Mapfile_BssAlign $(MAPFILEFLAG)/usr/lib/ld/map.bssalign
+# else
+#  define Mapfile_BssAlign /**/
+# endif
+#endif
+#ifndef Mapfile_PageAlign
+# if OSMinorVersion >= 10
+#  define Mapfile_PageAlign $(MAPFILEFLAG)/usr/lib/ld/map.pagealign
+# else
+#  define Mapfile_PageAlign /**/
+# endif
+#endif
+#ifndef Mapfile_NoExStack
+# if OSMinorVersion >= 9
+#  define Mapfile_NoExStack $(MAPFILEFLAG)/usr/lib/ld/map.noexstk
+# else
+#  define Mapfile_NoExStack /**/
+# endif
+#endif
+#ifndef Mapfile_NoExData
+# if defined(SparcArchitecture)
+/* SPARC archictecture requires PLT section in .data be executable, so
+   we can only make .bss, not all of .data no-exec on SPARC */
+#   define Mapfile_NoExData /**/
+# else
+#  if OSMinorVersion >= 10
+#   define Mapfile_NoExData $(MAPFILEFLAG)/usr/lib/ld/map.noexdata
+#  else
+#   define Mapfile_NoExData /**/
+#  endif
+# endif
+#endif
+       MAPFILEFLAG = MapfileFlag
+  MAPFILES_FOR_ALL = Mapfile_PageAlign Mapfile_NoExData
+MAPFILES_FOR_PROGS = Mapfile_BssAlign Mapfile_NoExStack
 /* ExtraLoadFlags apply to all binaries - programs & libraries */
 # ifndef ExtraLoadFlags
-#  define ExtraLoadFlags LazyLoadFlag
-# endif
-/* Build programs with non-executable stacks on Solaris 9 & later */
-# if OSMinorVersion >= 9 
-#  define NonExecStackLoadFlag -Wl,-M,/usr/lib/ld/map.noexstk
-# else
-#  define NonExecStackLoadFlag /* */
+#  define ExtraLoadFlags LazyLoadFlag $(MAPFILES_FOR_ALL)
 # endif
 /* ExtraLoadOptions only apply to programs */
 # ifndef ExtraLoadOptions
-#  define ExtraLoadOptions NonExecStackLoadFlag -B direct
+#  define ExtraLoadOptions -B direct $(MAPFILES_FOR_PROGS)
 # endif
 #endif /* OSMajorVersion < 5 */
 
