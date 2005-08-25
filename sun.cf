@@ -511,6 +511,13 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define PositionIndependentCplusplusFlags -pic
 #  define LargePositionIndependentCplusplusFlags -PIC
 # endif
+/* As is done in sco5.cf, we lie and say Solaris has NCURSES, since
+ * the system curses is close enough for xorgcfg's purposes.  xorgcfg
+ * should not depend on the NCURSES package but rather on a "capable curses", 
+ * of which NCURSES is just one.
+ */
+#define	HasNCurses		YES
+#define NCursesLibName		-lcurses
 #else /* not OSMajorVersion > 4 */
 #define InstKmemFlags	  -g kmem -m 2711
 #include <sunLib.rules>
