@@ -1042,7 +1042,7 @@ TCLIBDIR = TclLibDir
 #define NoRConst NO /* YES if const for structs of funcs is bad */
 #endif
 #ifndef InstPgmFlags
-# ifdef CrossCompiling
+# if CrossCompiling
 #  define InstPgmFlags
 # else
 #  define InstPgmFlags -s
