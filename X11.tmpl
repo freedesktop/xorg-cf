@@ -2774,7 +2774,7 @@ ProjectUnsharedLibReferences(XFONTCACHE,Xfontcache,$(XFONTCACHELIBSRC),XBuildLib
 #endif
 
 #ifndef SharedLibXau
-#define SharedLibXau		NO
+#define SharedLibXau		YES
 #endif
 #ifndef NormalLibXau
 #define NormalLibXau (!SharedLibXau | ForceNormalLib)
@@ -2800,7 +2800,7 @@ ProjectUnsharedLibReferences(XAUTH,Xau,$(XAUTHSRC),$(USRLIBDIR))
 #endif
 
 #ifndef SharedLibXdmcp
-#define SharedLibXdmcp		NO
+#define SharedLibXdmcp		YES
 #endif
 #ifndef NormalLibXdmcp
 #define NormalLibXdmcp (!SharedLibXdmcp | ForceNormalLib)
