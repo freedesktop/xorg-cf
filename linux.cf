@@ -164,17 +164,18 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #   define HasXdmAuth			YES
 #   define HasLatex			YES
 /* at present, glide2 only works on i386 */
-#   ifdef i386Architecture
+#   if defined(__linux__) && defined(i386Architecture)
 #    define HasGlide2			YES
 #    define Glide2IncDir		/usr/include/glide
-#   endif /* i386Architecture */
+#   endif /* __linux__ && i386Architecture */
 /* at present, glide3 only works on alpha, amd64, i386 and ia64 */
-#   if defined(i386Architecture) || defined(AlphaArchitecture) || \
-       defined(ia64Architecture) || defined(AMD64Architecture)
+#   if defined(__linux__) && (defined(i386Architecture) || \
+       defined(AlphaArchitecture) || defined(ia64Architecture) || \
+       defined(AMD64Architecture))
 #    define HasGlide3			YES
 #    define Glide3IncDir		/usr/include/glide3
-#   endif /* i386Architecture || AlphaArchitecture || ia64Architecture ||
-             AMD64Architecture */
+#   endif /* __linux__ && (i386Architecture || AlphaArchitecture || \
+             ia64Architecture || AMD64Architecture) */
 /* extended instruction set support */
 #   ifdef i386Architecture
 #   define HasX86Support		YES
@@ -278,22 +279,23 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 
 /* <linux/input.h> support mainly for USB support */
 #ifndef HasLinuxInput
-# if OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion >= 4)
+# if defined(__linux__) && (OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion >= 4))
 #  define HasLinuxInput YES
 # else
 #  define HasLinuxInput NO
 # endif
 #endif
 
-/* <linux/joystick.h> appeared in 2.1.45 (officially) */
 #ifndef JoystickSupport
 # define JoystickSupport	NO	/* joystick driver is broken */
 #endif
+
+/* <linux/joystick.h> appeared in 2.1.45 (officially) */
 #ifndef HasLinuxSupport
-# if JoystickSupport || \
+# if defined(__linux__) && (JoystickSupport || \
      (OSMajorVersion > 2) || \
      ((OSMajorVersion == 2) && (OSMinorVersion > 1)) || \
-     ((OSMajorVersion == 2) && (OSMinorVersion == 1) && (OSTeenyVersion >= 45))
+     ((OSMajorVersion == 2) && (OSMinorVersion == 1) && (OSTeenyVersion >= 45)))
 #  define HasLinuxJoystick	YES
 # else
 #  define HasLinuxJoystick	NO
@@ -318,9 +320,9 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #ifndef XF86INT10_BUILD
-# if defined (i386Architecture)
+# if defined(__linux__) && defined(i386Architecture)
 #  define XF86INT10_BUILD	X86VM
-# elif defined (AMD64Architecture)
+# elif defined(__linux__) && defined(AMD64Architecture)
 #  define XF86INT10_BUILD	X86EMU_OS
 # else
 #  define XF86INT10_BUILD	X86EMU_GENERIC
@@ -353,7 +355,9 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  elif defined(HPArchitecture)
 #    define BuildXF86DRI	YES
 #  elif defined(i386Architecture)
-#    if OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion >= 2)
+#    if (defined(__linux__) && (OSMajorVersion > 2 || (OSMajorVersion == 2 && \
+        OSMinorVersion >= 2))) || \
+        defined(__FreeBSD_kernel__)
 #      define BuildXF86DRI	YES
 #    else
 #      define BuildXF86DRI	NO
@@ -458,7 +462,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # define BuildXF86RushExt	YES
 #endif
 
-#ifndef LinuxFBDevSupport
+#if defined(__linux__) && !defined(LinuxFBDevSupport)
 # define LinuxFBDevSupport	YES
 #endif
 
@@ -788,7 +792,11 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif
 
 #ifndef XF86OSCardDrivers
-# define XF86OSCardDrivers	fbdev v4l sisusb
+# ifdef __linux__
+#  define XF86OSCardDrivers	fbdev v4l sisusb
+# else
+#  define XF86OSCardDrivers	/**/
+# endif
 #endif
 
 #ifndef OSXInputDrivers
@@ -965,7 +973,11 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif /* AMD64Architecture */
 
 #ifndef StandardDefines
-# define StandardDefines	-Dlinux LinuxMachineDefines LinuxSourceDefines
+# ifdef __linux__
+#  define StandardDefines	-Dlinux LinuxMachineDefines LinuxSourceDefines
+# else
+#  define StandardDefines	LinuxMachineDefines LinuxSourceDefines
+# endif
 #endif
 
 #if UseElfFormat

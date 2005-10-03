@@ -1747,7 +1747,8 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 # if SystemV || SystemV4 || \
     (defined(LinuxArchitecture) && !defined(Mc68020Architecture)) || \
     defined(i386BsdArchitecture) || defined(LynxOSArchitecture) || \
-    defined(OS2Architecture) || defined(GNUMachArchitecture)
+    defined(OS2Architecture) || defined(GNUMachArchitecture) || \
+    (defined(KFreeBSDArchitecture) && defined(i386Architecture))
 #   define BuildScanpci		YES
 # else
 #   define BuildScanpci		NO
@@ -1853,9 +1854,9 @@ IPLAN2P8_DEFS = -DUSE_IPLAN2P8
 #endif
 
 #ifndef XFree86ConsoleDefines
-# if defined(i386BsdArchitecture) || defined(AlphaBsdArchitecture)
+# if defined(i386BsdArchitecture) || defined(AlphaBsdArchitecture) || (defined(KFreeBSDArchitecture) && defined(i386Architecture))
 #  define XFree86ConsoleDefines	-DPCCONS_SUPPORT -DSYSCONS_SUPPORT -DPCVT_SUPPORT
-# elif defined(FreeBSDArchitecture)
+# elif defined(KFreeBSDArchitecture)
 #  define XFree86ConsoleDefines -DSYSCONS_SUPPORT
 # else
 #  define XFree86ConsoleDefines	/**/

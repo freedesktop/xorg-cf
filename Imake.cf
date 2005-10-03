@@ -756,11 +756,13 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 #undef __MINGW32__
 #endif /* CYGWIN */
 
-#ifdef linux 
+#if defined(linux) || defined(__GLIBC__)
 # define MacroIncludeFile <linux.cf>
 # define MacroFile linux.cf
 # undef linux
-# define LinuxArchitecture
+# ifdef __linux__
+#  define LinuxArchitecture
+# endif
 # ifdef i386
 #  ifndef i386Architecture
 #   define i386Architecture
@@ -989,7 +991,7 @@ XCOMM Keep cpp from replacing path elements containing i486/i586/i686
 #   define AMD64Architecture
 #  endif
 # endif
-#endif /* linux */
+#endif /* linux || __GLIBC__ */
 
 #if (defined(__Lynx__) || defined(Lynx)) && (defined(i386) || defined(__i386__) || defined(__x86__) || defined(__powerpc__) || defined(__sparc__) || defined(sparc))
 # define MacroIncludeFile <lynx.cf>
@@ -1069,9 +1071,7 @@ XCOMM Keep cpp from replacing path elements containing i486/i586/i686
 #endif /* minix */
 
 /* Systems with GNU libc and userland */
-#if defined(__GNU__) || defined(__GNU_userland__) || \
-  defined(__GNU_KFreeBSD__) || \
-  defined(__GNU_KNetBSD__) || defined(__GNU_KOpenBSD__)
+#if defined(__GNU__)
 #define GNUArchitecture
 #define MacroIncludeFile <gnu.cf>
 #define MacroFile gnu.cf
