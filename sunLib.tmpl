@@ -207,6 +207,7 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 # define SharedXdamageReqs $(LDPRELIB) $(XLIB) -lc
 # define SharedXauReqs -lc
 # define SharedXdmcpReqs -lsocket -lc
+# define SharedXcursorReqs $(LDPRELIB) $(XRENDERLIB) $(XONLYLIB) -lc
 
 # define FixupLibReferences() /**/
 
