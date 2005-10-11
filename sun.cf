@@ -256,7 +256,7 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 # endif
 # ifndef CplusplusLibC
 #  if CplusplusCompilerMajorVersion >= 5
-#   define CplusplusLibC -lCrun
+#   define CplusplusLibC -norunpath -lCrun
 #  endif
 # endif
 XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
@@ -496,6 +496,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # define InstKmemFlags	-g sys -m 2711
 # define ShLibIncludeFile <sunLib.tmpl>
 # define LinkerRuntimeLibraryPathFlag(path) Concat(-R,path)
+# define RpathLoadFlags LinkerRuntimeLibraryPathFlag($(USRLIBDIRPATH))
 /*
  * Set flags for position independent code before including sv4Lib.rules
  * if the compiler in use doesn't use standard SVR4 flags

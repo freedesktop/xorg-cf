@@ -199,7 +199,7 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 # define SharedPSResReqs -lc
 # define SharedGLReqs $(LDPRELIB) $(XLIB) -lc
 # define SharedGLUReqs $(LDPRELIBS) $(XLIB) $(GLXLIB) $(CXXLIB) MathLibrary -lc
-# define SharedGLwReqs $(LDPRELIBS) $(MOTIFLIB) $(XTOOLLIB) $(XLIB)
+# define SharedGLwReqs $(LDPRELIBS) $(MOTIFLIB) $(GLXLIB) $(XTOOLLIB) $(XLIB)
 # define SharedOSMesaReqs $(LDPRELIB) $(XLIB) $(GLXLIB) MathLibrary -lc
 # define SharedxkbfileReqs $(LDPRELIB) $(XONLYLIB) -lc
 # define SharedxkbuiReqs $(LDPRELIB) $(XKBFILELIB) $(XONLYLIB) MathLibrary -lc
@@ -207,7 +207,9 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 # define SharedXdamageReqs $(LDPRELIB) $(XLIB) -lc
 # define SharedXauReqs -lc
 # define SharedXdmcpReqs -lsocket -lc
+# define SharedXcompositeReqs $(LDPRELIB) $(XDAMAGELIB) $(XFIXESLIB) $(XLIB) -lc
 # define SharedXcursorReqs $(LDPRELIB) $(XRENDERLIB) $(XONLYLIB) -lc
+# define SharedXevieReqs $(LDPRELIB) $(XLIB)
 
 # define FixupLibReferences() /**/
 

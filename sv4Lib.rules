@@ -30,6 +30,15 @@ XCOMM $XFree86: xc/config/cf/sv4Lib.rules,v 3.8tsi Exp $
 #ifndef SharedLibraryLoadFlags
 # define SharedLibraryLoadFlags -G -z text
 #endif
+#ifndef RpathLoadFlags
+#define RpathLoadFlags /**/
+#endif
+#ifndef LibraryRpathLoadFlags
+#define LibraryRpathLoadFlags RpathLoadFlags
+#endif
+#ifndef HardCodeLibdirFlag
+#define HardCodeLibdirFlag RpathLoadFlags
+#endif
 #ifndef PositionIndependentCFlags
 # if HasGcc2
 #  define PositionIndependentCFlags -fPIC
