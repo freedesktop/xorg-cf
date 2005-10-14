@@ -591,8 +591,8 @@ X_BYTE_ORDER = ByteOrder
 #define OsNeedZlibHeaders	!HasZlib
 #endif
 #if !HasZlib		/* if OS doesn't have it, we'll build it */
-#warning Building your own zlib can be a harmful security risk and is
-#warning deprecated; please strongly consider using vendor-supplied packages.
+XCOMM Building your own zlib can be a harmful security risk and is
+XCOMM deprecated; please strongly consider using vendor-supplied packages.
 #undef GzipLibrary	/* GzipLibrary was valid only if HasZlib */
 #endif
 #ifndef GzipLibrary	/* if OS config didn't define it, assume it's -lz */
