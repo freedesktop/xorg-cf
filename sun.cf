@@ -484,6 +484,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 # if OSMinorVersion > 7 /* Solaris 8 and later */
 #  define HasStrlcat	YES
 #  define HasStrcasecmp	YES
+#  define HasVarRun	YES
 # endif
 # if OSMinorVersion > 9 /* Solaris 10 and later */
 #  define HasSetenv	YES
