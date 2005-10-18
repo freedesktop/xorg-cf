@@ -169,6 +169,9 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 #      define FramePtrFlags -xregs=no%frameptr
 #     endif
 #    endif
+#    ifndef FramePtrFlags
+#     define FramePtrFlags /* */
+#    endif
 #    if defined(i386Architecture) && (OSMinorVersion > 8)
        /* Solaris 9 and later require Pentium or better */
 #      define ArchOptimizedFlags -xpentium FramePtrFlags
