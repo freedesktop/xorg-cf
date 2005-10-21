@@ -121,6 +121,8 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # define NormalLibGlu		YES
 # define FSUseSyslog		YES
 
+# define BuildLibGlxWithoutPIC  NO
+
 # define DriverManSuffix       4x
 # define DriverManDir          $(MANSOURCEPATH)4
 
@@ -389,9 +391,11 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
  * Build shared libGL and the DRI modules without -fPIC on some architectures.
  * This improves performance.
  */
-#if BuildXF86DRI
-# if defined(i386Architecture)
-#  define BuildLibGlxWithoutPIC	YES
+#ifndef BuildLibGlxWithoutPIC
+# if BuildXF86DRI
+#  if defined(i386Architecture)
+#   define BuildLibGlxWithoutPIC	YES
+#  endif
 # endif
 #endif
 
