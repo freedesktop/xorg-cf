@@ -330,11 +330,12 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  elif defined(i386Architecture)
 #   define AsmArch ia32
 #   define AsmFlags /**/
-#  elif defined(SparcArchitecture) && !defined(Sparc64Architecture)
+#  elif defined(Sparc64Architecture)
+#   define AsmArch sparcv8plus
+#   define AsmFlags -xarch=v9
+#  elif defined(SparcArchitecture)
 #   define AsmArch sparcv8plus
 #   define AsmFlags -xarch=v8plus
-#  else
-#   error "Unsupported Architecture for building with Sun Compilers"
 #  endif
 #  ifndef CompilerServerExtraDefines
 #   define CompilerServerExtraDefines $(SERVERSRC)/hw/xfree86/os-support/sunos/AsmArch.il
