@@ -156,7 +156,7 @@ XCOMM SunPro C CCompilerMajorVersion./**/CCompilerMinorVersion
 #    else
 #     define ArchOptimizedFlags -xarch=v8
 #    endif
-#   else if defined(i386Architecture) || defined(AMD64Architecture)
+#   elif defined(i386Architecture) || defined(AMD64Architecture)
 #    if (CCompilerMajorVersion > 5) || \
 	(CCompilerMajorVersion == 5 && CCompilerMinorVersion >= 7)
 /* -xregs=no%frameptr is required on x86 when compiling at -xO4 or higher to
