@@ -1965,7 +1965,7 @@ MODLDCOMBINEFLAGS = ModuleLdCombineFlags
      SHLIBLDFLAGS = SharedLibraryLoadFlags $(SHLIBGLOBALSFLAGS)
 #if HasGcc
          NOSTDLIB = -nostdlib
-     POSTNOSTDLIB = -Bstatic -lgcc   
+     POSTNOSTDLIB = -Wl,-Bstatic -lgcc -Wl,-Bdynamic
 #elif HasIntelC
          NOSTDLIB = -nostdlib
      POSTNOSTDLIB =
