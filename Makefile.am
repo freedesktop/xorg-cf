@@ -1,3 +1,8 @@
+BUILT_DEFFILES = \
+	host.def \
+	date.def \
+	version.def
+
 DEFFILES = \
 	cross.def \
 	site.def \
@@ -127,8 +132,20 @@ CFFILES = \
 
 configdir = $(libdir)/X11/config
 dist_config_DATA = $(RULEFILES) $(TMPLFILES) $(DEFFILES) $(CFFILES)
+config_DATA = $(BUILT_DEFFILES)
 
 EXTRA_DIST = \
 	os2def.db \
 	site.sample \
 	xprint_host.def
+
+all-local: $(BUILT_DEFFILES)
+
+host.def:
+	@touch host.def
+date.def:
+	@touch date.def
+version.def:
+	@touch version.def
+
+CLEANFILES = $(BUILT_DEFFILES)
