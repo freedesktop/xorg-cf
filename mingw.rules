@@ -2,15 +2,14 @@
  * Cygwin shared library rules (DLL versions)
  */
 
-#define HasSharedLIbraries
+#define HasSharedLibraries
 #define NeedLibInsideFlag	NO
 #define ForceNormalLib		NO
 #define NormalLibX11            NO
 # define SharedLibFont		NO
 # define SharedLibFontEnc	NO
 # define SharedLibWindowsWM	NO
-# define SharedLibFreetype2	NO
-# define SharedLibxkbfile	NO
+# define SharedLibxkbfile	YES
 
 #ifndef SharedDataSeparation
 # define SharedDataSeparation	NO
