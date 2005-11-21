@@ -181,7 +181,7 @@ XCOMM operating system: OSName (OSMajorVersion./**/OSMinorVersion./**/OSTeenyVer
 #endif
 
 #ifndef HasSnprintf
-# define HasSnprintf		YES
+# define HasSnprintf		NO
 #endif
 
 #ifndef UseSmartScheduler

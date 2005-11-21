@@ -178,7 +178,7 @@ XCOMM $XdotOrg: xc/config/cf/sco5.cf,v 1.5 2004/09/02 01:10:28 kem Exp $
 #define HasNdbm			YES
 #define HasVFork		YES
 #define HasPutenv		YES
-#define HasSnprintf		YES
+#define HasSnprintf		NO
 #define ToolkitStringsABIOptions -intelabi
 #define HasSetenv		NO
 #define HasMkstemp		YES
