@@ -2,7 +2,7 @@
  * Cygwin shared library rules (DLL versions)
  */
 
-#define HasSharedLibraries
+#define HasSharedLibraries      YES
 #define NeedLibInsideFlag	NO
 #define ForceNormalLib		NO
 #define NormalLibX11            NO
