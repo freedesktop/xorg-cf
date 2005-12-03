@@ -494,6 +494,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define HasSetenv	YES
 #  define HasGetpeerucred YES
 #  define HasGetoptLong YES
+#  define DlLibrary	-lc  /* dlopen() is in libc in Solaris 10 */
 # endif
 # define HasVFork	NO
 # define HasDlopen	YES

@@ -164,7 +164,7 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 #  endif
 # endif
 
-# define SharedX11Reqs $(LDPRELIB) SharedThreadReqs $(EXTRA_LIBRARIES) -lc -ldl
+# define SharedX11Reqs $(LDPRELIB) SharedThreadReqs $(EXTRA_LIBRARIES) -lc DlLibrary
 # define SharedXlibi18nReqs $(LDPRELIB) $(XLIBONLY) -lc
 # define SharedOldXReqs $(LDPRELIB) $(XLIBONLY) -lc
 # define SharedXtReqs $(LDPRELIB) $(XLIBONLY) $(SMLIB) $(ICELIB) -lc
@@ -213,22 +213,22 @@ XCOMM $XFree86: xc/config/cf/sunLib.tmpl,v 3.12tsi Exp $
 
 # define FixupLibReferences() /**/
 
-# define SharedPamReqs -ldl
+# define SharedPamReqs DlLibrary
 # define SharedPamUnixReqs $(LDPRELIBS) -lpam $(LDPOSTLIBS) -lnsl -lmp -lcmd SharedThreadReqs
 # define SharedPamSampleReqs $(LDPRELIBS) -lpam $(LDPOSTLIBS) SharedThreadReqs
 # define SharedPamDialAuthReqs $(LDPRELIBS) -lpam $(LDPOSTLIBS) SharedThreadReqs
 # define SharedPamRhostsAuthReqs $(LDPRELIBS) -lpam $(LDPOSTLIBS) -lsocket SharedThreadReqs
 # define SharedPamDceAuthReqs $(LDPRELIBS) -lpam $(LDPOSTLIBS) -ldce -lnsl -lsocket SharedThreadReqs
-# define SharedTtReqs -lnsl -lsocket -lintl -ldl -lc -lw
-# define SharedDtSvcReqs $(LDPRELIBS) $(TTLIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) SharedThreadReqs -lgen -lc -lsocket -lnsl -ldl
-# define SharedDtMmdbReqs $(LDPRELIBS) $(DTSVCLIB) $(TTLIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) SharedThreadReqs -lgen -lc -lsocket -lnsl -ldl
+# define SharedTtReqs -lnsl -lsocket -lintl DlLibrary -lc -lw
+# define SharedDtSvcReqs $(LDPRELIBS) $(TTLIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) SharedThreadReqs -lgen -lc -lsocket -lnsl DlLibrary
+# define SharedDtMmdbReqs $(LDPRELIBS) $(DTSVCLIB) $(TTLIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) SharedThreadReqs -lgen -lc -lsocket -lnsl DlLibrary
 # define SharedDtSearchReqs -lm -lc
 # define SharedDtWidgetReqs $(LDPRELIBS) $(DTSVCLIB) $(XMLIB) -lintl $(LDPOSTLIBS) -lw -lm -lc
 # define SharedDtHelpReqs $(LDPRELIBS) $(DTSVCLIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) -lw -lgen -lm -lc
 # define SharedDtPrintReqs $(LDPRELIBS) $(DTSVCLIB) $(DTHELPLIB) $(XMLIB) -lintl $(LDPOSTLIBS) -lw -lm -lc
-# define SharedDtTermReqs SharedDtHelpReqs -ldl -lgen
+# define SharedDtTermReqs SharedDtHelpReqs DlLibrary -lgen
 # define SharedDtMrmReqs $(LDPRELIBS) $(DTTERMLIB) $(DTPRINTLIB) $(DTHELPLIB) $(DTWIDGETLIB) $(MRESOURCELIB) $(XMLIB) $(XTOOLLIB) $(XPLIB) $(XLIB) $(LDPOSTLIBS) -lw -lsocket -lnsl -lc
-# define SharedDtMailReqs $(LDPRELIBS) -lw $(CXXLIB) -lm -ldl
+# define SharedDtMailReqs $(LDPRELIBS) -lw $(CXXLIB) -lm DlLibrary
 # define SharedCsaReqs $(LDPRELIBS) $(DTSVCLIB) $(XMLIB) SharedXmReqs
 
 # define DtClientExtraLibs -lintl
