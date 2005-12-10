@@ -130,7 +130,7 @@ CFFILES = \
 	xfree86.cf \
 	xorg.cf
 
-configdir = $(libdir)/X11/config
+configdir = @XCONFDIR@
 dist_config_DATA = $(RULEFILES) $(TMPLFILES) $(DEFFILES) $(CFFILES)
 config_DATA = $(BUILT_DEFFILES)
 

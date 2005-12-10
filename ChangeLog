@@ -1,3 +1,9 @@
+2005-12-10  Kevin E. Martin  <kem-at-freedesktop-dot-org>
+
+	* Makefile.am:
+	* configure.ac:
+	Add configure option to set config install dir.
+
 2005-12-03  Kevin E. Martin  <kem-at-freedesktop-dot-org>
 
 	* configure.ac:
