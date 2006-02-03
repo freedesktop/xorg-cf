@@ -1,3 +1,14 @@
+2006-02-02  Jeremy C. Reed  <reed@reedmedia.net>
+
+	* bsdLib.rules:
+	INSTALLMINORREV = true for DragonFly.  Help DragonFly since
+	the package build system knows and uses these "minor
+	revisions". As discussed with DragonFly developer, Joerg
+	Sonnenberger.  And I was told this is probably just an
+	historic artifact from a.out versioning (but would be hard
+	to change for FreeBSD because many ports pkg-plists would
+	need to be changed).
+
 2005-12-20  Kevin E. Martin  <kem-at-freedesktop-dot-org>
 
 	* configure.ac:
