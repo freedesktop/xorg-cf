@@ -1,3 +1,16 @@
+2006-04-15  Matthieu Herrb  <matthieu.herrb@laas.fr>
+
+	* Imake.tmpl:
+	rman is not built by modular tree.
+	* X11.tmpl:
+	DefaultRGBDatabase is now in share/X11
+	* configure.ac:
+	Generate site.def from site.def.in to set ProjectRoot to $prefix
+	* site.def.in:
+	Add
+	* site.def:
+	Remove
+
 2006-02-02  Jeremy C. Reed  <reed@reedmedia.net>
 
 	* bsdLib.rules:

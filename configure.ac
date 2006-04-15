@@ -16,4 +16,5 @@ XORG_RELEASE_VERSION
 
 AC_OUTPUT([
 	Makefile
+	site.def
 ])
