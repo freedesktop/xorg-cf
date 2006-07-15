@@ -787,6 +787,9 @@ XCOMM $XFree86: xc/config/cf/Imake.cf,v 3.88 2003/12/16 21:30:21 herrb Exp $
 # ifdef __linux__
 #  define LinuxArchitecture
 # endif
+# ifdef __GLIBC__
+#  define GNUArchitecture
+# endif
 # ifdef i386
 #  ifndef i386Architecture
 #   define i386Architecture
