@@ -148,6 +148,10 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion) (OSRelVersio
 # define HasSSESupport          NO
 #endif
 
+#ifndef BuildDmx
+#define BuildDmx		YES
+#endif
+
 #ifndef UseRpath
 # define UseRpath               YES
 #endif
@@ -293,7 +297,7 @@ XCOMM operating system:  OSName (OSMajorVersion./**/OSMinorVersion) (OSRelVersio
  * Compress manual pages
  */
 #ifndef CompressManPages
-# define CompressManPages    YES
+# define CompressManPages	NO
 #endif
 
 #define HasBsdMake    YES
