@@ -34,7 +34,6 @@ RULEFILES = \
 	oldlib.rules \
 	os2.rules \
 	os2Lib.rules \
-	os2Lib.rules \
 	osfLib.rules \
 	scoLib.rules \
 	sequentLib.rules \
