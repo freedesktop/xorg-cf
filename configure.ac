@@ -9,6 +9,13 @@ m4_ifndef([XORG_MACROS_VERSION],
 XORG_MACROS_VERSION(1.3)
 XORG_DEFAULT_OPTIONS
 
+# Require X.Org's font util macros 1.1 or later for XORG_FONTROOTDIR
+m4_ifndef([XORG_FONT_MACROS_VERSION],
+          [m4_fatal([must install X.Org font-util 1.1 or later before running autoconf/autogen])])
+XORG_FONT_MACROS_VERSION(1.1)
+XORG_FONTROOTDIR
+XORG_FONTSUBDIR([ENCODINGSDIR],[encodingsdir],[encodings])
+
 m4_ifdef([AS_HELP_STRING], , [m4_define([AS_HELP_STRING], m4_defn([AC_HELP_STRING]))])
 
 DEFAULT_XCONFDIR="${libdir}/X11/config"

@@ -68,12 +68,6 @@
 #ifndef SystemManDirectory
 # define SystemManDirectory	/usr/share/man
 #endif
-#ifndef FontDir
-# define FontDir				/usr/share/fonts
-#endif
-#ifndef FontEncDir
-# define FontEncDir			/usr/share/fonts/encodings
-#endif
 
 #if !CrossCompiling
 #ifndef HasGcc2
