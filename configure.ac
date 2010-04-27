@@ -1,12 +1,12 @@
-AC_PREREQ([2.57])
+AC_PREREQ([2.60])
 AC_INIT(xorg-cf-files, [1.0.3], [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg], xorg-cf-files)
 AM_INIT_AUTOMAKE([foreign dist-bzip2])
 AM_MAINTAINER_MODE
 
-# Require xorg-macros 1.3 or later: XORG_DEFAULT_OPTIONS
+# Require xorg-macros 1.4 or later: XORG_DEFAULT_OPTIONS, XORG_INSTALL
 m4_ifndef([XORG_MACROS_VERSION],
-	  [m4_fatal([must install xorg-macros 1.3 or later before running autoconf/autogen])])
-XORG_MACROS_VERSION(1.3)
+	  [m4_fatal([must install xorg-macros 1.4 or later before running autoconf/autogen])])
+XORG_MACROS_VERSION(1.4)
 XORG_DEFAULT_OPTIONS
 
 # Require X.Org's font util macros 1.1 or later for XORG_FONTROOTDIR
