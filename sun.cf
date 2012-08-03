@@ -429,7 +429,9 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #   define XawI18nDefines    -DHAS_WCHAR_H -DHAS_ISW_FUNCS
 #  endif
 # endif
-# if OSMinorVersion > 3
+# if OSMinorVersion > 10
+#  define InstallCmd	    /usr/gnu/bin/install
+# elif OSMinorVersion > 3
 #  define InstallCmd	    /usr/ucb/install
 # endif
 #ifndef LargefileDefines
