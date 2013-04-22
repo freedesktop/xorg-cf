@@ -2022,6 +2022,12 @@ XFREE86JAPANESEDOCDIR = $(DOCDIR)/Japanese
 # endif
 #endif
 
+#if HasGcc2 && defined(AArch64Architecture)
+# ifndef DefaultGcc2AArch64Opt
+#  define DefaultGcc2AArch64Opt -O2 GccAliasingArgs
+# endif
+#endif
+
 #if HasGcc2 && defined(AlphaArchitecture)
 # ifndef DefaultGcc2AxpOpt
 #  define DefaultGcc2AxpOpt -O2 GccAliasingArgs
