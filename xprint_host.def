@@ -5,7 +5,7 @@
  * #define BuildGISWxprintglue YES
  * Then do a % make World ; cd packager/solaris/GISWxprintglue/ ; make make_GISWxprintglue
  */
- 
+
 /*
  * Enable this if you want to build the GISWxprint package...
  * #define BuildGISWxprint YES
@@ -21,12 +21,12 @@
  * If you build a RPM package from this tree the xprint.spec file
  * will set BuildXprintRPMPackage to YES
  */
- 
+
 /*
  * Enable this if you want to build the Mozilla Xprint XPI server package
  * #define BuildMozillaXprintXPIPackage YES
  */
- 
+
 /* HasDocBookTools - set to YES if "xsltproc", "xmllint", "docbook2man",
  * "lynx" and the docbook-xsl-stylesheets are installed.
  * #define HasDocBookTools YES
@@ -259,10 +259,10 @@ XCOMM #### NetBSD-specifc stuff ... ####
 #elif defined(NetBSDArchitecture)
 #define ProjectRoot /usr/X11R6
 #define XPrintDir   /etc/X11/xserver
-#undef XF86SVGAServer   
-#define XF86SVGAServer NO 
+#undef XF86SVGAServer
+#define XF86SVGAServer NO
 #define HasVarDirectory NO
-#define HasMotif2 YES   
+#define HasMotif2 YES
 #define HasGhostScript YES
 #define InstallXF86EncodingFiles NO
 
@@ -278,7 +278,7 @@ XCOMM #### Linux-specifc stuff ... ####
 #define InstallXF86EncodingFiles NO
 /* Debian Xprint package puts the Xprt config files elsewhere */
 #if (LinuxDistribution == LinuxDebian)
-# define XPrintDir /usr/share/Xprint/xserver 
+# define XPrintDir /usr/share/Xprint/xserver
 #endif
 
 #endif

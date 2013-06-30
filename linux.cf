@@ -331,7 +331,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 # endif
 #endif
 
-/* 
+/*
  * Let the OS restore console fonts instead of the generic VGA
  * layer. This exists for Linux only at the moment so put it
  * here.
@@ -898,7 +898,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #endif /* Ppc64Architecture */
 
 #ifdef PpcArchitecture
-# define DefaultCCOptions	
+# define DefaultCCOptions
 # ifndef OptimizedCDebugFlags
 #  define OptimizedCDebugFlags	DefaultGcc2PpcOpt
 # endif
@@ -948,7 +948,7 @@ InstallNamedTargetNoClobber(install,file.ad,$(INSTAPPFLAGS),$(XAPPLOADDIR),class
 #  else
 #   define SuperHArchOptFlags	-m3
 #  endif
-# endif 
+# endif
 # ifndef SuperHebArchitecture
 #  ifdef SuperHebArchitecture
 #   define SuperHEndianFlags	-mb
