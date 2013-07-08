@@ -457,25 +457,36 @@ XCOMM SunPro C++ CplusplusCompilerMajorVersion./**/CplusplusCompilerMinorVersion
 #  define StandardDefines	  -Dsun -Dsparc -DSVR4 -D__EXTENSIONS__ LargefileDefines
 #  define ToolkitStringsABIOptions	-sparcabi SolarisABIFlag
 # endif
-# define ExtraLibraries    -lsocket -lnsl
+/* Socket support was in separate libraries before 5.12, then merged to libc */
+# if (OSMajorVersion == 5) && (OSMinorVersion < 12)
+#  define ExtraLibraries -lsocket -lnsl
+# else
+#  define ExtraLibraries /**/
+# endif
 # define HasWeakSymbols	  YES
 # if OSMinorVersion > 1
 #  ifndef ThreadedX
 #   define ThreadedX	  YES
 #  endif
 #  define MTSafeAPIDefines	-DXUSE_MTSAFE_API -DXUSE_NETDB_R_API
-#  if HasSunC && CCompilerMajorVersion > 2
-#   define ThreadsCompileFlags -mt
-#  else
+/* Thread support was in separate library before 5.10, then merged to libc */
+#  if (OSMajorVersion == 5) && (OSMinorVersion < 10)
+#   if HasSunC && CCompilerMajorVersion > 2
+#    define ThreadsCompileFlags -mt
+#   else
+#    define ThreadsLibraries -lthread
+#   endif
+#   if HasSunCplusplus && CplusplusCompilerMajorVersion > 3
+#    define ThreadsCplusplusCompileFlags -mt
+#   else
+#    define ThreadsCplusplusLibraries -lthread
+#   endif
 #   define SystemMTDefines -D_REENTRANT
-#   define ThreadsLibraries -lthread
-#  endif
-#  if HasSunCplusplus && CplusplusCompilerMajorVersion > 3
-#   define ThreadsCplusplusCompileFlags -mt
 #  else
-#   define CplusplusSystemMTDefines -D_REENTRANT
-#   define ThreadsCplusplusLibraries -lthread
+   /* Solaris 10 & later */
+#   define SystemMTDefines -D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS
 #  endif
+#  define CplusplusSystemMTDefines SystemMTDefines
 # endif 		/* OSMinorVersion > 1 */
 # ifndef UseExportLists
 #  if (OSMinorVersion > 4) && !HasGcc2
