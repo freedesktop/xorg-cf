@@ -857,6 +857,36 @@ MAPFILES_FOR_PROGS = Mapfile_BssAlign Mapfile_NoExStack
 # define LibDirName Concat3(lib,/,Solaris64bitSubdir)
 #endif
 
+#if ((OSMajorVersion == 5) && (OSMinorVersion <= 11))
+/* System V man page sections */
+# ifndef FileManSuffix
+#  define FileManSuffix	4		/* use just one tab or cpp will die */
+# endif
+# ifndef MiscManSuffix
+#  define MiscManSuffix	5		/* use just one tab or cpp will die */
+# endif
+# ifndef DriverManSuffix
+#  define DriverManSuffix	7	/* use just one tab or cpp will die */
+# endif
+# ifndef AdminManSuffix
+#  define AdminManSuffix	1m	/* use just one tab or cpp will die */
+# endif
+#else
+/* Bell Labs / BSD man page sections */
+# ifndef FileManSuffix
+#  define FileManSuffix	5		/* use just one tab or cpp will die */
+# endif
+# ifndef MiscManSuffix
+#  define MiscManSuffix	7		/* use just one tab or cpp will die */
+# endif
+# ifndef DriverManSuffix
+#  define DriverManSuffix	4	/* use just one tab or cpp will die */
+# endif
+# ifndef AdminManSuffix
+#  define AdminManSuffix	8	/* use just one tab or cpp will die */
+# endif
+#endif
+
 #if OSMajorVersion > 4
 # include <svr4.cf>
 #endif
